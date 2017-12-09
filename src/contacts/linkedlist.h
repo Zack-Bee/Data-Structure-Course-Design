@@ -50,4 +50,12 @@ void destroyList(linkedlist *li);
  *     @return 返回linkedlist的指针
 */
 linkedlist *newLinkedlist(void);
+
+/**
+ *     得到node节点的ptr
+ *     @param node 进行操作的node
+ *     @return
+ * 
+*/
+void *getNodePtr(listNode *node);
 #endif

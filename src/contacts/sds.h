@@ -1,8 +1,8 @@
-#ifndef SDS_H
-#define SDS_H
-
 #include <string.h>
 #include <stdint.h>
+
+#ifndef SDS_H
+#define SDS_H
 
 #define SDS_INIT_SIZE 32
 
