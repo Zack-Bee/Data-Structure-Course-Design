@@ -36,26 +36,26 @@ listNode *getNode(linkedlist *li, void *obj,
  *     创建一个节点，并将其插入linkedlist的尾部，节点的ptr指向obj
  *     @param li 进行操作的线性表
  *     @param obj ptr指向的对象
- * */  
+ */
 void addNode(linkedlist *li, void *obj);
 
 /**
  *     销毁linkedlist
  *     @param li 进行操作的linkedlist
-*/
+ */
 void destroyList(linkedlist *li);
 
 /**
  *     malloc空间，创建一个新的linkedlist
  *     @return 返回linkedlist的指针
-*/
+ */
 linkedlist *newLinkedlist(void);
 
 /**
  *     得到node节点的ptr
  *     @param node 进行操作的node
- *     @return
- * 
-*/
+ *     @return 返回listNode中的ptr
+ */
 void *getNodePtr(listNode *node);
-#endif
+
+#endif    // LINKEDLIST_H
