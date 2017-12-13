@@ -5,7 +5,7 @@
 
 #define DICT_OK 1
 #define DICT_ERR 0
-
+#define DICT_INIT_SIZE 32
 // 哈希表节点
 typedef struct dictEntry {
     void *key;
@@ -24,7 +24,6 @@ typedef struct dictht {
 } dictht;
 
 typedef struct dict {
-    void *privdata;    // 私有数据,用于使用定制函数
     dictht hashtable[2];    // 两个hash表，第二个用于rehash
     int rehashIndex;    // rehash的标志,当没有进行rehash时,值为-1(不过我不知道为什么是idx)
 } dict;
