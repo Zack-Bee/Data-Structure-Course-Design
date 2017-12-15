@@ -39,7 +39,7 @@ dict *newDict(void);
  *     将dict进行rehash
  *     @param dict 进行操作的dict
  */
-void rehashDict(dict *dt);
+void rehashDict(dict *dt, char *(*getStr)(void *obj));
 
 /**
  *     将val, key存入字典, 如果已经存在则不进行操作
@@ -47,7 +47,7 @@ void rehashDict(dict *dt);
  *     @param key dict的键
  *     @param val dict的值
  */
-void addDictEntry(dict *dt, void *key, void *val);
+void addDictEntry(dict *dt, void *key, void *val, char *(*getStr)(void *obj));
 
 /**
  *     根据key在dict中找到对应值
@@ -55,7 +55,7 @@ void addDictEntry(dict *dt, void *key, void *val);
  *     @param key 查询根据的key
  *     @return 返回查询到的key
  */
-void *getDictVal(dict *dt, void *key);
+void *getDictVal(dict *dt, void *key, char *(*getStr)(void *obj));
 
 /**
  *     为key设置值
@@ -63,14 +63,14 @@ void *getDictVal(dict *dt, void *key);
  *     @param key 设置key的值,如果已经存在对值进行更改
  *     @param val 设置的值
  */
-void setDictVal(dict *dt, void *key, void *val);
+void setDictVal(dict *dt, void *key, void *val, char *(*getStr)(void *obj));
 
 /**
  *     删除dict的val,如果存在多个则删除后加入的
  *     @param dt 进行操作的dict
  *     @param key 进行查询的key
  */
-void delDictEntry(dict *dt, void *key);
+void delDictEntry(dict *dt, void *key, char *(*getStr)(void *obj));
 
 /**
  *     销毁dict

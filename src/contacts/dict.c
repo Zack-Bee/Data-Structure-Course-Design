@@ -9,7 +9,7 @@
 const int REHASH_STEP = 10;
 
 // BKDR Hash Function
-unsigned int BKDRHash(char *str) {
+unsigned int _BKDRHash(char *str) {
     unsigned int seed = 131; // 31 131 1313 13131 131313 etc..
     unsigned int hash = 0;
 
@@ -18,6 +18,11 @@ unsigned int BKDRHash(char *str) {
     }
 
     return (hash & 0x7FFFFFFF);
+}
+
+unsigned int _dictHashFunction(unsigned int size, void *obj,
+                               char *(getStr(void *obj))) {
+    return (_BKDRHash(getStr(obj)) % size);
 }
 
 dict *newDict(void) {
@@ -39,7 +44,7 @@ dict *newDict(void) {
     return dt;
 }
 
-void rehashDict(dict *dt) {
+void rehashDict(dict *dt, char *(*getStr)(void *obj)) {
     dictEntry *cur = NULL;
 
     // 没进行rehash的话开始进行rehash
@@ -50,7 +55,6 @@ void rehashDict(dict *dt) {
             dt->hashtable->size = dt->hashtable[0].size * 2;
             dt->hashtable->sizemask = dt->hashtable[1].size - 1;
             dt->hashtable->used = 0;
-        } else {
         }
         dt->rehashIndex = 0;
     }
@@ -60,7 +64,9 @@ void rehashDict(dict *dt) {
         cur = &dt->hashtable[0].table[dt->rehashIndex];
         while (cur) {
             if (cur->key != NULL) {
+                
             }
+            
             cur = cur->next;
         }
         dt->rehashIndex++;
