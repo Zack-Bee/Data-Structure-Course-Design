@@ -6,6 +6,7 @@
 #define DICT_OK 1
 #define DICT_ERR 0
 #define DICT_INIT_SIZE 32
+
 // 哈希表节点
 typedef struct dictEntry {
     void *key;
@@ -27,13 +28,6 @@ typedef struct dict {
     dictht hashtable[2];    // 两个hash表，第二个用于rehash
     int rehashIndex;    // rehash的标志,当没有进行rehash时,值为-1(不过我不知道为什么是idx)
 } dict;
-
-/**
- *     判断dict是否正在进行rehash
- *     @param dt 进行操作的dict
- *     @return 1表示正在rehash, 0表示没有进行rehash
- */
-int isDictRehashing(dict *dt);
 
 /**
  *     创建一个dict
