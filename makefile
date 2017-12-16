@@ -2,11 +2,11 @@
 test : test.c
 > gcc test.c; ./a.out; rm ./a.out;
 
-linkedlistTest : linkedlist.c linkedlist.h
-> gcc linkedlist.c -o linkedlistTest; ./linkedlistTest; rm ./linkedlistTest;
+linkedlistTest : src/contacts/linkedlist.c src/contacts/linkedlist.h
+> gcc lsrc/contacts/inkedlist.c -o linkedlistTest; ./linkedlistTest; rm ./linkedlistTest;
 
-sdsTest : sds.c sds.h
-> gcc sds.c -o sdsTest; ./sdsTest; rm ./sdsTest;
+sdsTest : src/contacts/sds.c src/contacts/sds.h
+> gcc src/contacts/sds.c -o sdsTest; ./sdsTest; rm ./sdsTest;
 
-dictTest : dict.c dict.h
-> gcc dict.c -o dictTest; ./dictTest; rm ./dictTest;
+dictTest : src/contacts/dict.c src/contacts/dict.h
+> gcc src/contacts/dict.c -o dictTest; ./dictTest; rm ./dictTest;
