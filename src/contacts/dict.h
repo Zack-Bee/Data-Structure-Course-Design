@@ -16,16 +16,10 @@ typedef struct dictEntry {
     struct dictEntry *next;
 } dictEntry;
 
-// hash table
-typedef struct dictht {
+typedef struct dict {
     dictEntry *table;    // 哈希表数组 
     uint32_t size;    // 哈希表大小
-    uint32_t used;    // 已经使用的节点的数量
-} dictht;
-
-typedef struct dict {
-    dictht hashtable[2];    // 两个hash表，第二个用于rehash
-    uint32_t rehashIndex;    // rehash的标志,当没有进行rehash时,值为-1(不过我不知道为什么是idx)
+    uint32_t used;    // 已经使用的节点的数量    
 } dict;
 
 /**
@@ -35,11 +29,11 @@ typedef struct dict {
 dict *newDict(void);
 
 /**
- *     将dict进行rehash
+ *     将dict进行expand
  *     @param dict 进行操作的dict
  *     @param (*getStr)(void *obj) 函数指针, 得到传入参数的字符串
  */
-void rehashDict(dict *dt, char *(*getStr)(void *obj));
+void expandDict(dict *dt, char *(*getStr)(void *obj));
 
 /**
  *     根据key在dict中返回对应的key
@@ -56,13 +50,6 @@ void *getDictKey(dict *dt, void *key, char *(*getStr)(void *obj));
  *     @return返回hashtable[0]的used/size的比
  */ 
 double getDictRadio(dict *dt);
-
-/**
- *     判断dict是否正在进行rehash
- *     @param dt 进行判断的dict
- *     @return 1或0, 1代表正在rehash, 0代表没有rehash
- */
-int isDictRehashing(dict *dt); 
 
 /**
  *     根据key在dict中找到对应值

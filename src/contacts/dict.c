@@ -3,9 +3,6 @@
 #include <stdint.h>
 #include <string.h>
 
-// rehash的步数
-const uint32_t REHASH_STEP = 10;
-
 
 /********************************PRIVATE***************************************/
 // BKDR Hash Function
@@ -26,36 +23,11 @@ uint32_t _dictHashFunction(uint32_t size, void *obj,
 }
 
 /**
- *     寻找key对应的dictEntry
- *     @param dt 进行查找的dict
- *     @param key 用于查找的key
- *     @param htIndex
- *          hashtable的index,决定在hashtable[0]还是在hashtable[1]中查找
- *     @param getStr 用于获取str的函数
- *     @return de 符合key的dictEntry, 如果不存在返回空的dictEntry或NULL
- */
-dictEntry *_getDictEntry(dict *dt, void *key, int htIndex,
-                         char *(getStr(void *obj))) {
-    dictEntry *de = NULL;
-    char *str = getStr(key);
-    de = &dt->hashtable[htIndex].table[_dictHashFunction(
-            dt->hashtable[htIndex].size, key, getStr)];
-    while (de && de->key) {
-        if (strcmp(str, getStr(de->key)) == 0) {
-            return de;
-        }
-        de = de->next;
-    }
-
-    return de;
-}
-
-/**
  *     创建一个新的dictEntry
  *     @param key 需要绑定的key
  *     @param val 需要绑定的val
  *     @return 返回生成的dictEntry
-*/
+ */
 dictEntry *_newDictEntry(void *key, void *val) {
     dictEntry *de = malloc(sizeof(dictEntry));
     de->key = key;
@@ -64,99 +36,96 @@ dictEntry *_newDictEntry(void *key, void *val) {
     return de;
 }
 
+/**
+ *     寻找key对应的dictEntry
+ *     @param ht 进行查找的hashtable
+ *     @param key 用于查找的key
+ *     @param size hashtable的大小
+ *     @param getStr 用于获取str的函数
+ *     @return de 符合key的dictEntry, 如果不存在返回空的dictEntry或NULL
+ */
+dictEntry *_getTableEntry(dictEntry ht[], void *key, uint32_t size,
+                          char *(*getStr)(void *obj)) {
+    dictEntry *de = NULL;
+    char *str = getStr(key);
+    de = &ht[_dictHashFunction(size, key, getStr)];
+    while (de) {
+        if (strcmp(str, getStr(de->key)) == 0) {
+            return de;
+        }
+        de = de->next;
+    }
+
+    return NULL;
+}
+
+
+void _setTableEntry(dictEntry ht[], void *key, void *val, uint32_t size,
+                    char *(*getStr)(void *obj)) {
+    dictEntry *de = NULL;
+    char *str = getStr(key);
+    uint32_t hash = _dictHashFunction(size, key, getStr);
+    de = &ht[hash];
+
+    // 如果存在的话, 直接进行修改
+    while (de && de->key) {
+        if (strcmp(str, getStr(de->key)) == 0) {
+            de->val = val;
+            de->key = key;
+            return;
+        }
+        de = de->next;
+    }
+
+    // 不存在的话, 创建dictEntry插入表头
+    de = _newDictEntry(key, val);
+    de->next = ht[hash].next;
+    ht[hash].next = de;
+}
+
 
 /********************************PUBLIC****************************************/
 dict *newDict(void) {
     dict *dt = malloc(sizeof(dict));
-    dt->rehashIndex = -1;
-    dt->hashtable[0].size = DICT_INIT_SIZE;
-    dt->hashtable[0].used = 0;
-    dt->hashtable[0].table = malloc(sizeof(dictEntry*) * DICT_INIT_SIZE);
-    dt->hashtable[1].table = NULL;
+    dt->size = DICT_INIT_SIZE;
+    dt->used = 0;
+    dt->table = malloc(sizeof(dictEntry) * DICT_INIT_SIZE);
 
     // 初始化dictEntry
     for (int i = 0; i < DICT_INIT_SIZE; i++) {
-        dt->hashtable[0].table[i].val = NULL;
-        dt->hashtable[0].table[i].key = NULL;
-        dt->hashtable[0].table[i].next = NULL;
+        dt->table[i].val = NULL;
+        dt->table[i].key = NULL;
+        dt->table[i].next = NULL;
     }
 
     return dt;
 }
 
-void rehashDict(dict *dt, char *(*getStr)(void *obj)) {
+void expandDict(dict *dt, char *(*getStr)(void *obj)) {
+    dictEntry *newTable = malloc(sizeof(dictEntry) * dt->size * 2);
     dictEntry *cur = NULL;
+    uint32_t hash;
 
-    // 没进行rehash的话开始进行rehash
-    if (dt->rehashIndex == -1) {
-        if (dt->hashtable[1].table == NULL) {
-            dt->hashtable[1].table =
-                    malloc(sizeof(dictEntry) * dt->hashtable[1].size * 2);
-            dt->hashtable[1].size = dt->hashtable[0].size * 2;
-            dt->hashtable[1].used = 0;
-        }
-        dt->rehashIndex = 0;
-    }
-
-    // 已经rehash完成, 将rehashIndex重置为0, 将扩大后的table存入hashtable[0]
-    if ((dt->rehashIndex >= dt->hashtable[0].size) ||
-        (dt->hashtable[1].used == 0)) {
-
-        // 释放hashtable[0], 将hashtable[1]存入hashtable[0]
-        free(dt->hashtable[0].table);
-        dt->hashtable[0].table = dt->hashtable[1].table;
-        dt->hashtable[0].used = dt->hashtable[1].used;
-        dt->hashtable[0].size = dt->hashtable[1].size;
-        dt->hashtable[1].table = NULL;
-        return;
-    }
-
-    // 进行REHASH_STEP次数的rehash
-    uint32_t maxReshIndex = dt->rehashIndex + REHASH_STEP;
-    while ((dt->rehashIndex < maxReshIndex) &&
-           (dt->rehashIndex < dt->hashtable[1].size) &&
-           (dt->hashtable[0].used > 0)) {
-        cur = &dt->hashtable[0].table[dt->rehashIndex];
-
-        // 将hashtable[0]中的数据逐渐转移到hashtable[1]中
+    for (uint32_t i = 0; i < dt->size; i++) {
+        cur = &dt->table[i];
         while (cur) {
             if (cur->key != NULL) {
-                dt->hashtable[0].used--;
-                dt->hashtable[1].used++;
-                setDictEntry(dt, cur->key, cur->val, getStr);
+                _setTableEntry(newTable, cur->key, cur->val, dt->size * 2,
+                               getStr);
             }
-
             cur = cur->next;
         }
-        dt->rehashIndex++;
     }
+    dt->size *= 2;
+    free(dt->table);
+    dt->table = newTable;
 }
 
-double getDictRadio(dict *dt) {
-    return ((dt->hashtable[0].used + 0.0) / dt->hashtable[0].size);
-}
-
-int isDictRehashing(dict *dt) {
-    if (dt->rehashIndex == -1) {
-        return 0;
-    } else {
-        return 1;
-    }
-}
+double getDictRadio(dict *dt) { return ((dt->used + 0.0) / dt->size); }
 
 void *getDictKey(dict *dt, void *key, char *(*getStr)(void *obj)) {
     dictEntry *de = NULL;
-
-    // 如果正在进行rehash, 则在hashtable[1]中查找
-    if (dt->rehashIndex > -1) {
-        de = _getDictEntry(dt, key, 1, getStr);
-        if (de) {
-            return de->key;
-        }
-    }
-
-    // 在hashtable[0]中查找
-    de = _getDictEntry(dt, key, 0, getStr);
+    de = _getTableEntry(dt->table, key, dt->size, getStr);    
     if (de) {
         return de->key;
     }
@@ -166,17 +135,7 @@ void *getDictKey(dict *dt, void *key, char *(*getStr)(void *obj)) {
 
 void *getDictVal(dict *dt, void *key, char *(*getStr)(void *obj)) {
     dictEntry *de = NULL;
-
-    // 如果正在进行rehash, 则在hashtable[1]中查找
-    if (dt->rehashIndex > -1) {
-        de = _getDictEntry(dt, key, 1, getStr);
-        if (de) {
-            return de->val;
-        }
-    }
-
-    // 在hashtable[0]中查找
-    de = _getDictEntry(dt, key, 0, getStr);
+    de = _getTableEntry(dt->table, key, dt->size, getStr);    
     if (de) {
         return de->val;
     }
@@ -184,16 +143,10 @@ void *getDictVal(dict *dt, void *key, char *(*getStr)(void *obj)) {
     return NULL;
 }
 
-void setDictEntry(dict *dt, void *key, void *val,
-                  char *(*getStr)(void *obj)) {
-    dictEntry *de = NULL;                
+void setDictEntry(dict *dt, void *key, void *val, char *(*getStr)(void *obj)) {
+    dictEntry *de = NULL;
     uint32_t hash;
-    if (dt->rehashIndex > -1) {
-        hash = _dicthashFunction(dt->hashtable[0].size, key, getStr);
-        if (hash >= dt->rehashIndex) {
-
-        }
-    }
+    
 }
 
 #define DICT_TEST
@@ -204,13 +157,11 @@ void testNewDict() {
     dt = newDict();
     int success = 1;
     if ((dt != NULL) && (dt->rehashIndex == -1) &&
-        (dt->hashtable[0].size == DICT_INIT_SIZE) &&
-        (dt->hashtable[0].used == 0) && (dt->hashtable[0].table != NULL) &&
-        (dt->hashtable[1].table == NULL)) {
-        for (int i = 0, size = dt->hashtable[0].size; i < size; i++) {
-            if ((dt->hashtable[0].table[i].next != NULL) ||
-                (dt->hashtable[0].table[i].key != NULL) ||
-                (dt->hashtable[0].table[i].val != NULL)) {
+        (dt->size == DICT_INIT_SIZE) && (dt->used == 0) &&
+        (dt->table != NULL) && (dt->table == NULL)) {
+        for (int i = 0, size = dt->size; i < size; i++) {
+            if ((dt->table[i].next != NULL) || (dt->table[i].key != NULL) ||
+                (dt->table[i].val != NULL)) {
                 success = 0;
                 break;
             }
