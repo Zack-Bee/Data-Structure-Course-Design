@@ -7,8 +7,8 @@
 #define SDS_INIT_SIZE 32
 
 typedef struct sds {
-    uint64_t length;    // 空间的大小
-    uint64_t used;    // 使用的空间大小
+    uint32_t length;    // 空间的大小
+    uint32_t used;    // 使用的空间大小
     char *str;
 } sds;
 
@@ -30,7 +30,7 @@ sds *newCopySds(char *str);
  *     @param s 进行操作的sds
  *     @return 长度
  */
-uint64_t getSdsLength(sds *s);
+uint32_t getSdsLength(sds *s);
 
 /**
  *     销毁sds，释放空间

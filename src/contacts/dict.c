@@ -1,17 +1,15 @@
 #include "dict.h"
 #include <malloc.h>
 #include <stdint.h>
-
-#define true 1
-#define false 0
+#include <string.h>
 
 // rehash的步数
-const int REHASH_STEP = 10;
+const uint32_t REHASH_STEP = 10;
 
 // BKDR Hash Function
-unsigned long _BKDRHash(char *str) {
-    unsigned long seed = 131; // 31 131 1313 13131 131313 etc..
-    unsigned long hash = 0;
+uint32_t _BKDRHash(char *str) {
+    uint32_t seed = 131; // 31 131 1313 13131 131313 etc..
+    uint32_t hash = 0;
 
     while (*str) {
         hash = hash * seed + (*str++);
@@ -20,7 +18,7 @@ unsigned long _BKDRHash(char *str) {
     return (hash & 0x7FFFFFFF);
 }
 
-unsigned long _dictHashFunction(unsigned long size, void *obj,
+uint32_t _dictHashFunction(uint32_t size, void *obj,
                                 char *(getStr(void *obj))) {
     return (_BKDRHash(getStr(obj)) % size);
 }
@@ -74,7 +72,7 @@ void rehashDict(dict *dt, char *(*getStr)(void *obj)) {
     }
 
     // 进行REHASH_STEP次数的rehash
-    unsigned long maxReshIndex = dt->rehashIndex + REHASH_STEP;
+    uint32_t maxReshIndex = dt->rehashIndex + REHASH_STEP;
     while ((dt->rehashIndex < maxReshIndex) &&
            (dt->rehashIndex < dt->hashtable[1].size) &&
            (dt->hashtable[0].used > 0)) {
@@ -94,11 +92,27 @@ void rehashDict(dict *dt, char *(*getStr)(void *obj)) {
     }
 }
 
+double getDictRadio(dict *dt) {
+    return ((dt->hashtable[0].used + 0.0) / dt->hashtable[0].size);
+}
+
+int isDictRehashing(dict *dt) {
+    if (dt->rehashIndex == -1) {
+        return 0;
+    } else {
+        return 1;
+    }
+}
+
+void *getDictKey(dict *dt, void *key, char *(*getStr)(void *obj)) {
+
+}
+
 #define DICT_TEST
 #ifdef DICT_TEST
 
 void testNewDict(dict *dt) {
-    int success = true;
+    int success = 1;
     if ((dt != NULL) && (dt->rehashIndex == -1) &&
         (dt->hashtable[0].size == DICT_INIT_SIZE) &&
         (dt->hashtable[0].sizemask == DICT_INIT_SIZE - 1) &&
@@ -108,15 +122,15 @@ void testNewDict(dict *dt) {
             if ((dt->hashtable[0].table[i].next != NULL) ||
                 (dt->hashtable[0].table[i].key != NULL) ||
                 (dt->hashtable[0].table[i].val != NULL)) {
-                success = false;
+                success = 0;
                 break;
             }
         }
     } else {
-        success = false;
+        success = 0;
     }
 
-    if (success == true) {
+    if (success == 1) {
         printf("newDict success\n");
     } else {
         printf("newDict fail\n");
