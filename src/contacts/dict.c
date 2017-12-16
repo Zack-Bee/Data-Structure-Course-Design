@@ -6,6 +6,8 @@
 // rehash的步数
 const uint32_t REHASH_STEP = 10;
 
+
+/********************************PRIVATE***************************************/
 // BKDR Hash Function
 uint32_t _BKDRHash(char *str) {
     uint32_t seed = 131; // 31 131 1313 13131 131313 etc..
@@ -19,17 +21,57 @@ uint32_t _BKDRHash(char *str) {
 }
 
 uint32_t _dictHashFunction(uint32_t size, void *obj,
-                                char *(getStr(void *obj))) {
+                           char *(getStr(void *obj))) {
     return (_BKDRHash(getStr(obj)) % size);
 }
 
+/**
+ *     寻找key对应的dictEntry
+ *     @param dt 进行查找的dict
+ *     @param key 用于查找的key
+ *     @param htIndex
+ *          hashtable的index,决定在hashtable[0]还是在hashtable[1]中查找
+ *     @param getStr 用于获取str的函数
+ *     @return de 符合key的dictEntry, 如果不存在返回空的dictEntry或NULL
+ */
+dictEntry *_getDictEntry(dict *dt, void *key, int htIndex,
+                         char *(getStr(void *obj))) {
+    dictEntry *de = NULL;
+    char *str = getStr(key);
+    de = &dt->hashtable[htIndex].table[_dictHashFunction(
+            dt->hashtable[htIndex].size, key, getStr)];
+    while (de && de->key) {
+        if (strcmp(str, getStr(de->key)) == 0) {
+            return de;
+        }
+        de = de->next;
+    }
+
+    return de;
+}
+
+/**
+ *     创建一个新的dictEntry
+ *     @param key 需要绑定的key
+ *     @param val 需要绑定的val
+ *     @return 返回生成的dictEntry
+*/
+dictEntry *_newDictEntry(void *key, void *val) {
+    dictEntry *de = malloc(sizeof(dictEntry));
+    de->key = key;
+    de->val = val;
+    de->next = NULL;
+    return de;
+}
+
+
+/********************************PUBLIC****************************************/
 dict *newDict(void) {
     dict *dt = malloc(sizeof(dict));
     dt->rehashIndex = -1;
     dt->hashtable[0].size = DICT_INIT_SIZE;
-    dt->hashtable[0].sizemask = DICT_INIT_SIZE - 1;
     dt->hashtable[0].used = 0;
-    dt->hashtable[0].table = malloc(sizeof(dictEntry) * DICT_INIT_SIZE);
+    dt->hashtable[0].table = malloc(sizeof(dictEntry*) * DICT_INIT_SIZE);
     dt->hashtable[1].table = NULL;
 
     // 初始化dictEntry
@@ -51,7 +93,6 @@ void rehashDict(dict *dt, char *(*getStr)(void *obj)) {
             dt->hashtable[1].table =
                     malloc(sizeof(dictEntry) * dt->hashtable[1].size * 2);
             dt->hashtable[1].size = dt->hashtable[0].size * 2;
-            dt->hashtable[1].sizemask = dt->hashtable[1].size - 1;
             dt->hashtable[1].used = 0;
         }
         dt->rehashIndex = 0;
@@ -66,7 +107,6 @@ void rehashDict(dict *dt, char *(*getStr)(void *obj)) {
         dt->hashtable[0].table = dt->hashtable[1].table;
         dt->hashtable[0].used = dt->hashtable[1].used;
         dt->hashtable[0].size = dt->hashtable[1].size;
-        dt->hashtable[0].sizemask = dt->hashtable[1].sizemask;
         dt->hashtable[1].table = NULL;
         return;
     }
@@ -105,17 +145,66 @@ int isDictRehashing(dict *dt) {
 }
 
 void *getDictKey(dict *dt, void *key, char *(*getStr)(void *obj)) {
+    dictEntry *de = NULL;
 
+    // 如果正在进行rehash, 则在hashtable[1]中查找
+    if (dt->rehashIndex > -1) {
+        de = _getDictEntry(dt, key, 1, getStr);
+        if (de) {
+            return de->key;
+        }
+    }
+
+    // 在hashtable[0]中查找
+    de = _getDictEntry(dt, key, 0, getStr);
+    if (de) {
+        return de->key;
+    }
+
+    return NULL;
+}
+
+void *getDictVal(dict *dt, void *key, char *(*getStr)(void *obj)) {
+    dictEntry *de = NULL;
+
+    // 如果正在进行rehash, 则在hashtable[1]中查找
+    if (dt->rehashIndex > -1) {
+        de = _getDictEntry(dt, key, 1, getStr);
+        if (de) {
+            return de->val;
+        }
+    }
+
+    // 在hashtable[0]中查找
+    de = _getDictEntry(dt, key, 0, getStr);
+    if (de) {
+        return de->val;
+    }
+
+    return NULL;
+}
+
+void setDictEntry(dict *dt, void *key, void *val,
+                  char *(*getStr)(void *obj)) {
+    dictEntry *de = NULL;                
+    uint32_t hash;
+    if (dt->rehashIndex > -1) {
+        hash = _dicthashFunction(dt->hashtable[0].size, key, getStr);
+        if (hash >= dt->rehashIndex) {
+
+        }
+    }
 }
 
 #define DICT_TEST
 #ifdef DICT_TEST
 
-void testNewDict(dict *dt) {
+void testNewDict() {
+    dict *dt = NULL;
+    dt = newDict();
     int success = 1;
     if ((dt != NULL) && (dt->rehashIndex == -1) &&
         (dt->hashtable[0].size == DICT_INIT_SIZE) &&
-        (dt->hashtable[0].sizemask == DICT_INIT_SIZE - 1) &&
         (dt->hashtable[0].used == 0) && (dt->hashtable[0].table != NULL) &&
         (dt->hashtable[1].table == NULL)) {
         for (int i = 0, size = dt->hashtable[0].size; i < size; i++) {
@@ -137,11 +226,9 @@ void testNewDict(dict *dt) {
     }
 }
 int main() {
-    dict *dt = NULL;
-    dt = newDict();
 
     // test newDict()
-    testNewDict(dt);
+    testNewDict();
 }
 
 #endif

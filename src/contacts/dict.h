@@ -19,14 +19,13 @@ typedef struct dictEntry {
 // hash table
 typedef struct dictht {
     dictEntry *table;    // 哈希表数组 
-    uint64_t size;    // 哈希表大小
-    uint64_t sizemask;    // 哈希表大小掩码，总是等于size-1，用于计算索引
-    uint64_t used;    // 已经使用的节点的数量
+    uint32_t size;    // 哈希表大小
+    uint32_t used;    // 已经使用的节点的数量
 } dictht;
 
 typedef struct dict {
     dictht hashtable[2];    // 两个hash表，第二个用于rehash
-    uint64_t rehashIndex;    // rehash的标志,当没有进行rehash时,值为-1(不过我不知道为什么是idx)
+    uint32_t rehashIndex;    // rehash的标志,当没有进行rehash时,值为-1(不过我不知道为什么是idx)
 } dict;
 
 /**
