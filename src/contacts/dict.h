@@ -26,7 +26,7 @@ typedef struct dictht {
 
 typedef struct dict {
     dictht hashtable[2];    // 两个hash表，第二个用于rehash
-    int rehashIndex;    // rehash的标志,当没有进行rehash时,值为-1(不过我不知道为什么是idx)
+    unsigned long rehashIndex;    // rehash的标志,当没有进行rehash时,值为-1(不过我不知道为什么是idx)
 } dict;
 
 /**
@@ -38,22 +38,25 @@ dict *newDict(void);
 /**
  *     将dict进行rehash
  *     @param dict 进行操作的dict
+ *     @param (*getStr)(void *obj) 函数指针, 得到传入参数的字符串
  */
 void rehashDict(dict *dt, char *(*getStr)(void *obj));
 
 /**
- *     将val, key存入字典, 如果已经存在则不进行操作
- *     @param dt 进行操作的dict
- *     @param key dict的键
- *     @param val dict的值
+ *     根据key在dict中返回对应的key
+ *     @param dt 进行查询的dict
+ *     @param key 查询根据的key
+ *     @param (*getStr)(void *obj) 函数指针, 得到传入参数的字符串
+ *     @return 返回查询到的key
  */
-void addDictEntry(dict *dt, void *key, void *val, char *(*getStr)(void *obj));
+void *getDictKey(dict *dt, void *key, char *(*getStr)(void *obj));
 
 /**
  *     根据key在dict中找到对应值
  *     @param dt 进行查询的dict
  *     @param key 查询根据的key
- *     @return 返回查询到的key
+ *     @param (*getStr)(void *obj) 函数指针, 得到传入参数的字符串
+ *     @return 返回查询到的val
  */
 void *getDictVal(dict *dt, void *key, char *(*getStr)(void *obj));
 
@@ -61,14 +64,15 @@ void *getDictVal(dict *dt, void *key, char *(*getStr)(void *obj));
  *     为key设置值
  *     @param dt 进行操作的dict
  *     @param key 设置key的值,如果已经存在对值进行更改
- *     @param val 设置的值
+ *     @param (*getStr)(void *obj) 函数指针, 得到传入参数的字符串
  */
-void setDictVal(dict *dt, void *key, void *val, char *(*getStr)(void *obj));
+void setDictEntry(dict *dt, void *key, void *val, char *(*getStr)(void *obj));
 
 /**
- *     删除dict的val,如果存在多个则删除后加入的
+ *     删除dict的val
  *     @param dt 进行操作的dict
  *     @param key 进行查询的key
+ *     @param (*getStr)(void *obj) 函数指针, 得到传入参数的字符串
  */
 void delDictEntry(dict *dt, void *key, char *(*getStr)(void *obj));
 
@@ -77,4 +81,5 @@ void delDictEntry(dict *dt, void *key, char *(*getStr)(void *obj));
  *     @param dt 进行操作的dict
 */
 void destroyDict(dict *dt);
+
 #endif    // DICT_H

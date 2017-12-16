@@ -9,9 +9,9 @@
 const int REHASH_STEP = 10;
 
 // BKDR Hash Function
-unsigned int _BKDRHash(char *str) {
-    unsigned int seed = 131; // 31 131 1313 13131 131313 etc..
-    unsigned int hash = 0;
+unsigned long _BKDRHash(char *str) {
+    unsigned long seed = 131; // 31 131 1313 13131 131313 etc..
+    unsigned long hash = 0;
 
     while (*str) {
         hash = hash * seed + (*str++);
@@ -20,8 +20,8 @@ unsigned int _BKDRHash(char *str) {
     return (hash & 0x7FFFFFFF);
 }
 
-unsigned int _dictHashFunction(unsigned int size, void *obj,
-                               char *(getStr(void *obj))) {
+unsigned long _dictHashFunction(unsigned long size, void *obj,
+                                char *(getStr(void *obj))) {
     return (_BKDRHash(getStr(obj)) % size);
 }
 
@@ -52,21 +52,42 @@ void rehashDict(dict *dt, char *(*getStr)(void *obj)) {
         if (dt->hashtable[1].table == NULL) {
             dt->hashtable[1].table =
                     malloc(sizeof(dictEntry) * dt->hashtable[1].size * 2);
-            dt->hashtable->size = dt->hashtable[0].size * 2;
-            dt->hashtable->sizemask = dt->hashtable[1].size - 1;
-            dt->hashtable->used = 0;
+            dt->hashtable[1].size = dt->hashtable[0].size * 2;
+            dt->hashtable[1].sizemask = dt->hashtable[1].size - 1;
+            dt->hashtable[1].used = 0;
         }
         dt->rehashIndex = 0;
     }
 
+    // 已经rehash完成, 将rehashIndex重置为0, 将扩大后的table存入hashtable[0]
+    if ((dt->rehashIndex >= dt->hashtable[0].size) ||
+        (dt->hashtable[1].used == 0)) {
+
+        // 释放hashtable[0], 将hashtable[1]存入hashtable[0]
+        free(dt->hashtable[0].table);
+        dt->hashtable[0].table = dt->hashtable[1].table;
+        dt->hashtable[0].used = dt->hashtable[1].used;
+        dt->hashtable[0].size = dt->hashtable[1].size;
+        dt->hashtable[0].sizemask = dt->hashtable[1].sizemask;
+        dt->hashtable[1].table = NULL;
+        return;
+    }
+
+    // 进行REHASH_STEP次数的rehash
     unsigned long maxReshIndex = dt->rehashIndex + REHASH_STEP;
-    while (dt->rehashIndex < maxReshIndex) {
+    while ((dt->rehashIndex < maxReshIndex) &&
+           (dt->rehashIndex < dt->hashtable[1].size) &&
+           (dt->hashtable[0].used > 0)) {
         cur = &dt->hashtable[0].table[dt->rehashIndex];
+
+        // 将hashtable[0]中的数据逐渐转移到hashtable[1]中
         while (cur) {
             if (cur->key != NULL) {
-                
+                dt->hashtable[0].used--;
+                dt->hashtable[1].used++;
+                setDictEntry(dt, cur->key, cur->val, getStr);
             }
-            
+
             cur = cur->next;
         }
         dt->rehashIndex++;
