@@ -1,25 +1,26 @@
 #include <stdint.h>
+#include "sds.h"
+#include "list.h"
 
 #ifndef DICT_H
 #define DICT_H
 
-#define DICT_OK 1
-#define DICT_ERR 0
 #define DICT_INIT_SIZE 32
 
-// 哈希表节点
-typedef struct dictEntry {
-    void *key;
-    void *val;
 
-    // 指向下一个hash表节点，形成链表，用来解决冲突
-    struct dictEntry *next;
-} dictEntry;
-
+/**
+ * 字典结构, 每一个hashtable的节点第一个为空
+ */
 typedef struct dict {
-    dictEntry *table;    // 哈希表数组 
-    uint32_t size;    // 哈希表大小
-    uint32_t used;    // 已经使用的节点的数量    
+
+    /** 线性表数组, hashtable */
+    list **table;
+
+    /** 哈希表大小 */
+    uint32_t size;
+
+    /** 已经使用的节点的数量 */ 
+    uint32_t used;
 } dict;
 
 /**
@@ -74,12 +75,12 @@ void setDictEntry(dict *dt, void *key, void *val, char *(*getStr)(void *obj));
  *     @param key 进行查询的key
  *     @param (*getStr)(void *obj) 函数指针, 得到传入参数的字符串
  */
-void delDictEntry(dict *dt, void *key, char *(*getStr)(void *obj));
+dictEntry *delDictEntry(dict *dt, void *key, char *(*getStr)(void *obj));
 
 /**
  *     销毁dict
  *     @param dt 进行操作的dict
-*/
+ */
 void destroyDict(dict *dt);
 
 #endif    // DICT_H

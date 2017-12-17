@@ -7,8 +7,12 @@
 #define SDS_INIT_SIZE 32
 
 typedef struct sds {
-    uint32_t length;    // 空间的大小
-    uint32_t used;    // 使用的空间大小
+
+    /** 空间的大小 */
+    uint32_t length;  
+
+    /** 使用的空间大小 */  
+    uint32_t used;    
     char *str;
 } sds;
 
@@ -26,11 +30,11 @@ sds *newSds(void);
 sds *newCopySds(char *str);
 
 /**
- *     得到sds已经使用的长度
+ *     设置sds的字符串为str
  *     @param s 进行操作的sds
- *     @return 长度
- */
-uint32_t getSdsLength(sds *s);
+ *     @param str 设置的str
+*/
+void setSds(sds *s, char *str);
 
 /**
  *     销毁sds，释放空间
@@ -43,5 +47,28 @@ void destroySds(sds *s);
  *     @param s 进行操作的sds
  */
 void clearSds(sds *s);
+
+/**
+ *     将str与sds中的字符串进行比较
+ *     @param s 进行操作的sds
+ *     @param str 进行比较的str
+ *     @return 如果相等, 返回0, sds大于str, 返回1, 否则返回-1
+*/
+int compareStr(sds *s, char *str);
+
+/**
+ *     将s1与s2中的字符串进行比较
+ *     @param s1 进行操作的sds
+ *     @param s2 进行比较的str
+ *     @return 如果相等, 返回0, sds大于str, 返回1, 否则返回-1
+*/
+int compareSds(sds *s1, sds *s2);
+
+/**
+ *     得到sds中保存的字符串 
+ *     @param s 进行操作的sds
+ *     @return 返回保存的字符串
+ */ 
+char *getSdsStr(sds *s);
 
 #endif    // SDS_H

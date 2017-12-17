@@ -6,44 +6,21 @@
 typedef struct listNode {
     struct listNode *prev;
     struct listNode *next;
-    void *ptr;
+    sds *key;
+    void *val;
 } listNode;
 
 typedef struct list {
+
+    /** 线性表的长度 */
     uint32_t length;
-    listNode *head; // 头指针
-    listNode *tail; // 尾指针
+
+    /** 头指针 */
+    listNode *head; 
+
+    /** 尾指针 */
+    listNode *tail; 
 } list;
-
-/**
- *     将node从li中删除并释放掉node的空间
- *     @param li 进行操作的线性表
- *     @param node 要删除的节点
- */
-void deleteNode(list *li, listNode *node);
-
-/**
- *     从li中找到obj，节点存在返回节点，不存在返回NULL
- *     @param li 进行操作的线性表
- *     @param obj 需要被查找的obj
- *     @compare 比较函数，当obj1等于obj2返回0
- *     @return 返回查找到的节点
- */
-listNode *getNode(list *li, void *obj,
-                  int (*compare)(void *obj1, void *obj2));
-
-/**
- *     创建一个节点，并将其插入linkedlist的尾部，节点的ptr指向obj
- *     @param li 进行操作的线性表
- *     @param obj ptr指向的对象
- */
-void addNode(list *li, void *obj);
-
-/**
- *     销毁linkedlist
- *     @param li 进行操作的linkedlist
- */
-void destroyList(list *li);
 
 /**
  *     malloc空间，创建一个新的linkedlist
@@ -52,10 +29,40 @@ void destroyList(list *li);
 list *newList(void);
 
 /**
- *     得到node节点的ptr
- *     @param node 进行操作的node
- *     @return 返回listNode中的ptr
+ *     得到list的长度
+ *     @param li 进行操作的list
+ *     @return list的长度
+*/
+uint32_t getListLength(list *li);
+
+/**
+ *     得到listHead
+ *     @param li 进行操作的list
+ *     @return 如果listHead存在的话, 返回, 否则返回NULL
+*/
+listNode *getListHead(list *li);
+
+/**
+ *     设置节点的key, val, 如果节点中相应的key不存在, 则创建新的节点插入
+ *     @param li 进行操作的list
+ *     @param key 进行查询的key
+ *     @param val 设置的val
+ *     @return 如果新建了节点加入, 则返回1, 否则返回0
+ */ 
+uint32_t setListNode(list *li, char *key, void *val);
+
+/**
+ *     根据key删除节点
+ *     @param li 进行操作的list
+ *     @param key 进行查询的key
+ *     @return 如果删除了节点, 则返回1, 否则返回0
+ */ 
+uint32_t delListNode(list *li, char *key);
+
+/**
+ *     销毁linkedlist
+ *     @param li 进行操作的linkedlist
  */
-void *getNodePtr(listNode *node);
+void destroyList(list *li);
 
 #endif    // LINKEDLIST_H
