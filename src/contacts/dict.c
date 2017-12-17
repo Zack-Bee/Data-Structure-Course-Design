@@ -85,8 +85,7 @@ void testNewDict() {
     if ((dt != NULL) && (dt->size == DICT_INIT_SIZE) && (dt->used == 0) &&
         (dt->table != NULL)) {
         for (int i = 0; i < dt->size; i++) {
-            if ((dt->table[i].next != NULL) || (dt->table[i].key != NULL) ||
-                (dt->table[i].val != NULL)) {
+            if (getListLength(dt->table[i]) != 0) {
                 success = 0;
                 break;
             }

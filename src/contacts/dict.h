@@ -32,17 +32,15 @@ dict *newDict(void);
 /**
  *     将dict进行expand
  *     @param dict 进行操作的dict
- *     @param (*getStr)(void *obj) 函数指针, 得到传入参数的字符串
  */
 void expandDict(dict *dt, char *(*getStr)(void *obj));
 
 /**
  *     返回hashtable[0]的used/size的比
  *     @param dt 进行操作的dict
- *     @return返回hashtable[0]的used/size的比
+ *     @return 返回hashtable[0]的used/size的比
  */ 
 double getDictRadio(dict *dt);
-
 
 /**
  *     为key设置值
@@ -56,7 +54,6 @@ void setDictEntry(dict *dt, void *key, void *val);
  *     删除dict的val
  *     @param dt 进行操作的dict
  *     @param key 进行查询的key
- *     @param (*getStr)(void *obj) 函数指针, 得到传入参数的字符串
  */
 void delDictEntry(dict *dt, void *key);
 
