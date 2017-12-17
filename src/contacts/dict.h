@@ -37,37 +37,20 @@ dict *newDict(void);
 void expandDict(dict *dt, char *(*getStr)(void *obj));
 
 /**
- *     根据key在dict中返回对应的key
- *     @param dt 进行查询的dict
- *     @param key 查询根据的key
- *     @param (*getStr)(void *obj) 函数指针, 得到传入参数的字符串
- *     @return 返回查询到的key
- */
-void *getDictKey(dict *dt, void *key, char *(*getStr)(void *obj));
-
-/**
  *     返回hashtable[0]的used/size的比
  *     @param dt 进行操作的dict
  *     @return返回hashtable[0]的used/size的比
  */ 
 double getDictRadio(dict *dt);
 
-/**
- *     根据key在dict中找到对应值
- *     @param dt 进行查询的dict
- *     @param key 查询根据的key
- *     @param (*getStr)(void *obj) 函数指针, 得到传入参数的字符串
- *     @return 返回查询到的val
- */
-void *getDictVal(dict *dt, void *key, char *(*getStr)(void *obj));
 
 /**
  *     为key设置值
  *     @param dt 进行操作的dict
  *     @param key 设置key的值,如果已经存在对值进行更改
- *     @param (*getStr)(void *obj) 函数指针, 得到传入参数的字符串
+ *     @param val 设置val的值
  */
-void setDictEntry(dict *dt, void *key, void *val, char *(*getStr)(void *obj));
+void setDictEntry(dict *dt, void *key, void *val);
 
 /**
  *     删除dict的val
@@ -75,7 +58,7 @@ void setDictEntry(dict *dt, void *key, void *val, char *(*getStr)(void *obj));
  *     @param key 进行查询的key
  *     @param (*getStr)(void *obj) 函数指针, 得到传入参数的字符串
  */
-dictEntry *delDictEntry(dict *dt, void *key, char *(*getStr)(void *obj));
+void delDictEntry(dict *dt, void *key);
 
 /**
  *     销毁dict
