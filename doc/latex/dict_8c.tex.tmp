@@ -1,0 +1,134 @@
+\hypertarget{dict_8c}{}\section{src/contacts/dict.c 文件参考}
+\label{dict_8c}\index{src/contacts/dict.\+c@{src/contacts/dict.\+c}}
+{\ttfamily \#include \char`\"{}dict.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$malloc.\+h$>$}\\*
+{\ttfamily \#include $<$stdint.\+h$>$}\\*
+dict.\+c 的引用(Include)关系图\+:
+% FIG 0
+\subsection*{宏定义}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{dict_8c_afadcc41f32209544d9622ef27c1e1da9}{D\+I\+C\+T\+\_\+\+T\+E\+ST}
+\end{DoxyCompactItemize}
+\subsection*{函数}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \hyperlink{dict_8c_aea54f55ffdb521959459d62d9ed6d370}{\+\_\+\+B\+K\+D\+R\+Hash} (char $\ast$str)
+\item 
+uint32\+\_\+t \hyperlink{dict_8c_ab220b5ea2d609ca52be715608a8a8422}{\+\_\+dict\+Hash\+Function} (char $\ast$str, uint32\+\_\+t size)
+\item 
+\hyperlink{structdict}{dict} $\ast$ \hyperlink{dict_8c_a40be5953662cf954de969ce3c4c2f07b}{new\+Dict} (void)
+\item 
+void \hyperlink{dict_8c_ac97b96c048c5ab53034105cf497d69a6}{expand\+Dict} (\hyperlink{structdict}{dict} $\ast$dt)
+\item 
+double \hyperlink{dict_8c_a6317c1f26dc8a531aab8d3e051702ee7}{get\+Dict\+Radio} (\hyperlink{structdict}{dict} $\ast$dt)
+\item 
+void \hyperlink{dict_8c_a69da42c3059fe4769819b04f828ea26a}{set\+Dict\+Entry} (\hyperlink{structdict}{dict} $\ast$dt, char $\ast$key, void $\ast$val)
+\item 
+void \hyperlink{dict_8c_a79c9cc9526341f2002bed085dfeb1807}{del\+Dict\+Entry} (\hyperlink{structdict}{dict} $\ast$dt, char $\ast$key)
+\item 
+void \hyperlink{dict_8c_afcae20fa5b83d5b290f3fdea793b2c7d}{destroy\+Dict} (\hyperlink{structdict}{dict} $\ast$dt)
+\item 
+void \hyperlink{dict_8c_a59b1acbd072966060cfb828418ad923b}{test\+New\+Dict} ()
+\item 
+int \hyperlink{dict_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}{main} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{宏定义说明}
+\index{dict.\+c@{dict.\+c}!D\+I\+C\+T\+\_\+\+T\+E\+ST@{D\+I\+C\+T\+\_\+\+T\+E\+ST}}
+\index{D\+I\+C\+T\+\_\+\+T\+E\+ST@{D\+I\+C\+T\+\_\+\+T\+E\+ST}!dict.\+c@{dict.\+c}}
+\subsubsection[{\texorpdfstring{D\+I\+C\+T\+\_\+\+T\+E\+ST}{DICT_TEST}}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+I\+C\+T\+\_\+\+T\+E\+ST}\hypertarget{dict_8c_afadcc41f32209544d9622ef27c1e1da9}{}\label{dict_8c_afadcc41f32209544d9622ef27c1e1da9}
+
+
+\subsection{函数说明}
+\index{dict.\+c@{dict.\+c}!\+\_\+\+B\+K\+D\+R\+Hash@{\+\_\+\+B\+K\+D\+R\+Hash}}
+\index{\+\_\+\+B\+K\+D\+R\+Hash@{\+\_\+\+B\+K\+D\+R\+Hash}!dict.\+c@{dict.\+c}}
+\subsubsection[{\texorpdfstring{\+\_\+\+B\+K\+D\+R\+Hash(char $\ast$str)}{_BKDRHash(char *str)}}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t \+\_\+\+B\+K\+D\+R\+Hash (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{str}
+\end{DoxyParamCaption}
+)}\hypertarget{dict_8c_aea54f55ffdb521959459d62d9ed6d370}{}\label{dict_8c_aea54f55ffdb521959459d62d9ed6d370}
+\index{dict.\+c@{dict.\+c}!\+\_\+dict\+Hash\+Function@{\+\_\+dict\+Hash\+Function}}
+\index{\+\_\+dict\+Hash\+Function@{\+\_\+dict\+Hash\+Function}!dict.\+c@{dict.\+c}}
+\subsubsection[{\texorpdfstring{\+\_\+dict\+Hash\+Function(char $\ast$str, uint32\+\_\+t size)}{_dictHashFunction(char *str, uint32_t size)}}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t \+\_\+dict\+Hash\+Function (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{str, }
+\item[{uint32\+\_\+t}]{size}
+\end{DoxyParamCaption}
+)}\hypertarget{dict_8c_ab220b5ea2d609ca52be715608a8a8422}{}\label{dict_8c_ab220b5ea2d609ca52be715608a8a8422}
+\index{dict.\+c@{dict.\+c}!del\+Dict\+Entry@{del\+Dict\+Entry}}
+\index{del\+Dict\+Entry@{del\+Dict\+Entry}!dict.\+c@{dict.\+c}}
+\subsubsection[{\texorpdfstring{del\+Dict\+Entry(dict $\ast$dt, char $\ast$key)}{delDictEntry(dict *dt, char *key)}}]{\setlength{\rightskip}{0pt plus 5cm}void del\+Dict\+Entry (
+\begin{DoxyParamCaption}
+\item[{{\bf dict} $\ast$}]{dt, }
+\item[{char $\ast$}]{key}
+\end{DoxyParamCaption}
+)}\hypertarget{dict_8c_a79c9cc9526341f2002bed085dfeb1807}{}\label{dict_8c_a79c9cc9526341f2002bed085dfeb1807}
+\index{dict.\+c@{dict.\+c}!destroy\+Dict@{destroy\+Dict}}
+\index{destroy\+Dict@{destroy\+Dict}!dict.\+c@{dict.\+c}}
+\subsubsection[{\texorpdfstring{destroy\+Dict(dict $\ast$dt)}{destroyDict(dict *dt)}}]{\setlength{\rightskip}{0pt plus 5cm}void destroy\+Dict (
+\begin{DoxyParamCaption}
+\item[{{\bf dict} $\ast$}]{dt}
+\end{DoxyParamCaption}
+)}\hypertarget{dict_8c_afcae20fa5b83d5b290f3fdea793b2c7d}{}\label{dict_8c_afcae20fa5b83d5b290f3fdea793b2c7d}
+销毁dict 
+\begin{DoxyParams}{参数}
+{\em dt} & 进行操作的dict \\
+\hline
+\end{DoxyParams}
+\index{dict.\+c@{dict.\+c}!expand\+Dict@{expand\+Dict}}
+\index{expand\+Dict@{expand\+Dict}!dict.\+c@{dict.\+c}}
+\subsubsection[{\texorpdfstring{expand\+Dict(dict $\ast$dt)}{expandDict(dict *dt)}}]{\setlength{\rightskip}{0pt plus 5cm}void expand\+Dict (
+\begin{DoxyParamCaption}
+\item[{{\bf dict} $\ast$}]{dt}
+\end{DoxyParamCaption}
+)}\hypertarget{dict_8c_ac97b96c048c5ab53034105cf497d69a6}{}\label{dict_8c_ac97b96c048c5ab53034105cf497d69a6}
+\index{dict.\+c@{dict.\+c}!get\+Dict\+Radio@{get\+Dict\+Radio}}
+\index{get\+Dict\+Radio@{get\+Dict\+Radio}!dict.\+c@{dict.\+c}}
+\subsubsection[{\texorpdfstring{get\+Dict\+Radio(dict $\ast$dt)}{getDictRadio(dict *dt)}}]{\setlength{\rightskip}{0pt plus 5cm}double get\+Dict\+Radio (
+\begin{DoxyParamCaption}
+\item[{{\bf dict} $\ast$}]{dt}
+\end{DoxyParamCaption}
+)}\hypertarget{dict_8c_a6317c1f26dc8a531aab8d3e051702ee7}{}\label{dict_8c_a6317c1f26dc8a531aab8d3e051702ee7}
+返回hashtable\mbox{[}0\mbox{]}的used/size的比 
+\begin{DoxyParams}{参数}
+{\em dt} & 进行操作的dict \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+返回hashtable\mbox{[}0\mbox{]}的used/size的比 
+\end{DoxyReturn}
+\index{dict.\+c@{dict.\+c}!main@{main}}
+\index{main@{main}!dict.\+c@{dict.\+c}}
+\subsubsection[{\texorpdfstring{main()}{main()}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{dict_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}{}\label{dict_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}
+\index{dict.\+c@{dict.\+c}!new\+Dict@{new\+Dict}}
+\index{new\+Dict@{new\+Dict}!dict.\+c@{dict.\+c}}
+\subsubsection[{\texorpdfstring{new\+Dict(void)}{newDict(void)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf dict}$\ast$ new\+Dict (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{dict_8c_a40be5953662cf954de969ce3c4c2f07b}{}\label{dict_8c_a40be5953662cf954de969ce3c4c2f07b}
+创建一个dict \begin{DoxyReturn}{返回}
+返回创建的字典的地址 
+\end{DoxyReturn}
+\index{dict.\+c@{dict.\+c}!set\+Dict\+Entry@{set\+Dict\+Entry}}
+\index{set\+Dict\+Entry@{set\+Dict\+Entry}!dict.\+c@{dict.\+c}}
+\subsubsection[{\texorpdfstring{set\+Dict\+Entry(dict $\ast$dt, char $\ast$key, void $\ast$val)}{setDictEntry(dict *dt, char *key, void *val)}}]{\setlength{\rightskip}{0pt plus 5cm}void set\+Dict\+Entry (
+\begin{DoxyParamCaption}
+\item[{{\bf dict} $\ast$}]{dt, }
+\item[{char $\ast$}]{key, }
+\item[{void $\ast$}]{val}
+\end{DoxyParamCaption}
+)}\hypertarget{dict_8c_a69da42c3059fe4769819b04f828ea26a}{}\label{dict_8c_a69da42c3059fe4769819b04f828ea26a}
+\index{dict.\+c@{dict.\+c}!test\+New\+Dict@{test\+New\+Dict}}
+\index{test\+New\+Dict@{test\+New\+Dict}!dict.\+c@{dict.\+c}}
+\subsubsection[{\texorpdfstring{test\+New\+Dict()}{testNewDict()}}]{\setlength{\rightskip}{0pt plus 5cm}void test\+New\+Dict (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{dict_8c_a59b1acbd072966060cfb828418ad923b}{}\label{dict_8c_a59b1acbd072966060cfb828418ad923b}

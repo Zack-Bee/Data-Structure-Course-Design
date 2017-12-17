@@ -1,0 +1,172 @@
+\hypertarget{sds_8h}{}\section{src/contacts/sds.h 文件参考}
+\label{sds_8h}\index{src/contacts/sds.\+h@{src/contacts/sds.\+h}}
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$stdint.\+h$>$}\\*
+sds.\+h 的引用(Include)关系图\+:
+% FIG 0
+此图展示该文件直接或间接的被哪些文件引用了\+:
+% FIG 1
+\subsection*{类}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structsds}{sds}
+\end{DoxyCompactItemize}
+\subsection*{宏定义}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{sds_8h_aec9146fde7434d155af506a49ce77649}{S\+D\+S\+\_\+\+I\+N\+I\+T\+\_\+\+S\+I\+ZE}~32
+\end{DoxyCompactItemize}
+\subsection*{类型定义}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structsds}{sds} \hyperlink{sds_8h_ad051e018579d7dea80aa4f7a00d4ba8f}{sds}
+\end{DoxyCompactItemize}
+\subsection*{函数}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structsds}{sds} $\ast$ \hyperlink{sds_8h_aed9c59de440fecb5660934aaed0de19a}{new\+Sds} (void)
+\item 
+\hyperlink{structsds}{sds} $\ast$ \hyperlink{sds_8h_a5242c05c637313287ea5bf841d5294a8}{new\+Copy\+Sds} (char $\ast$str)
+\item 
+void \hyperlink{sds_8h_a6ef1f4ec8bb29df76beecd60d453d1fb}{set\+Sds} (\hyperlink{structsds}{sds} $\ast$s, char $\ast$str)
+\item 
+void \hyperlink{sds_8h_a8fe4a373f20e4f2a4bfca65dfb6fbae0}{destroy\+Sds} (\hyperlink{structsds}{sds} $\ast$s)
+\item 
+void \hyperlink{sds_8h_ac6097287306319574dba8ce560a77927}{clear\+Sds} (\hyperlink{structsds}{sds} $\ast$s)
+\item 
+int \hyperlink{sds_8h_a8e7d527cd6d0c2711ec86333c32308c3}{compare\+Str} (\hyperlink{structsds}{sds} $\ast$s, char $\ast$str)
+\item 
+int \hyperlink{sds_8h_a38e607767764be2d45a0af74c9f26760}{compare\+Sds} (\hyperlink{structsds}{sds} $\ast$s1, \hyperlink{structsds}{sds} $\ast$s2)
+\item 
+char $\ast$ \hyperlink{sds_8h_a095ff8d173f717773fb81894e7129938}{get\+Sds\+Str} (\hyperlink{structsds}{sds} $\ast$s)
+\end{DoxyCompactItemize}
+
+
+\subsection{宏定义说明}
+\index{sds.\+h@{sds.\+h}!S\+D\+S\+\_\+\+I\+N\+I\+T\+\_\+\+S\+I\+ZE@{S\+D\+S\+\_\+\+I\+N\+I\+T\+\_\+\+S\+I\+ZE}}
+\index{S\+D\+S\+\_\+\+I\+N\+I\+T\+\_\+\+S\+I\+ZE@{S\+D\+S\+\_\+\+I\+N\+I\+T\+\_\+\+S\+I\+ZE}!sds.\+h@{sds.\+h}}
+\subsubsection[{\texorpdfstring{S\+D\+S\+\_\+\+I\+N\+I\+T\+\_\+\+S\+I\+ZE}{SDS_INIT_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+D\+S\+\_\+\+I\+N\+I\+T\+\_\+\+S\+I\+ZE~32}\hypertarget{sds_8h_aec9146fde7434d155af506a49ce77649}{}\label{sds_8h_aec9146fde7434d155af506a49ce77649}
+
+
+\subsection{类型定义说明}
+\index{sds.\+h@{sds.\+h}!sds@{sds}}
+\index{sds@{sds}!sds.\+h@{sds.\+h}}
+\subsubsection[{\texorpdfstring{sds}{sds}}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf sds}  {\bf sds}}\hypertarget{sds_8h_ad051e018579d7dea80aa4f7a00d4ba8f}{}\label{sds_8h_ad051e018579d7dea80aa4f7a00d4ba8f}
+
+
+\subsection{函数说明}
+\index{sds.\+h@{sds.\+h}!clear\+Sds@{clear\+Sds}}
+\index{clear\+Sds@{clear\+Sds}!sds.\+h@{sds.\+h}}
+\subsubsection[{\texorpdfstring{clear\+Sds(sds $\ast$s)}{clearSds(sds *s)}}]{\setlength{\rightskip}{0pt plus 5cm}void clear\+Sds (
+\begin{DoxyParamCaption}
+\item[{{\bf sds} $\ast$}]{s}
+\end{DoxyParamCaption}
+)}\hypertarget{sds_8h_ac6097287306319574dba8ce560a77927}{}\label{sds_8h_ac6097287306319574dba8ce560a77927}
+释放sds中str的空间，将sds初始化 
+\begin{DoxyParams}{参数}
+{\em s} & 进行操作的sds \\
+\hline
+\end{DoxyParams}
+\index{sds.\+h@{sds.\+h}!compare\+Sds@{compare\+Sds}}
+\index{compare\+Sds@{compare\+Sds}!sds.\+h@{sds.\+h}}
+\subsubsection[{\texorpdfstring{compare\+Sds(sds $\ast$s1, sds $\ast$s2)}{compareSds(sds *s1, sds *s2)}}]{\setlength{\rightskip}{0pt plus 5cm}int compare\+Sds (
+\begin{DoxyParamCaption}
+\item[{{\bf sds} $\ast$}]{s1, }
+\item[{{\bf sds} $\ast$}]{s2}
+\end{DoxyParamCaption}
+)}\hypertarget{sds_8h_a38e607767764be2d45a0af74c9f26760}{}\label{sds_8h_a38e607767764be2d45a0af74c9f26760}
+将s1与s2中的字符串进行比较 
+\begin{DoxyParams}{参数}
+{\em s1} & 进行操作的sds \\
+\hline
+{\em s2} & 进行比较的str \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+如果相等, 返回0, sds大于str, 返回1, 否则返回-\/1 
+\end{DoxyReturn}
+\index{sds.\+h@{sds.\+h}!compare\+Str@{compare\+Str}}
+\index{compare\+Str@{compare\+Str}!sds.\+h@{sds.\+h}}
+\subsubsection[{\texorpdfstring{compare\+Str(sds $\ast$s, char $\ast$str)}{compareStr(sds *s, char *str)}}]{\setlength{\rightskip}{0pt plus 5cm}int compare\+Str (
+\begin{DoxyParamCaption}
+\item[{{\bf sds} $\ast$}]{s, }
+\item[{char $\ast$}]{str}
+\end{DoxyParamCaption}
+)}\hypertarget{sds_8h_a8e7d527cd6d0c2711ec86333c32308c3}{}\label{sds_8h_a8e7d527cd6d0c2711ec86333c32308c3}
+将str与sds中的字符串进行比较 
+\begin{DoxyParams}{参数}
+{\em s} & 进行操作的sds \\
+\hline
+{\em str} & 进行比较的str \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+如果相等, 返回0, sds大于str, 返回1, 否则返回-\/1 
+\end{DoxyReturn}
+\index{sds.\+h@{sds.\+h}!destroy\+Sds@{destroy\+Sds}}
+\index{destroy\+Sds@{destroy\+Sds}!sds.\+h@{sds.\+h}}
+\subsubsection[{\texorpdfstring{destroy\+Sds(sds $\ast$s)}{destroySds(sds *s)}}]{\setlength{\rightskip}{0pt plus 5cm}void destroy\+Sds (
+\begin{DoxyParamCaption}
+\item[{{\bf sds} $\ast$}]{s}
+\end{DoxyParamCaption}
+)}\hypertarget{sds_8h_a8fe4a373f20e4f2a4bfca65dfb6fbae0}{}\label{sds_8h_a8fe4a373f20e4f2a4bfca65dfb6fbae0}
+销毁sds，释放空间 
+\begin{DoxyParams}{参数}
+{\em s} & 进行操作的sds \\
+\hline
+\end{DoxyParams}
+\index{sds.\+h@{sds.\+h}!get\+Sds\+Str@{get\+Sds\+Str}}
+\index{get\+Sds\+Str@{get\+Sds\+Str}!sds.\+h@{sds.\+h}}
+\subsubsection[{\texorpdfstring{get\+Sds\+Str(sds $\ast$s)}{getSdsStr(sds *s)}}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ get\+Sds\+Str (
+\begin{DoxyParamCaption}
+\item[{{\bf sds} $\ast$}]{s}
+\end{DoxyParamCaption}
+)}\hypertarget{sds_8h_a095ff8d173f717773fb81894e7129938}{}\label{sds_8h_a095ff8d173f717773fb81894e7129938}
+得到sds中保存的字符串 
+\begin{DoxyParams}{参数}
+{\em s} & 进行操作的sds \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+返回保存的字符串 
+\end{DoxyReturn}
+\index{sds.\+h@{sds.\+h}!new\+Copy\+Sds@{new\+Copy\+Sds}}
+\index{new\+Copy\+Sds@{new\+Copy\+Sds}!sds.\+h@{sds.\+h}}
+\subsubsection[{\texorpdfstring{new\+Copy\+Sds(char $\ast$str)}{newCopySds(char *str)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf sds}$\ast$ new\+Copy\+Sds (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{str}
+\end{DoxyParamCaption}
+)}\hypertarget{sds_8h_a5242c05c637313287ea5bf841d5294a8}{}\label{sds_8h_a5242c05c637313287ea5bf841d5294a8}
+从字符串创建sds，如果空间不够，将length$\ast$2，直到能够容纳str 
+\begin{DoxyParams}{参数}
+{\em str} & 被复制的原生字符串 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+返回创建的sds 
+\end{DoxyReturn}
+\index{sds.\+h@{sds.\+h}!new\+Sds@{new\+Sds}}
+\index{new\+Sds@{new\+Sds}!sds.\+h@{sds.\+h}}
+\subsubsection[{\texorpdfstring{new\+Sds(void)}{newSds(void)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf sds}$\ast$ new\+Sds (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{sds_8h_aed9c59de440fecb5660934aaed0de19a}{}\label{sds_8h_aed9c59de440fecb5660934aaed0de19a}
+创建一个sds，大小为\+S\+D\+S\+\_\+\+I\+N\+I\+T\+\_\+\+S\+I\+ZE \begin{DoxyReturn}{返回}
+返回创建的sds 
+\end{DoxyReturn}
+\index{sds.\+h@{sds.\+h}!set\+Sds@{set\+Sds}}
+\index{set\+Sds@{set\+Sds}!sds.\+h@{sds.\+h}}
+\subsubsection[{\texorpdfstring{set\+Sds(sds $\ast$s, char $\ast$str)}{setSds(sds *s, char *str)}}]{\setlength{\rightskip}{0pt plus 5cm}void set\+Sds (
+\begin{DoxyParamCaption}
+\item[{{\bf sds} $\ast$}]{s, }
+\item[{char $\ast$}]{str}
+\end{DoxyParamCaption}
+)}\hypertarget{sds_8h_a6ef1f4ec8bb29df76beecd60d453d1fb}{}\label{sds_8h_a6ef1f4ec8bb29df76beecd60d453d1fb}
+设置sds的字符串为str 
+\begin{DoxyParams}{参数}
+{\em s} & 进行操作的sds \\
+\hline
+{\em str} & 设置的str \\
+\hline
+\end{DoxyParams}

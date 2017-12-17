@@ -1,0 +1,378 @@
+<!-- HTML header for doxygen 1.8.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- For Mobile Devices -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+        <meta name="generator" content="Doxygen 1.8.11"/>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <title>Data-Structure-Course-Design: src/contacts/dict.c 文件参考</title>
+        <!--<link href="tabs.css" rel="stylesheet" type="text/css"/>-->
+        <script type="text/javascript" src="dynsections.js"></script>
+        <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+        <link href="doxygen.css" rel="stylesheet" type="text/css" />
+        <link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
+        <link href='https://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="doxy-boot.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand">Data-Structure-Course-Design </a>
+                </div>
+            </div>
+        </nav>
+        <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+            <div class="content" id="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 panel " style="padding-bottom: 15px;">
+                            <div style="margin-bottom: 15px;">
+<!-- end header part -->
+NOTE
+<!-- 制作者 Doxygen 1.8.11 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>首页</span></a></li>
+      <li><a href="annotated.html"><span>类</span></a></li>
+      <li class="current"><a href="files.html"><span>文件</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="搜索" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>文件列表</span></a></li>
+      <li><a href="globals.html"><span>文件成员</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ddea980f3a1033b7591b5636aa027f3c.html">contacts</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#define-members">宏定义</a> &#124;
+<a href="#func-members">函数</a>  </div>
+  <div class="headertitle">
+<div class="title">dict.c 文件参考</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;<a class="el" href="dict_8h_source.html">dict.h</a>&quot;</code><br />
+<code>#include &lt;malloc.h&gt;</code><br />
+<code>#include &lt;stdint.h&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+dict.c 的引用(Include)关系图:</div>
+<div class="dyncontent">
+<div class="center"><img src="dict_8c__incl.png" border="0" usemap="#src_2contacts_2dict_8c" alt=""/></div>
+<map name="src_2contacts_2dict_8c" id="src_2contacts_2dict_8c">
+</map>
+</div>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+宏定义</h2></td></tr>
+<tr class="memitem:afadcc41f32209544d9622ef27c1e1da9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dict_8c.html#afadcc41f32209544d9622ef27c1e1da9">DICT_TEST</a></td></tr>
+<tr class="separator:afadcc41f32209544d9622ef27c1e1da9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:aea54f55ffdb521959459d62d9ed6d370"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dict_8c.html#aea54f55ffdb521959459d62d9ed6d370">_BKDRHash</a> (char *str)</td></tr>
+<tr class="separator:aea54f55ffdb521959459d62d9ed6d370"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab220b5ea2d609ca52be715608a8a8422"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dict_8c.html#ab220b5ea2d609ca52be715608a8a8422">_dictHashFunction</a> (char *str, uint32_t size)</td></tr>
+<tr class="separator:ab220b5ea2d609ca52be715608a8a8422"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40be5953662cf954de969ce3c4c2f07b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdict.html">dict</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dict_8c.html#a40be5953662cf954de969ce3c4c2f07b">newDict</a> (void)</td></tr>
+<tr class="separator:a40be5953662cf954de969ce3c4c2f07b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac97b96c048c5ab53034105cf497d69a6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dict_8c.html#ac97b96c048c5ab53034105cf497d69a6">expandDict</a> (<a class="el" href="structdict.html">dict</a> *dt)</td></tr>
+<tr class="separator:ac97b96c048c5ab53034105cf497d69a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6317c1f26dc8a531aab8d3e051702ee7"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dict_8c.html#a6317c1f26dc8a531aab8d3e051702ee7">getDictRadio</a> (<a class="el" href="structdict.html">dict</a> *dt)</td></tr>
+<tr class="separator:a6317c1f26dc8a531aab8d3e051702ee7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69da42c3059fe4769819b04f828ea26a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dict_8c.html#a69da42c3059fe4769819b04f828ea26a">setDictEntry</a> (<a class="el" href="structdict.html">dict</a> *dt, char *key, void *val)</td></tr>
+<tr class="separator:a69da42c3059fe4769819b04f828ea26a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79c9cc9526341f2002bed085dfeb1807"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dict_8c.html#a79c9cc9526341f2002bed085dfeb1807">delDictEntry</a> (<a class="el" href="structdict.html">dict</a> *dt, char *key)</td></tr>
+<tr class="separator:a79c9cc9526341f2002bed085dfeb1807"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcae20fa5b83d5b290f3fdea793b2c7d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dict_8c.html#afcae20fa5b83d5b290f3fdea793b2c7d">destroyDict</a> (<a class="el" href="structdict.html">dict</a> *dt)</td></tr>
+<tr class="separator:afcae20fa5b83d5b290f3fdea793b2c7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59b1acbd072966060cfb828418ad923b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dict_8c.html#a59b1acbd072966060cfb828418ad923b">testNewDict</a> ()</td></tr>
+<tr class="separator:a59b1acbd072966060cfb828418ad923b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dict_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
+<tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">宏定义说明</h2>
+<a class="anchor" id="afadcc41f32209544d9622ef27c1e1da9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DICT_TEST</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">函数说明</h2>
+<a class="anchor" id="aea54f55ffdb521959459d62d9ed6d370"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t _BKDRHash </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ab220b5ea2d609ca52be715608a8a8422"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t _dictHashFunction </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a79c9cc9526341f2002bed085dfeb1807"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void delDictEntry </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structdict.html">dict</a> *&#160;</td>
+          <td class="paramname"><em>dt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>key</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="afcae20fa5b83d5b290f3fdea793b2c7d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void destroyDict </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structdict.html">dict</a> *&#160;</td>
+          <td class="paramname"><em>dt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>销毁dict </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dt</td><td>进行操作的dict </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ac97b96c048c5ab53034105cf497d69a6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void expandDict </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structdict.html">dict</a> *&#160;</td>
+          <td class="paramname"><em>dt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a6317c1f26dc8a531aab8d3e051702ee7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double getDictRadio </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structdict.html">dict</a> *&#160;</td>
+          <td class="paramname"><em>dt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>返回hashtable[0]的used/size的比 </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dt</td><td>进行操作的dict </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>返回hashtable[0]的used/size的比 </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ae66f6b31b5ad750f1fe042a706a4e3d4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int main </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a40be5953662cf954de969ce3c4c2f07b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structdict.html">dict</a>* newDict </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>创建一个dict </p><dl class="section return"><dt>返回</dt><dd>返回创建的字典的地址 </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a69da42c3059fe4769819b04f828ea26a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setDictEntry </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structdict.html">dict</a> *&#160;</td>
+          <td class="paramname"><em>dt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>val</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a59b1acbd072966060cfb828418ad923b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void testNewDict </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- HTML footer for doxygen 1.8.8-->
+<!-- start footer part -->
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  <hr class="footer"/><address class="footer"><small>
+  制作者 &#160;<a href="http://www.doxygen.org/index.html">
+  <img class="footer" src="doxygen.png" alt="doxygen"/>
+  </a> 1.8.11
+  </small></address>
+  </body>
+  </html>

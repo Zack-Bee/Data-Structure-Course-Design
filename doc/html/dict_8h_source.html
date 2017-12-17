@@ -1,0 +1,128 @@
+<!-- HTML header for doxygen 1.8.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- For Mobile Devices -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+        <meta name="generator" content="Doxygen 1.8.11"/>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <title>Data-Structure-Course-Design: src/contacts/dict.h 源文件</title>
+        <!--<link href="tabs.css" rel="stylesheet" type="text/css"/>-->
+        <script type="text/javascript" src="dynsections.js"></script>
+        <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+        <link href="doxygen.css" rel="stylesheet" type="text/css" />
+        <link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
+        <link href='https://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="doxy-boot.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand">Data-Structure-Course-Design </a>
+                </div>
+            </div>
+        </nav>
+        <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+            <div class="content" id="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 panel " style="padding-bottom: 15px;">
+                            <div style="margin-bottom: 15px;">
+<!-- end header part -->
+NOTE
+<!-- 制作者 Doxygen 1.8.11 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>首页</span></a></li>
+      <li><a href="annotated.html"><span>类</span></a></li>
+      <li class="current"><a href="files.html"><span>文件</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="搜索" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>文件列表</span></a></li>
+      <li><a href="globals.html"><span>文件成员</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ddea980f3a1033b7591b5636aa027f3c.html">contacts</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">dict.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="dict_8h.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;stdint.h&gt;</span></div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="sds_8h.html">sds.h</a>&quot;</span></div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="list_8h.html">list.h</a>&quot;</span></div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#ifndef DICT_H</span></div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#define DICT_H</span></div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div><div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="dict_8h.html#a740e9acce14f0075c85b3d71b4507e45">    8</a></span>&#160;<span class="preprocessor">#define DICT_INIT_SIZE 32</span></div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div><div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="structdict.html">   14</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structdict.html">dict</a> {</div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div><div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="structdict.html#a337bb4468f938b34de9173822a143b80">   17</a></span>&#160;    <a class="code" href="structlist.html">list</a> **<a class="code" href="structdict.html#a337bb4468f938b34de9173822a143b80">table</a>;</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div><div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="structdict.html#a23a3a7a6a87615513d9f8f90eadb5ead">   20</a></span>&#160;    uint32_t <a class="code" href="structdict.html#a23a3a7a6a87615513d9f8f90eadb5ead">size</a>;</div><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div><div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="structdict.html#abd9079c1d7e55aee509c93f4239f5690">   23</a></span>&#160;    uint32_t <a class="code" href="structdict.html#abd9079c1d7e55aee509c93f4239f5690">used</a>;</div><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;} <a class="code" href="dict_8h.html#a5fcb59103f176d193e100c23c998bae5">dict</a>;</div><div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<a class="code" href="structdict.html">dict</a> *<a class="code" href="dict_8h.html#a40be5953662cf954de969ce3c4c2f07b">newDict</a>(<span class="keywordtype">void</span>);</div><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div><div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keywordtype">void</span> <a class="code" href="dict_8h.html#a39fe2971b621673e78daed6dfde9d265">expandDict</a>(<a class="code" href="structdict.html">dict</a> *dt, <span class="keywordtype">char</span> *(*getStr)(<span class="keywordtype">void</span> *obj));</div><div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keywordtype">double</span> <a class="code" href="dict_8h.html#a6317c1f26dc8a531aab8d3e051702ee7">getDictRadio</a>(<a class="code" href="structdict.html">dict</a> *dt);</div><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div><div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keywordtype">void</span> <a class="code" href="dict_8h.html#af4eb7f425eeb23c9cbbde83e81ac7b54">setDictEntry</a>(<a class="code" href="structdict.html">dict</a> *dt, <span class="keywordtype">void</span> *key, <span class="keywordtype">void</span> *val);</div><div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div><div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keywordtype">void</span> <a class="code" href="dict_8h.html#a73b6d8de4899c5ed434c2635f59a0bcb">delDictEntry</a>(<a class="code" href="structdict.html">dict</a> *dt, <span class="keywordtype">void</span> *key);</div><div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div><div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keywordtype">void</span> <a class="code" href="dict_8h.html#afcae20fa5b83d5b290f3fdea793b2c7d">destroyDict</a>(<a class="code" href="structdict.html">dict</a> *dt);</div><div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">#endif    // DICT_H</span></div><div class="ttc" id="dict_8h_html_a73b6d8de4899c5ed434c2635f59a0bcb"><div class="ttname"><a href="dict_8h.html#a73b6d8de4899c5ed434c2635f59a0bcb">delDictEntry</a></div><div class="ttdeci">void delDictEntry(dict *dt, void *key)</div></div>
+<div class="ttc" id="structdict_html_a23a3a7a6a87615513d9f8f90eadb5ead"><div class="ttname"><a href="structdict.html#a23a3a7a6a87615513d9f8f90eadb5ead">dict::size</a></div><div class="ttdeci">uint32_t size</div><div class="ttdef"><b>Definition:</b> dict.h:20</div></div>
+<div class="ttc" id="dict_8h_html_a6317c1f26dc8a531aab8d3e051702ee7"><div class="ttname"><a href="dict_8h.html#a6317c1f26dc8a531aab8d3e051702ee7">getDictRadio</a></div><div class="ttdeci">double getDictRadio(dict *dt)</div><div class="ttdef"><b>Definition:</b> dict.c:57</div></div>
+<div class="ttc" id="dict_8h_html_a5fcb59103f176d193e100c23c998bae5"><div class="ttname"><a href="dict_8h.html#a5fcb59103f176d193e100c23c998bae5">dict</a></div><div class="ttdeci">struct dict dict</div></div>
+<div class="ttc" id="dict_8h_html_afcae20fa5b83d5b290f3fdea793b2c7d"><div class="ttname"><a href="dict_8h.html#afcae20fa5b83d5b290f3fdea793b2c7d">destroyDict</a></div><div class="ttdeci">void destroyDict(dict *dt)</div><div class="ttdef"><b>Definition:</b> dict.c:69</div></div>
+<div class="ttc" id="structdict_html_abd9079c1d7e55aee509c93f4239f5690"><div class="ttname"><a href="structdict.html#abd9079c1d7e55aee509c93f4239f5690">dict::used</a></div><div class="ttdeci">uint32_t used</div><div class="ttdef"><b>Definition:</b> dict.h:23</div></div>
+<div class="ttc" id="structdict_html"><div class="ttname"><a href="structdict.html">dict</a></div><div class="ttdef"><b>Definition:</b> dict.h:14</div></div>
+<div class="ttc" id="list_8h_html"><div class="ttname"><a href="list_8h.html">list.h</a></div></div>
+<div class="ttc" id="dict_8h_html_a39fe2971b621673e78daed6dfde9d265"><div class="ttname"><a href="dict_8h.html#a39fe2971b621673e78daed6dfde9d265">expandDict</a></div><div class="ttdeci">void expandDict(dict *dt, char *(*getStr)(void *obj))</div></div>
+<div class="ttc" id="sds_8h_html"><div class="ttname"><a href="sds_8h.html">sds.h</a></div></div>
+<div class="ttc" id="structlist_html"><div class="ttname"><a href="structlist.html">list</a></div><div class="ttdef"><b>Definition:</b> list.h:13</div></div>
+<div class="ttc" id="structdict_html_a337bb4468f938b34de9173822a143b80"><div class="ttname"><a href="structdict.html#a337bb4468f938b34de9173822a143b80">dict::table</a></div><div class="ttdeci">list ** table</div><div class="ttdef"><b>Definition:</b> dict.h:17</div></div>
+<div class="ttc" id="dict_8h_html_a40be5953662cf954de969ce3c4c2f07b"><div class="ttname"><a href="dict_8h.html#a40be5953662cf954de969ce3c4c2f07b">newDict</a></div><div class="ttdeci">dict * newDict(void)</div><div class="ttdef"><b>Definition:</b> dict.c:26</div></div>
+<div class="ttc" id="dict_8h_html_af4eb7f425eeb23c9cbbde83e81ac7b54"><div class="ttname"><a href="dict_8h.html#af4eb7f425eeb23c9cbbde83e81ac7b54">setDictEntry</a></div><div class="ttdeci">void setDictEntry(dict *dt, void *key, void *val)</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- HTML footer for doxygen 1.8.8-->
+<!-- start footer part -->
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  <hr class="footer"/><address class="footer"><small>
+  制作者 &#160;<a href="http://www.doxygen.org/index.html">
+  <img class="footer" src="doxygen.png" alt="doxygen"/>
+  </a> 1.8.11
+  </small></address>
+  </body>
+  </html>
