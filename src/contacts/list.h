@@ -22,7 +22,7 @@ typedef struct list {
     listNode *tail;
 
     /** 销毁list的函数的指针 */
-    void (*destroy)(dict *dt);
+    void (*destroy)(list *li);
 } list;
 
 /**

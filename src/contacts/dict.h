@@ -36,7 +36,7 @@ dict *newDict(void);
  *     将dict进行expand
  *     @param dict 进行操作的dict
  */
-void expandDict(dict *dt, char *(*getStr)(void *obj));
+void expandDict(dict *dt);
 
 /**
  *     返回hashtable[0]的used/size的比
@@ -51,14 +51,21 @@ double getDictRadio(dict *dt);
  *     @param key 设置key的值,如果已经存在对值进行更改
  *     @param val 设置val的值
  */
-void setDictEntry(dict *dt, void *key, void *val);
+void setDictEntry(dict *dt, char *key, void *val);
 
 /**
  *     删除dict的val
  *     @param dt 进行操作的dict
  *     @param key 进行查询的key
  */
-void delDictEntry(dict *dt, void *key);
+void delDictEntry(dict *dt, char *key);
+
+/**
+ *     得到字典中key对应的val
+ *     @param dt 进行查询的dict
+ *     @param key 用于查询的key
+*/
+void *getDictVal(dict *dt, char *key);
 
 /**
  *     销毁dict
