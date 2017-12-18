@@ -21,5 +21,12 @@ account *newAccount();
  */
 void destroyAccount(account *act);
 
+/**
+ *     设置account的password
+ *     @param act 进行修改的account
+ *     @param password 设置的password
+*/
+void setAccountPassword(account *act, char *password);
 
+void setAccountContacts(account *act, char *name, char *phone)
 #endif

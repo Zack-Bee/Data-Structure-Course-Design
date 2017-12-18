@@ -28,6 +28,7 @@ dict *newDict(void) {
     dt->size = DICT_INIT_SIZE;
     dt->used = 0;
     dt->table = malloc(sizeof(list *) * DICT_INIT_SIZE);
+    dt->destroy = destroyDict;
 
     // 初始化dictEntry
     for (int i = 0; i < DICT_INIT_SIZE; i++) {

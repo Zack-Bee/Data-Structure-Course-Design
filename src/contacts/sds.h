@@ -12,8 +12,13 @@ typedef struct sds {
     uint32_t length;  
 
     /** 使用的空间大小 */  
-    uint32_t used;    
+    uint32_t used;  
+
+    /** 存储的字符串 */  
     char *str;
+
+    /** 销毁sds的函数的指针 */
+    void (*destroy)(sds *s);
 } sds;
 
 /**

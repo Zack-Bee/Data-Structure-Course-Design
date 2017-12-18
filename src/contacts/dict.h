@@ -21,6 +21,9 @@ typedef struct dict {
 
     /** 已经使用的节点的数量 */ 
     uint32_t used;
+
+    /** 销毁dict的函数指针 */
+    void (*destroy)(dict *dt);
 } dict;
 
 /**

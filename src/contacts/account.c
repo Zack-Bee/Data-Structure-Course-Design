@@ -11,4 +11,13 @@ account *newAccount() {
 void destroyAccount(account *act) {
     destroySds(act->password);
     destroyDict(act->contacts);
+    traverseDict(act->groups, destroyDict);
+}
+
+void setAccountPassword(account *act, char *password) {
+    setSds(act->password, password);    
+}
+
+void setAccountContacts(account *act, char *name, char *phone) {
+    
 }
