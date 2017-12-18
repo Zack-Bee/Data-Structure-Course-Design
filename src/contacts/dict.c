@@ -21,7 +21,6 @@ uint32_t _dictHashFunction(char *str, uint32_t size) {
 }
 
 
-
 /********************************PUBLIC****************************************/
 dict *newDict(void) {
     dict *dt = malloc(sizeof(dict));
@@ -67,8 +66,14 @@ void delDictEntry(dict *dt, char *key) {
     dt->used -= delListNode(dt->table[hash], key);
 }
 
+void *getDictVal(dict *dt, char *key) {
+    uint32_t hash = _dictHashFunction(key, dt->size);
+    return getListVal(dt->table[hash], key);
+}
+
 void destroyDict(dict *dt) {
     for (uint32_t i = 0; i < dt->size; i++) {
+        traverseList(dt->table[i], destroySds);
         destroyList(dt->table[i]);
     }
     free(dt->table);

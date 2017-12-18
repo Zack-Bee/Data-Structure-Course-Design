@@ -63,6 +63,14 @@ uint32_t setListNode(list *li, char *key, void *val);
  */
 uint32_t delListNode(list *li, char *key);
 
+/** 
+ *     根据key返回相应listNode中的val
+ *     @param li 进行查询的list
+ *     @param key 用于查询的key
+ *     @return 返回查询到的val, 如果没有结果, 返回NULL
+*/
+void *getListVal(list *li, char *key);
+
 /**
  *     使用function对list进行遍历
  *     @param li 进行遍历的list
