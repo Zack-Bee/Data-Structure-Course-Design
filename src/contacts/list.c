@@ -120,6 +120,30 @@ void traverseList(list *li, void (*function)(void *param)){
         }
     }
 }
+
 void function(void *n){
 
 }
+
+void *getListVal(list *li, char *key){
+    if(li!=NULL){
+        listNode *p;
+        for(p=li->head;p!=NULL;p=p->next){
+            if(p->key==key){
+                return (p->val);
+            }
+        }
+    }
+    return NULL;
+}
+
+#define LIST_TEST
+#ifdef LIST_TEST
+void testNewList(){
+    link *li=NULL;
+    li=newlist();
+    if((li!=NULL)&&(li)
+
+
+}
+#endif
