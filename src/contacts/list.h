@@ -60,6 +60,13 @@ uint32_t setListNode(list *li, char *key, void *val);
 uint32_t delListNode(list *li, char *key);
 
 /**
+ *     使用function对list进行遍历
+ *     @param li 进行遍历的list
+ *     @param function 遍历使用的函数, 其中param是listNode的val
+*/
+void traverseList(list *li, void (*function)(void *param));
+
+/**
  *     销毁linkedlist
  *     @param li 进行操作的linkedlist
  */

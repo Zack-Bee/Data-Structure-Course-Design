@@ -74,6 +74,12 @@ void destroyDict(dict *dt) {
     free(dt);
 }
 
+void traverseDict(dict *dt, void (*function)(void *param)) {
+    for (uint32_t i = 0; i < dt->size; i++) {
+        traverseList(dt->table[i], function);
+    }
+}
+
 #define DICT_TEST
 #ifdef DICT_TEST
 

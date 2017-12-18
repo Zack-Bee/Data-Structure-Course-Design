@@ -63,4 +63,11 @@ void delDictEntry(dict *dt, void *key);
  */
 void destroyDict(dict *dt);
 
+/**
+ *     使用function遍历dict
+ *     @param dt 进行遍历的dict
+ *     @param function 遍历进行使用的函数
+*/
+void traverseDict(dict *dt, void (*function)(void *param));
+
 #endif    // DICT_H
