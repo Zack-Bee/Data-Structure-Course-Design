@@ -18,7 +18,7 @@ typedef struct sds {
     char *str;
 
     /** 销毁sds的函数的指针 */
-    void (*destroy)(sds *s);
+    void (*destroy)(struct sds *s);
 } sds;
 
 /**
