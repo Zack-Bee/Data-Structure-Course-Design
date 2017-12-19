@@ -2,10 +2,11 @@
 
 
 /*********************************PRIVATE**************************************/
-_setMember(dict dt, char *name, char *phone) {
+_setMember(dict *dt, char *name, char *phone) {
     sds *s = newCopySds(phone);
     setDictEntry(dt, name, phone);
 }
+
 
 /**********************************PUBLIC**************************************/
 account *newAccount() {
@@ -35,7 +36,7 @@ void setAccountContacts(account *act, char *name, char *phone) {
 void setAccountGroupsMember(account *act, char *group, char *name, char *phone) {
     dict *dt = getDictVal(act->groups, group);
     if (dt) {
-        _setMember()
+        _setMember(dt, name, phone);
     } else {
         dt = newDict();
         setDictEntry(act->groups, group, dt);

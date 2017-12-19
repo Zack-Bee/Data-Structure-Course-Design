@@ -10,3 +10,6 @@ sdsTest : src/contacts/sds.c src/contacts/sds.h
 
 dictTest : src/contacts/dict.c src/contacts/dict.h
 > gcc src/contacts/dict.c -o dictTest; ./dictTest; rm ./dictTest;
+
+contactsServer : src/contacts/server.c
+> gcc src/contacts/server.c -o server
