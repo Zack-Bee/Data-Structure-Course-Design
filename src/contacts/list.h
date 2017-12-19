@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include"sds.h"
 
 #ifndef LIST_H
 #define LIST_H
@@ -22,7 +23,7 @@ typedef struct list {
     listNode *tail;
 
     /** 销毁list的函数的指针 */
-    void (*destroy)(list *li);
+    void (*destroy)(struct list *li);
 } list;
 
 /**
