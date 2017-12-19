@@ -16,7 +16,7 @@ typedef struct account {
     dict *groups;
 
     /** 销毁函数的指针 */
-    void (*destroy)(account *act);
+    void (*destroy)(struct account *act);
 } account;
 
 /**

@@ -4,7 +4,7 @@
 #ifndef SDS_H
 #define SDS_H
 
-#define SDS_INIT_SIZE 32
+#define SDS_INIT_SIZE 16
 
 typedef struct sds {
 
@@ -18,7 +18,7 @@ typedef struct sds {
     char *str;
 
     /** 销毁sds的函数的指针 */
-    void (*destroy)(sds *s);
+    void (*destroy)(struct sds *s);
 } sds;
 
 /**

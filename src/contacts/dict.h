@@ -5,7 +5,7 @@
 #ifndef DICT_H
 #define DICT_H
 
-#define DICT_INIT_SIZE 32
+#define DICT_INIT_SIZE 8
 
 
 /**
@@ -23,7 +23,7 @@ typedef struct dict {
     uint32_t used;
 
     /** 销毁dict的函数指针 */
-    void (*destroy)(dict *dt);
+    void (*destroy)(struct dict *dt);
 } dict;
 
 /**
