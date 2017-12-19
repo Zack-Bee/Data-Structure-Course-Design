@@ -29,10 +29,10 @@ void destroy(list *li) {
 }
 
 uint32_t getListLength(list *li) {
-    if (li == NULL) {
-        return 0;
-    } else {
+    if (li != NULL) {
         return li->length;
+    } else {
+        return 0;
     }
 }
 
