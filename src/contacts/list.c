@@ -1,4 +1,6 @@
 #include "list.h"
+#include"sds.h"
+#include"sds.c"
 #include <malloc.h>
 #include <stdio.h>
 
@@ -10,11 +12,12 @@ list *newList(void) {
         li->length = 0;
         li->head = NULL;
         li->tail = NULL;
+        li->destroy=destroyList;
         return li;
     }
 }
 
-void destroy(list *li) {
+void destroylist(list *li) {
     listNode *p = li->head, *q;
     while (p != NULL) {
         q = p->next;
@@ -152,7 +155,7 @@ void testDestroy(list *li) {
     if ((li == NULL) && (li->length == 0)) {
         printf("destroyList fail\n");
     } else {
-        printf("destroyLidt success\n");
+        printf("destroyList success\n");
     }
 }
 void testSetListNode(list *li, char *key, void *val) {
