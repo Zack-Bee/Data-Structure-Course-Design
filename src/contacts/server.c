@@ -11,10 +11,10 @@
 
 #include <signal.h>
 
-#define PORT 3000
+#define PORT 3005
 #define SERV "127.0.0.1"
 #define QUEUE 64
-#define BUFF_SIZE 1024
+#define BUFF_SIZE 2048
 #define PATH_PREFIX "src/contacts"
 
 
@@ -87,9 +87,13 @@ int main() {
         memset(buff, 0, sizeof(buff));
         int len = recv(sock_client, buff, sizeof(buff), 0);
         fputs(buff, stdout);
+        
 
         // send(sock_client,buff,len,0);
         http_send(sock_client, "烫烫汤困境考");
+        len = recv(sock_client, buff, sizeof(buff), 0);
+        printf("\n%d\n", len);
+        fputs(buff, stdout);
         close(sock_client);
     }
     fputs("Bye Cleey", stdout);
@@ -113,6 +117,7 @@ void handle_signal(int sign) {
     exit(0);
 }
 
+/*
 // 从文件描述符 file description 中得到一行
 int getFileDescLine(int fd, char buf[], int sz) {
     char *tp = buf;
@@ -139,6 +144,7 @@ int getFileDescLine(int fd, char buf[], int sz) {
 }
 
 #define isSpace(c) ((c == ' ') || (c >= '\t' && c <= '\r'))
+
 
 void request_accept(int arg) {
     char buf[BUFF_SIZE], path[BUFF_SIZE >> 1], type[BUFF_SIZE >> 5];
@@ -194,3 +200,4 @@ void request_accept(int arg) {
     close(cfd);
     return;
 }
+*/
