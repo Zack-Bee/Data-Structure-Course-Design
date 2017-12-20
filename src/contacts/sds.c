@@ -204,6 +204,7 @@ void testClearSds(sds *s){
 }
 
 int main(){
+    testNewSds();
     testDestroySds();
     return 0;
 }
