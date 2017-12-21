@@ -1,5 +1,4 @@
 #include "list.h"
-#include "sds.c"
 #include "sds.h"
 #include <malloc.h>
 #include <stdio.h>
@@ -59,19 +58,23 @@ uint32_t setListNode(list *li, char *key, void *val) {
     }
     if (p == NULL) {
         q = (listNode *)malloc(sizeof(listNode));
-       q->prev = li->tail;
+        q->prev = li->tail;
         li->length++;
         li->tail = q;
         q->next = NULL;
-        q->key=NULL;
+        q->key = newCopySds(key);
         setSds(q->key, key);
         q->val = val;
+        if (li->length == 1) {
+            li->head = q;
+        }
+
         return 1;
     } else {
         p->val = val;
+
         return 0;
     }
-    return 1;
 }
 
 uint32_t delListNode(list *li, char *key) {
@@ -142,7 +145,7 @@ void *getListVal(list *li, char *key) {
     }
     return NULL;
 }
-/**
+
 #define LIST_TEST
 #ifdef LIST_TEST
 void testNewList() {
@@ -167,23 +170,13 @@ void testDestroyList() {
 
 void testSetListNode() {
     list *li = newList();
-    uint32_t a1, a2, c1 = 4, c2 = 5;
-    void *b;
-    a1 = setListNode(li, "set", &c1);
-    a2 = setListNode(li, "set", &c2);
-    for (listNode *n = li->head; n != NULL; n = n->next) {
-        if (compareStr(n->key, "set") == 0) {
-            b = n->val;
-            break;
-        }
-    }
-    if ((a1 == 1) && (a2 == 0) && (b == &c2)) {
-        printf("testSetListNode success\n");
+    sds *s = newCopySds("hhhh");
+    setListNode(li, "tuhao", s);
+    if ((li->head != NULL) && (li->tail != NULL) && (li->length == 1)) {
+        printf("setListNode success\n");
     } else {
-        printf("testSetListNode success\n");
+        printf("setListNode fail\n");
     }
-    int i = 4;
-    printf("%d", setListNode(li, "set", &i));
 }
 
 void testDelListNode() {
@@ -221,13 +214,10 @@ void testGetListVal() {
 int main() {
     testNewList();
     testDestroyList();
-    list *li;
-    int a,b=4;
-    a=setListNode(li,"set",&b);
-    //testSetListNode();
-    //testDelListNode();
-    //testGetListVal();
+    testSetListNode();
+    // testSetListNode();
+    // testDelListNode();
+    // testGetListVal();
 }
 
 #endif
-*/

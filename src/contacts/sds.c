@@ -51,7 +51,7 @@ int sdsCompareSds(sds *s1, sds *s2) { return (strcmp(s1->str, s2->str)); }
 
 char *getSdsStr(sds *s) { return s->str; }
 
-#define SDS_TEST
+// #define SDS_TEST
 #ifdef SDS_TEST
 
 void testNewSds() {
