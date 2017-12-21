@@ -1,6 +1,6 @@
 #include "list.h"
-#include"sds.h"
-#include"sds.c"
+#include "sds.c"
+#include "sds.h"
 #include <malloc.h>
 #include <stdio.h>
 
@@ -11,8 +11,8 @@ list *newList(void) {
     } else {
         li->length = 0;
         li->head = NULL;
-        li->tail = NULL;
-        li->destroy=destroyList;
+        li->tail = li->head;
+        li->destroy = destroyList;
         return li;
     }
 }
@@ -28,7 +28,7 @@ void destroyList(list **li) {
         p = q;
     }
     free(*li);
-    (*li)=NULL;
+    (*li) = NULL;
 }
 
 uint32_t getListLength(list *li) {
@@ -48,9 +48,9 @@ listNode *getListHead(list *li) {
 }
 
 uint32_t setListNode(list *li, char *key, void *val) {
-    listNode *p, *q;
+    listNode *p = NULL, *q = NULL;
     for (p = li->head; p != NULL; p = p->next) {
-        if (compareStr(p->key, key)==0){
+        if (compareStr(p->key, key) == 0) {
             break;
         }
     }
@@ -67,14 +67,15 @@ uint32_t setListNode(list *li, char *key, void *val) {
         p->val = val;
         return 0;
     }
+    return 1;
 }
 
 uint32_t delListNode(list *li, char *key) {
-    listNode *cur,*pre;
+    listNode *cur, *pre;
     if (li == NULL) {
         return 0;
     } else {
-        if (compareStr(li->head->key, key)==0){
+        if (compareStr(li->head->key, key) == 0) {
             pre = li->head;
             li->head = pre->next;
             li->head->prev = NULL;
@@ -84,7 +85,7 @@ uint32_t delListNode(list *li, char *key) {
             free(pre);
             li->length--;
             return 1;
-        } else if (compareStr(li->tail->key, key)==0){
+        } else if (compareStr(li->tail->key, key) == 0) {
             pre = li->tail;
             li->tail = li->tail->prev;
             li->tail->next = NULL;
@@ -96,7 +97,7 @@ uint32_t delListNode(list *li, char *key) {
             return 1;
         } else {
             for (cur = li->head; cur != NULL; cur = cur->next) {
-                if (compareStr(cur->key, key)==0){
+                if (compareStr(cur->key, key) == 0) {
                     break;
                 }
             }
@@ -130,7 +131,7 @@ void *getListVal(list *li, char *key) {
     if (li != NULL) {
         listNode *p;
         for (p = li->head; p != NULL; p = p->next) {
-            if (compareStr(p->key, key)==0) {
+            if (compareStr(p->key, key) == 0) {
                 return (p->val);
             }
         }
@@ -151,9 +152,9 @@ void testNewList() {
     }
 }
 void testDestroyList() {
-    list *li=newList();
+    list *li = newList();
     destroyList(&li);
-    if (li == NULL)  {
+    if (li == NULL) {
         printf("destroyList success\n");
     } else {
         printf("destroyList fail\n");
@@ -161,37 +162,37 @@ void testDestroyList() {
 }
 
 void testSetListNode() {
-    list *li=newList();
-    uint32_t a1,a2,c1=4,c2=5;
+    list *li = newList();
+    uint32_t a1, a2, c1 = 4, c2 = 5;
     void *b;
-    a1=setListNode(li,"set",&c1);
-    a2=setListNode(li,"set",&c2);
+    a1 = setListNode(li, "set", &c1);
+    a2 = setListNode(li, "set", &c2);
     printf("tag\n");
-    for(listNode *n=li->head;n!=NULL;n=n->next){
-        if(compareStr(n->key,"set")==0){
-            b=n->val;
+    for (listNode *n = li->head; n != NULL; n = n->next) {
+        if (compareStr(n->key, "set") == 0) {
+            b = n->val;
             break;
         }
     }
-    if ((a1==1)&&(a2==0)&&(b==&c2)) {
+    if ((a1 == 1) && (a2 == 0) && (b == &c2)) {
         printf("testSetListNode success\n");
-    }else {
+    } else {
         printf("testSetListNode success\n");
     }
-    int i=4;
-    printf("%d",setListNode(li,"set",&i));
+    int i = 4;
+    printf("%d", setListNode(li, "set", &i));
 }
 
 void testDelListNode() {
-    list *li=newList();
-    uint32_t a1,a2,a3;
+    list *li = newList();
+    uint32_t a1, a2, a3;
     int c;
-    if(setListNode(li,"del",&c)==1){
-        a1=delListNode(li,"del");
-        a2=delListNode(li,"del");
-        a3=delListNode(li,"set");
+    if (setListNode(li, "del", &c) == 1) {
+        a1 = delListNode(li, "del");
+        a2 = delListNode(li, "del");
+        a3 = delListNode(li, "set");
     }
-    if((a1==1)&&(a2==0)&&(a3==0)){
+    if ((a1 == 1) && (a2 == 0) && (a3 == 0)) {
         printf("delListNode success\n");
     } else {
         printf("delListNode fail\n");
@@ -200,14 +201,14 @@ void testDelListNode() {
 
 
 void testGetListVal() {
-    list *li=newList();
-    int success=0,c;
-    if(setListNode(li,"get",&c)){
-        if((getListVal(li,"get")==&c)&&(getListVal(li,"set")==NULL)){
-            success=1;
+    list *li = newList();
+    int success = 0, c;
+    if (setListNode(li, "get", &c)) {
+        if ((getListVal(li, "get") == &c) && (getListVal(li, "set") == NULL)) {
+            success = 1;
         }
     }
-    if(success=1){
+    if (success = 1) {
         printf("getListVal success\n");
     } else {
         printf("getListVal fail\n");
@@ -217,11 +218,12 @@ void testGetListVal() {
 int main() {
     testNewList();
     testDestroyList();
+    list *li = newList();
+    // int a,b=4;
+    // a=setListNode(li,"set",&b);
     testSetListNode();
     testDelListNode();
     testGetListVal();
-
-    return 0;
 }
 
 #endif
