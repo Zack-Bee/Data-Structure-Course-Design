@@ -53,7 +53,7 @@ void destroySds(sds **s);
  *     @param str 进行比较的str
  *     @return 如果相等, 返回0, sds大于str, 返回1, 否则返回-1
 */
-int compareStr(sds *s, char *str);
+int sdsCompareStr(sds *s, char *str);
 
 /**
  *     将s1与s2中的字符串进行比较
@@ -61,7 +61,7 @@ int compareStr(sds *s, char *str);
  *     @param s2 进行比较的str
  *     @return 如果相等, 返回0, sds大于str, 返回1, 否则返回-1
 */
-int compareSds(sds *s1, sds *s2);
+int sdsCompareSds(sds *s1, sds *s2);
 
 /**
  *     得到sds中保存的字符串 
