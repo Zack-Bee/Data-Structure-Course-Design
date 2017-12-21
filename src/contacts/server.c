@@ -12,6 +12,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/mman.h>
+#include <sys/sendfile.h>
 #include <sys/socket.h>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -21,8 +23,6 @@
 
 #include "sds.h"
 
-#define SERV "172.28.38.36"
-#define SERVER_PORT 3000
 #define PATH_PREFIX "./src"
 #define QUEUE_SIZE 64
 
@@ -74,10 +74,10 @@ void response_200(int clientFileDesc, const char *type);
 #define isSpace(c) ((c == ' ') || (c >= '\t' && c <= '\r'))
 
 
-int main() {
+int main(int argc, char **argv) {
     pthread_attr_t attr;
-    int serverFileDesc = newServer();
-
+    int port = atoi(argv[2]);
+    int serverFileDesc = newServer(argv[1], port);
     // 初始化线程属性
     pthread_attr_init(&attr);
     pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
@@ -104,15 +104,17 @@ int main() {
     return 0;
 }
 
-int newServer() {
+int newServer(char *server, int port) {
     int serverFileDesc;
     struct sockaddr_in saddr;
 
     serverFileDesc = socket(PF_INET, SOCK_STREAM, 0);
     saddr.sin_family = AF_INET; // ipv4
-    saddr.sin_port = htons(SERVER_PORT);
-    saddr.sin_addr.s_addr = inet_addr(SERV);
+    saddr.sin_port = htons(port);
+    saddr.sin_addr.s_addr = inet_addr(server);
     printf("server start\n");
+    printf("server adress: %s\n", server);
+    printf("server port: %d\n", port);
 
     // bind，绑定 socket 和 sockaddr_in
     if (bind(serverFileDesc, (struct sockaddr *)&saddr, sizeof(saddr)) == -1) {
@@ -182,7 +184,7 @@ void *responseClient(int *clientFileDesc) {
 
 
 void responseFile(int clientFileDesc, const char *path) {
-    struct stat st;
+    struct stat filestat;
     FILE *file;
     char buf[BUFF_SIZE];
     char newPath[BUFF_SIZE] = "";
@@ -194,7 +196,7 @@ void responseFile(int clientFileDesc, const char *path) {
     printf("final path: %s\n", newPath);
 
     // 如果文件读取错误
-    if (stat(newPath, &st) < 0) {
+    if (stat(newPath, &filestat) < 0) {
         printf("read error\n");
         response_404(clientFileDesc);
         close(clientFileDesc);
@@ -228,12 +230,22 @@ void responseFile(int clientFileDesc, const char *path) {
             response_404(clientFileDesc);
             return;
         }
-        // // 先判断文件内容存在
+        // 先判断文件内容存在
+        uint64_t size = 0;
         while (!feof(file) && fgets(buf, sizeof buf, file)) {
+            size += strlen(buf);
             write(clientFileDesc, buf, strlen(buf));
-            // while (size = read(fd, buf, BUFF_SIZE) > 0) {
-            //     write(clientFileDesc, buf, BUFF_SIZE);
         }
+        printf("\n%lu\n", size);
+        // int fd = open(path, O_RDONLY);
+        // stat(newPath, &filestat);
+        // size_t size;
+        // char *buff;
+        // buff = mmap(NULL, filestat.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
+        // while (size = sendfile(fd, clientFileDesc, NULL, filestat.st_size)) {
+        //     // write(clientFileDesc, buf, strlen(buf));
+        // }
+        // printf("\n%lu\n", size);
     }
     // printf("file will close\n");
     fclose(file);
@@ -270,9 +282,16 @@ inline void response_404(int clientFileDesc) {
 inline void response_200(int clientFileDesc, const char *type) {
     char templete[BUFF_SIZE] = "HTTP/1.1 200 OK\r\n"
                                "Server: zackbee'server 1.0\r\n"
-                               "Content-Type: %s; charset=UTF-8\r\n"
+                               "Content-Type: %s;%s\r\n"
                                "\r\n";
     char header[BUFF_SIZE];
-    sprintf(header, templete, type);
+
+    // 是图片时不加上编码
+    if (strcmp(type, "image/png") == 0) {
+        sprintf(header, templete, type, "");
+    } else {
+        sprintf(header, templete, type, "charset=UTF-8");
+    }
+
     write(clientFileDesc, header, strlen(header));
 }

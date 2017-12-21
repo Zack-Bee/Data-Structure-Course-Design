@@ -45,7 +45,7 @@ void setSds(sds *s, char *str);
  *     销毁sds，释放空间
  *     @param s 进行操作的sds
  */
-void destroySds(sds *s);
+void destroySds(sds **s);
 
 /**
  *     释放sds中str的空间，将sds初始化
