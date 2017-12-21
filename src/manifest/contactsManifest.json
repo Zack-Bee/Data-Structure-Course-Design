@@ -1,9 +1,10 @@
 {
-    "name": "Contacts",
+    "name": "simple and useful phone book",
     "short_name": "Contacts",
-    "start_url": ".",
+    "start_url": "../html/contacts.html",
     "display": "standalone",
     "background_color": "#fff",
+    "theme_color": "#2e96f3",
     "description": "simple and useful phone book",
     "icons": [{
       "src": "https://s1.ax1x.com/2017/12/21/jpT0S.png",
