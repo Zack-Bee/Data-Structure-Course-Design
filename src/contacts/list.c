@@ -1,4 +1,6 @@
 #include "list.h"
+#include"sds.h"
+#include"sds.c"
 #include <malloc.h>
 #include <stdio.h>
 
@@ -10,12 +12,13 @@ list *newList(void) {
         li->length = 0;
         li->head = NULL;
         li->tail = NULL;
+        li->destroy=destroyList;
         return li;
     }
 }
 
-void destroy(list *li) {
-    listNode *p = li->head, *q;
+void destroyList(list **li) {
+    listNode *p = (*li)->head, *q;
     while (p != NULL) {
         q = p->next;
         if (p->key != NULL) {
@@ -24,8 +27,8 @@ void destroy(list *li) {
         free(p);
         p = q;
     }
-    li->length = 0;
-    free(li);
+    free(*li);
+    (*li)=NULL;
 }
 
 uint32_t getListLength(list *li) {
@@ -67,7 +70,7 @@ uint32_t setListNode(list *li, char *key, void *val) {
 }
 
 uint32_t delListNode(list *li, char *key) {
-    listNode *cur, *pre;
+    listNode *cur,*pre;
     if (li == NULL) {
         return 0;
     } else {
@@ -140,66 +143,71 @@ void *getListVal(list *li, char *key) {
 void testNewList() {
     list *li = NULL;
     li = newList();
-    if ((li != NULL) || (li->length != 0) || (li->head != NULL) ||
+    if ((li == NULL) || (li->length != 0) || (li->head != NULL) ||
         (li->tail != NULL)) {
         printf("newList fail\n");
     } else {
         printf("newList success\n");
     }
 }
-void testDestroy(list *li) {
-    destroyList(li);
-    if ((li == NULL) && (li->length == 0)) {
-        printf("destroyList fail\n");
+void testDestroyList() {
+    list *li=newList();
+    destroyList(&li);
+    if (li == NULL)  {
+        printf("destroyList success\n");
     } else {
-        printf("destroyLidt success\n");
-    }
-}
-void testSetListNode(list *li, char *key, void *val) {
-    int success = 0;
-    listNode *p;
-    for (p = li->head; p != NULL; p = p->next) {
-        if ((compareStr(p->key, key)==0)&& (p->val == val)) {
-            printf("testSetListNode success\n");
-            success = 1;
-            break;
-        }
-    }
-    if (success == 0) {
-        printf("testSetListNode fail\n");
+        printf("destroyList fail\n");
     }
 }
 
-void testDelListNode(list *li, char *key) {
-    listNode *p;
-    int success = 1;
-    for (p = li->head; p != NULL; p = p->next) {
-        if (compareStr(p->key, key)==0) {
-            success = 0;
+void testSetListNode() {
+    list *li=newList();
+    uint32_t a1,a2,c1=4,c2=5;
+    void *b;
+    a1=setListNode(li,"set",&c1);
+    a2=setListNode(li,"set",&c2);
+    printf("tag\n");
+    for(listNode *n=li->head;n!=NULL;n=n->next){
+        if(compareStr(n->key,"set")==0){
+            b=n->val;
             break;
         }
     }
-    if (success = 0) {
+    if ((a1==1)&&(a2==0)&&(b==&c2)) {
+        printf("testSetListNode success\n");
+    }else {
+        printf("testSetListNode success\n");
+    }
+    int i=4;
+    printf("%d",setListNode(li,"set",&i));
+}
+
+void testDelListNode() {
+    list *li=newList();
+    uint32_t a1,a2,a3;
+    int c;
+    if(setListNode(li,"del",&c)==1){
+        a1=delListNode(li,"del");
+        a2=delListNode(li,"del");
+        a3=delListNode(li,"set");
+    }
+    if((a1==1)&&(a2==0)&&(a3==0)){
         printf("delListNode success\n");
     } else {
         printf("delListNode fail\n");
     }
 }
 
-void testGetListVal(list *li, char *key) {
-    void *v = getListVal(li, key);
-    int success = 0;
-    listNode *p;
-    for (p = li->head; p != NULL; p = p->next) {
-        if ((compareStr(p->key, key)==0) && (p->val == v)) {
-            success = 1;
-            break;
+
+void testGetListVal() {
+    list *li=newList();
+    int success=0,c;
+    if(setListNode(li,"get",&c)){
+        if((getListVal(li,"get")==&c)&&(getListVal(li,"set")==NULL)){
+            success=1;
         }
     }
-    if ((v == NULL) && (p == NULL)) {
-        success = 1;
-    }
-    if (success == 1) {
+    if(success=1){
         printf("getListVal success\n");
     } else {
         printf("getListVal fail\n");
@@ -208,6 +216,12 @@ void testGetListVal(list *li, char *key) {
 
 int main() {
     testNewList();
+    testDestroyList();
+    testSetListNode();
+    testDelListNode();
+    testGetListVal();
+
     return 0;
 }
+
 #endif
