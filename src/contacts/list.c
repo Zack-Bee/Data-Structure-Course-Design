@@ -79,38 +79,49 @@ uint32_t setListNode(list *li, char *key, void *val) {
 
 uint32_t delListNode(list *li, char *key) {
     listNode *cur, *pre;
-    if (li == NULL) {
+    if (li == NULL||li->head==NULL) {
         return 0;
     } else {
         if (sdsCompareStr(li->head->key, key) == 0) {
             pre = li->head;
             li->head = pre->next;
-            li->head->prev = NULL;
+            if(li->head!=NULL){
+                li->head->prev=NULL;
+            }
             if (pre->key != NULL) {
                 destroySds(&(pre->key));
             }
             free(pre);
             li->length--;
+ 
             return 1;
         } else if (sdsCompareStr(li->tail->key, key) == 0) {
             pre = li->tail;
             li->tail = li->tail->prev;
-            li->tail->next = NULL;
+            if(li->tail!=NULL){
+                li->tail->next = NULL;
+            }
             if (pre->key != NULL) {
                 destroySds(&(pre->key));
             }
             free(pre);
             li->length--;
+
             return 1;
         } else {
-            for (cur = li->head; cur != NULL; cur = cur->next) {
+            for (cur = li->head; cur != li->tail; cur = cur->next) {
+                printf("c\n");
                 if (sdsCompareStr(cur->key, key) == 0) {
+                    printf("e\n");
                     break;
                 }
+                printf("d\n");
             }
-            if (cur == NULL) {
+            printf("a\n");
+            if (cur == li->tail) {
                 return 0;
             } else {
+                printf("b\n");
                 cur->prev->next = cur->next;
                 cur->next->prev = cur->prev;
                 if (cur->key != NULL) {
@@ -118,6 +129,8 @@ uint32_t delListNode(list *li, char *key) {
                 }
                 free(cur);
                 li->length--;
+                printf("a\n");
+
                 return 1;
             }
         }
@@ -181,14 +194,19 @@ void testSetListNode() {
 
 void testDelListNode() {
     list *li = newList();
-    uint32_t a1, a2, a3;
-    int c;
-    if (setListNode(li, "del", &c) == 1) {
+    uint32_t a1, a2, a3,a4;
+    sds *s = newCopySds("hhhh");
+    if (setListNode(li, "del", s) == 1) {
         a1 = delListNode(li, "del");
         a2 = delListNode(li, "del");
-        a3 = delListNode(li, "set");
+        if((setListNode(li,"s1",s)==1)&&(setListNode(li,"s2",s)==1)&&(setListNode(li,"s3",s)==1)&&(setListNode(li,"s4",s)==1)){
+            a3=delListNode(li,"s2");
+                        printf("%d\n",a3);
+            a4=delListNode(li,"s4");
+                        printf("%d\n",a4);
+        }
     }
-    if ((a1 == 1) && (a2 == 0) && (a3 == 0)) {
+    if ((a1 == 1) && (a2 == 0) && (a3 == 1)&&(a4==1)) {
         printf("delListNode success\n");
     } else {
         printf("delListNode fail\n");
@@ -215,9 +233,8 @@ int main() {
     testNewList();
     testDestroyList();
     testSetListNode();
-    // testSetListNode();
-    // testDelListNode();
-    // testGetListVal();
+    testDelListNode();
+    testGetListVal();
 }
 
 #endif
