@@ -82,7 +82,7 @@ int main(int argc, char **argv) {
     pthread_attr_init(&attr);
     pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
     while (1) {
-        // pthread_t tid;
+        pthread_t tid;
         struct sockaddr_in caddr;
         socklen_t clen = sizeof caddr;
         int clientFileDesc =
@@ -92,10 +92,11 @@ int main(int argc, char **argv) {
             // CERR("accept serverFileDesc = %d is error!", serverFileDesc);
             break;
         }
-        responseClient(&clientFileDesc);
-        // if (pthread_create(&tid, &attr, responseClient, &clientFileDesc) < 0)
-        // { CERR("pthread_create run is error!"); break;
-        // }
+        // responseClient(&clientFileDesc);
+        if (pthread_create(&tid, &attr, responseClient, &clientFileDesc) < 0) {
+            printf("pthread_create run is error!\n");
+            break;
+        }
     }
 
     // 销毁线程
@@ -230,6 +231,7 @@ void responseFile(int clientFileDesc, const char *path) {
             response_404(clientFileDesc);
             return;
         }
+
         // 先判断文件内容存在
         uint64_t size = 0;
         while (!feof(file) && fgets(buf, sizeof buf, file)) {
