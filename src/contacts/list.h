@@ -23,7 +23,7 @@ typedef struct list {
     listNode *tail;
 
     /** 销毁list的函数的指针 */
-    void (*destroy)(struct list *li);
+    void (*destroy)(struct list **li);
 } list;
 
 /**
@@ -83,6 +83,6 @@ void traverseList(list *li, void (*function)(void *param));
  *     销毁linkedlist
  *     @param li 进行操作的linkedlist
  */
-void destroyList(list *li);
+void destroyList(list **li);
 
 #endif // LINKEDLIST_H
