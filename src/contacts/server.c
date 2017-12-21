@@ -21,8 +21,8 @@
 
 #include "sds.h"
 
-#define SERV "127.0.0.1"
-#define SERVER_PORT 3006
+#define SERV "172.28.38.36"
+#define SERVER_PORT 3000
 #define PATH_PREFIX "./src"
 #define QUEUE_SIZE 64
 
@@ -160,7 +160,8 @@ void *responseClient(int *clientFileDesc) {
         // nothing
     }
     *lPtr = '\0';
-    printf("method: %s\npath: %s\n", method, path);
+    // printf("here\n");
+    // printf("method: %s\npath: %s\n", method, path);
 
     // 处理GET请求
     if (strcasecmp("GET", method) == 0) {
@@ -188,11 +189,13 @@ void responseFile(int clientFileDesc, const char *path) {
     strcat(newPath, PATH_PREFIX);
     strcat(newPath, path);
     if (strcmp(path, "/") == 0) {
-        strcat(newPath, "index.html");
+        strcat(newPath, "html/index.html");
     }
+    printf("final path: %s\n", newPath);
 
     // 如果文件读取错误
     if (stat(newPath, &st) < 0) {
+        printf("read error\n");
         response_404(clientFileDesc);
         close(clientFileDesc);
         return;
@@ -206,23 +209,35 @@ void responseFile(int clientFileDesc, const char *path) {
     } else {
 
         // 判断content-type
-        if (strcmp((path + strlen(path) - 5), ".html") == 0) {
+        if (strcmp((newPath + strlen(newPath) - 5), ".html") == 0) {
             response_200(clientFileDesc, "text/html"); //发送给200的报文头过去
-        } else if (strcmp((path + strlen(path) - 4), ".css") == 0) {
+        } else if (strcmp((newPath + strlen(newPath) - 4), ".css") == 0) {
             response_200(clientFileDesc, "text/css");
-        } else if (strcmp((path + strlen(path) - 3), ".js") == 0) {
+        } else if (strcmp((newPath + strlen(newPath) - 3), ".js") == 0) {
             response_200(clientFileDesc, "application/javascript");
+        } else if (strcmp((newPath + strlen(newPath) - 6), ".woff2") == 0) {
+            response_200(clientFileDesc, "font/woff2");
+        } else if (strcmp((newPath + strlen(newPath) - 5), ".woff") == 0) {
+            response_200(clientFileDesc, "font/woff");
+        } else if (strcmp((newPath + strlen(newPath) - 5), ".json") == 0) {
+            response_200(clientFileDesc, "application/json");
+        } else if ((strcmp((newPath + strlen(newPath) - 4), ".png") == 0) ||
+                   (strcmp((newPath + strlen(newPath) - 4), ".png") == 0)) {
+            response_200(clientFileDesc, "image/png");
+        } else {
+            response_404(clientFileDesc);
+            return;
         }
         // // 先判断文件内容存在
         while (!feof(file) && fgets(buf, sizeof buf, file)) {
             write(clientFileDesc, buf, strlen(buf));
-        // while (size = read(fd, buf, BUFF_SIZE) > 0) {
-        //     write(clientFileDesc, buf, BUFF_SIZE);
+            // while (size = read(fd, buf, BUFF_SIZE) > 0) {
+            //     write(clientFileDesc, buf, BUFF_SIZE);
         }
     }
     // printf("file will close\n");
     fclose(file);
-    // printf("file closed\n");    
+    // printf("file closed\n");
 }
 
 void responseMessage(int clientFileDesc) {
