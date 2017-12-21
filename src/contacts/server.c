@@ -23,8 +23,6 @@
 
 #include "sds.h"
 
-#define SERV "172.28.38.36"
-#define SERVER_PORT 3001
 #define PATH_PREFIX "./src"
 #define QUEUE_SIZE 64
 
@@ -76,10 +74,10 @@ void response_200(int clientFileDesc, const char *type);
 #define isSpace(c) ((c == ' ') || (c >= '\t' && c <= '\r'))
 
 
-int main() {
+int main(int argc, char **argv) {
     pthread_attr_t attr;
-    int serverFileDesc = newServer();
-
+    int port = atoi(argv[2]);
+    int serverFileDesc = newServer(argv[1], port);
     // 初始化线程属性
     pthread_attr_init(&attr);
     pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
@@ -106,15 +104,17 @@ int main() {
     return 0;
 }
 
-int newServer() {
+int newServer(char *server, int port) {
     int serverFileDesc;
     struct sockaddr_in saddr;
 
     serverFileDesc = socket(PF_INET, SOCK_STREAM, 0);
     saddr.sin_family = AF_INET; // ipv4
-    saddr.sin_port = htons(SERVER_PORT);
-    saddr.sin_addr.s_addr = inet_addr(SERV);
+    saddr.sin_port = htons(port);
+    saddr.sin_addr.s_addr = inet_addr(server);
     printf("server start\n");
+    printf("server adress: %s\n", server);
+    printf("server port: %d\n", port);
 
     // bind，绑定 socket 和 sockaddr_in
     if (bind(serverFileDesc, (struct sockaddr *)&saddr, sizeof(saddr)) == -1) {
