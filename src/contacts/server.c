@@ -92,11 +92,11 @@ int main(int argc, char **argv) {
             // CERR("accept serverFileDesc = %d is error!", serverFileDesc);
             break;
         }
-        // responseClient(&clientFileDesc);
-        if (pthread_create(&tid, &attr, responseClient, &clientFileDesc) < 0) {
-            printf("pthread_create run is error!\n");
-            break;
-        }
+        responseClient(&clientFileDesc);
+        // if (pthread_create(&tid, &attr, responseClient, &clientFileDesc) < 0) {
+            // printf("pthread_create run is error!\n");
+            // break;
+        // }
     }
 
     // 销毁线程
