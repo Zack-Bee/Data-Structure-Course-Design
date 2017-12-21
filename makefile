@@ -3,7 +3,7 @@ test : test.c
 > gcc test.c; ./a.out; rm ./a.out;
 
 listTest : src/contacts/list.c src/contacts/list.h
-> gcc lsrc/contacts/inkedlist.c -o linkedlistTest; ./linkedlistTest; rm ./linkedlistTest;
+> gcc src/contacts/list.c -o listTest; ./listTest; rm ./listTest;
 
 sdsTest : src/contacts/sds.c src/contacts/sds.h
 > gcc src/contacts/sds.c -o sdsTest; ./sdsTest; rm ./sdsTest;
