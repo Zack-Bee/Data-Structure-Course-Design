@@ -45,9 +45,9 @@ void destroySds(sds **s) {
     *s = NULL;
 }
 
-int compareStr(sds *s, char *str) { return strcmp(s->str, str); }
+int sdsCompareStr(sds *s, char *str) { return strcmp(s->str, str); }
 
-int compareSds(sds *s1, sds *s2) { return (strcmp(s1->str, s2->str)); }
+int sdsCompareSds(sds *s1, sds *s2) { return (strcmp(s1->str, s2->str)); }
 
 char *getSdsStr(sds *s) { return s->str; }
 
@@ -94,29 +94,29 @@ void testDestroySds() {
     }
 }
 
-void testCompareSds() {
+void testSdsCompareSds() {
     sds *s1 = newSds();
     sds *s2 = newSds();
     int success = 1;
     setSds(s1, "aaa");
     setSds(s2, "bbb");
-    if (compareSds(s1, s2) == 0) {
+    if (sdsCompareSds(s1, s2) == 0) {
         success = 0;
     }
     setSds(s2, "aaa");
-    if (compareSds(s1, s2) != 0) {
+    if (sdsCompareSds(s1, s2) != 0) {
         success = 0;
     }
     if (success == 1) {
-        printf("compareSds success\n");
+        printf("sdsCompareSds success\n");
     } else {
-        printf("compareSds fail\n");
+        printf("sdsCompareSds fail\n");
     }
 }
 
-void testCompareStr() {
+void testSdsCompareStr() {
     sds *s = newCopySds("wwww");
-    if ((compareStr(s, "wwww") != 0) || (compareStr(s, "hhhh") == 0)) {
+    if ((sdsCompareStr(s, "wwww") != 0) || (sdsCompareStr(s, "hhhh") == 0)) {
         printf("compare fail\n");
     } else {
         printf("compare success\n");        
@@ -126,8 +126,8 @@ void testCompareStr() {
 int main() {
     testNewSds();
     testDestroySds();
-    testCompareSds();
-    testCompareStr();
+    testSdsCompareSds();
+    testSdsCompareStr();
     testNewCopySds();
     testSetSds();
     return 0;
