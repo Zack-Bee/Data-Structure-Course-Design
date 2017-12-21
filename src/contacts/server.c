@@ -1,203 +1,263 @@
+/**
+ *     此模块参考了"喜欢兰花山丘"的实现, blog:
+ *     http://www.cnblogs.com/life2refuel/p/5277111.html
+ */
+
 #include <arpa/inet.h>
-#include <fcntl.h> // open close
+#include <errno.h>
+#include <fcntl.h>
 #include <netinet/in.h>
+#include <pthread.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/shm.h>
-#include <sys/socket.h> // socket
-#include <sys/types.h>  // 基本数据类型
-#include <unistd.h>     // read write
+#include <sys/socket.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
 
-#include <signal.h>
 
-#define PORT 3005
+#include "sds.h"
+
 #define SERV "127.0.0.1"
-#define QUEUE 64
-#define BUFF_SIZE 2048
-#define PATH_PREFIX "src/contacts"
+#define SERVER_PORT 3006
+#define PATH_PREFIX "./src"
+#define QUEUE_SIZE 64
 
+// 缓冲区大小
+#define BUFF_SIZE 1024
 
-typedef struct fileType {
-    char *key;
-    char *value;
-} fileType;
+// listen监听队列的大小
+#define QUEUE_SIZE 64
 
-fileType httpContentType[] = {{"html", "text/html"},
-                              {"gif", "image/gif"},
-                              {"jpeg", "image/jpeg"},
-                              {"css", "text/css"},
-                              {"json", "text/json"}};
+/**
+ *     创建一个server fileDesc
+ *     @param return 返回创建的server fileDesc
+ */
+int newServer();
 
-int sockfd;
-char *httpResponseTemplete = "HTTP/1.1 200 OK\r\n"
-                             "Server: Cleey's Server V1.0\r\n"
-                             "Accept-Ranges: bytes\r\n"
-                             "Content-Length: %d\r\n"
-                             "Connection: close\r\n"
-                             "Content-Type: %s; charset=UTF-8\r\n\r\n";
+/**
+ *     在客户端链接过来, 多线程处理的函数
+ *     @param clientFileDesc 客户端文件描述符
+ *     @return 返回处理结果,这里默认返回 NULL
+ */
+void *responseClient(int *clientFileDesc);
 
-void handle_signal(int sign);            // 退出信号处理
-void http_send(int sock, char *content); // http 发送相应报文
+/**
+ *     将文件 发送给客户端
+ *     @param clientFileDesc 客户端文件描述符
+ *     @param path 发送的文件路径
+ */
+void responseFile(int clientFileDesc, const char *path);
+
+/**
+ *     处理客户端的http请求
+ *     @param clientFileDesc 客户端文件描述符
+ *     @param path 请求的文件路径
+ *     @param query 请求发送的过来的数据
+ */
+void responseMessage(int clientFileDesc);
+
+/**
+ *     返回404, 请求文件没有找到
+ *     @param clientFileDesc 客户端文件描述符
+ */
+void response_404(int clientFileDesc);
+
+/**
+ *     // 返回200 请求成功
+ *     @param clientFileDesc 客户端文件描述符
+ */
+void response_200(int clientFileDesc, const char *type);
+#define isSpace(c) ((c == ' ') || (c >= '\t' && c <= '\r'))
+
 
 int main() {
+    pthread_attr_t attr;
+    int serverFileDesc = newServer();
 
-    // 用来注册对信号的监听, SIGINT代表注册的信号类型, 代表Interrupt (ANSI),
-    // handle_signal, 处理相应信号的函数
-    signal(SIGINT, handle_signal);
+    // 初始化线程属性
+    pthread_attr_init(&attr);
+    pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
+    while (1) {
+        // pthread_t tid;
+        struct sockaddr_in caddr;
+        socklen_t clen = sizeof caddr;
+        int clientFileDesc =
+                accept(serverFileDesc, (struct sockaddr *)&caddr, &clen);
+        if (clientFileDesc < 0) {
+            printf("clientFileDesc < 0");
+            // CERR("accept serverFileDesc = %d is error!", serverFileDesc);
+            break;
+        }
+        responseClient(&clientFileDesc);
+        // if (pthread_create(&tid, &attr, responseClient, &clientFileDesc) < 0)
+        // { CERR("pthread_create run is error!"); break;
+        // }
+    }
 
-    int count = 0; // 计数
+    // 销毁线程
+    pthread_attr_destroy(&attr);
+    close(serverFileDesc);
+    return 0;
+}
 
-    // 定义 socket
-    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+int newServer() {
+    int serverFileDesc;
+    struct sockaddr_in saddr;
 
-    // 定义 sockaddr_in
-    struct sockaddr_in skaddr;
-
-    // 将skaddr的所有字节置为0, 再重新设置
-    memset(&skaddr, 0, sizeof(struct sockaddr_in));
-    skaddr.sin_family = AF_INET; // ipv4
-    skaddr.sin_port = htons(PORT);
-    skaddr.sin_addr.s_addr = inet_addr(SERV);
+    serverFileDesc = socket(PF_INET, SOCK_STREAM, 0);
+    saddr.sin_family = AF_INET; // ipv4
+    saddr.sin_port = htons(SERVER_PORT);
+    saddr.sin_addr.s_addr = inet_addr(SERV);
+    printf("server start\n");
 
     // bind，绑定 socket 和 sockaddr_in
-    if (bind(sockfd, (struct sockaddr *)&skaddr, sizeof(skaddr)) == -1) {
-        perror("bind error");
+    if (bind(serverFileDesc, (struct sockaddr *)&saddr, sizeof(saddr)) == -1) {
+        perror("bind error\n");
         exit(1);
     }
 
     // listen，开始添加端口
-    if (listen(sockfd, QUEUE) == -1) {
+    if (listen(serverFileDesc, QUEUE_SIZE) == -1) {
         perror("listen error");
         exit(1);
     }
+    return serverFileDesc;
+}
 
-    // 客户端信息
-    char buff[BUFF_SIZE];
-    struct sockaddr_in claddr;
-    socklen_t length = sizeof(claddr);
+void *responseClient(int *clientFileDesc) {
+    char buf[BUFF_SIZE], path[BUFF_SIZE >> 1], method[BUFF_SIZE >> 5];
+    char *lPtr, *rPtr, *query, *nb = buf;
+    // int iscgi;
+    int typeSize = sizeof(method);
+    read(*clientFileDesc, buf, BUFF_SIZE);
+    fputs(buf, stdout);
 
-    while (1) {
-        int sock_client = accept(sockfd, (struct sockaddr *)&claddr, &length);
-        printf("%d\n", ++count);
-        if (sock_client < 0) {
-            perror("accept error");
-            exit(1);
-        }
-        memset(buff, 0, sizeof(buff));
-        int len = recv(sock_client, buff, sizeof(buff), 0);
-        fputs(buff, stdout);
-        
-
-        // send(sock_client,buff,len,0);
-        http_send(sock_client, "烫烫汤困境考");
-        len = recv(sock_client, buff, sizeof(buff), 0);
-        printf("\n%d\n", len);
-        fputs(buff, stdout);
-        close(sock_client);
+    // printf("i am here\n");
+    // 如果buff中存储的不是空格, 并且type中还能容纳字符的话,
+    // 在method从存储表示method类型的字符
+    for (lPtr = method, rPtr = nb;
+         !isSpace(*rPtr) && ((lPtr - method) < (typeSize - 1));
+         *lPtr++ = *rPtr++) {
+        // nothing
     }
-    fputs("Bye Cleey", stdout);
-    close(sockfd);
 
-    return 0;
-}
+    // 将buf中开始不为empty的部分塞入了 method 中
+    *lPtr = '\0';
 
-void http_send(int sock_client, char *content) {
-    char HTTP_HEADER[BUFF_SIZE], HTTP_INFO[BUFF_SIZE];
-    int len = strlen(content);
-    sprintf(HTTP_HEADER, httpResponseTemplete, len, "text/html");
-    len = sprintf(HTTP_INFO, "%s%s", HTTP_HEADER, content);
-
-    send(sock_client, HTTP_INFO, len, 0);
-}
-
-void handle_signal(int sign) {
-    fputs("\nSIGNAL INTERRUPT \nBye Cleey! \nSAFE EXIT\n", stdout);
-    close(sockfd);
-    exit(0);
-}
-
-/*
-// 从文件描述符 file description 中得到一行
-int getFileDescLine(int fd, char buf[], int sz) {
-    char *tp = buf;
-    char c;
-
-    --sz;
-    while ((tp - buf) < sz) {
-
-        //如果没有读到字符, 结束
-        if (read(fd, &c, 1) <= 0) 
-            break;
-        if (c == '\r') { //全部以\r分割
-            if (recv(fd, &c, 1, MSG_PEEK) > 0 && c == '\n') {
-                read(fd, &c, 1);
-            } else { //意外的结束,填充 \n 结束读取
-                *tp++ = '\n';
-            }
-            break;
-        }
-        *tp++ = c;
+    // 在buf中, 跳过空字符
+    while (*rPtr && isSpace(*rPtr)) {
+        ++rPtr;
     }
-    *tp = '\0';
-    return tp - buf;
+
+    // 存储得到的path信息
+    // *path = '.';
+    for (lPtr = path; (lPtr - path) < sizeof path - 1 && !isSpace(*rPtr);
+         *lPtr++ = *rPtr++) {
+        // nothing
+    }
+    *lPtr = '\0';
+    printf("method: %s\npath: %s\n", method, path);
+
+    // 处理GET请求
+    if (strcasecmp("GET", method) == 0) {
+        // printf("here GET\n");
+        responseFile(*clientFileDesc, path);
+    } else if (strcasecmp("POST", method)) { // 处理post请求
+        responseMessage(*clientFileDesc);
+    } else {
+        response_404(*clientFileDesc);
+        close(*clientFileDesc);
+        return NULL;
+    }
+    close(*clientFileDesc);
+    return NULL;
 }
 
 #define isSpace(c) ((c == ' ') || (c >= '\t' && c <= '\r'))
 
 
-void request_accept(int arg) {
-    char buf[BUFF_SIZE], path[BUFF_SIZE >> 1], type[BUFF_SIZE >> 5];
-    char *lt, *rt, *query, *nb = buf;
+void responseFile(int clientFileDesc, const char *path) {
     struct stat st;
-    int iscgi, cfd = (int)arg;
+    FILE *file;
+    char buf[BUFF_SIZE];
+    char newPath[BUFF_SIZE] = "";
+    strcat(newPath, PATH_PREFIX);
+    strcat(newPath, path);
+    if (strcmp(path, "/") == 0) {
+        strcat(newPath, "index.html");
+    }
 
-    // 合法请求处理
-    for (lt = type, rt = nb; !isSpace(*rt) && (lt - type) < sizeof type - 1;
-         *lt++ = *rt++)
-        ;
-    *lt = '\0'; //已经将 buf中开始不为empty 部分塞入了 type 中
+    // 如果文件读取错误
+    if (stat(newPath, &st) < 0) {
+        response_404(clientFileDesc);
+        close(clientFileDesc);
+        return;
+    }
+    // printf("read error\n");
 
-    // 在buf中 去掉空字符
-    while (*rt && isSpace(*rt))
-        ++rt;
-    // 这里得到路径信息
-    *path = '.';
-    for (lt = path + 1; (lt - path) < sizeof path - 1 && !isSpace(*rt);
-         *lt++ = *rt++)
-        ;
-    *lt = '\0'; // query url路径就拼接好了
+    // 处理文件内容
+    if ((file = fopen(newPath, "rb")) == NULL) { //文件解析错误, 返回404
+        printf("read null\n");
+        response_404(clientFileDesc);
+    } else {
 
-    //单独处理 get 获取 ? 后面数据, 不是POST那就是GET
-    if (iscgi != 0) {
-        for (query = path; *query && *query != '?'; ++query)
-            ;
-        if (*query == '?') {
-            iscgi = 0;
-            *query++ = '\0';
+        // 判断content-type
+        if (strcmp((path + strlen(path) - 5), ".html") == 0) {
+            response_200(clientFileDesc, "text/html"); //发送给200的报文头过去
+        } else if (strcmp((path + strlen(path) - 4), ".css") == 0) {
+            response_200(clientFileDesc, "text/css");
+        } else if (strcmp((path + strlen(path) - 3), ".js") == 0) {
+            response_200(clientFileDesc, "application/javascript");
+        }
+        // // 先判断文件内容存在
+        while (!feof(file) && fgets(buf, sizeof buf, file)) {
+            write(clientFileDesc, buf, strlen(buf));
+        // while (size = read(fd, buf, BUFF_SIZE) > 0) {
+        //     write(clientFileDesc, buf, BUFF_SIZE);
         }
     }
-
-    // type , path 和 query 已经构建好了
-    if (stat(path, &st) < 0) {
-        while (getfdline(cfd, buf, sizeof buf) > 0 &&
-               strcmp("\n", buf)) // 读取内容直到结束
-            ;
-        response_404(cfd);
-        close(cfd);
-        return NULL;
-    }
-    // 合法情况, 执行,写入,读取权限
-    if ((st.st_mode & S_IXUSR) || (st.st_mode & S_IXGRP) ||
-        (st.st_mode & S_IXOTH)) {
-        iscgi = 0;
-    }
-    if (iscgi) {
-        response_file(cfd, path);
-    } else {
-        request_cgi(cfd, path, type, query);
-    }
-    close(cfd);
-    return;
+    // printf("file will close\n");
+    fclose(file);
+    // printf("file closed\n");    
 }
-*/
+
+void responseMessage(int clientFileDesc) {
+    char buf[BUFF_SIZE];
+    char c;
+    int size;
+    size = read(clientFileDesc, buf, BUFF_SIZE);
+
+
+    // 处理POST, 在浏览器实现post操作时, 会用tcp发送两个package, 一个是http
+    // header, 一个是http body, 所以这个地方再次读取了从服务器发送过来的数据,
+    // 即http body
+}
+
+inline void response_404(int clientFileDesc) {
+    const char *content = "HTTP/1.1 404 NOT FOUND\r\n"
+                          "Server: zackbee'server 1.0\r\n"
+                          "Content-Type: text/html; charset=UTF-8\r\n"
+                          "\r\n"
+                          "<html>"
+                          "<head><title>404 NOT FOUND</title></head>\r\n"
+                          "<body><p>404: 你请求的页面不存在</p></body>"
+                          "</html>";
+
+    // printf("strlen: %d\n", strlen(content));
+    write(clientFileDesc, content, strlen(content));
+    printf("404\n");
+}
+
+inline void response_200(int clientFileDesc, const char *type) {
+    char templete[BUFF_SIZE] = "HTTP/1.1 200 OK\r\n"
+                               "Server: zackbee'server 1.0\r\n"
+                               "Content-Type: %s; charset=UTF-8\r\n"
+                               "\r\n";
+    char header[BUFF_SIZE];
+    sprintf(header, templete, type);
+    write(clientFileDesc, header, strlen(header));
+}
