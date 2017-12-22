@@ -1,6 +1,6 @@
 /**
- *     此模块参考了"喜欢兰花山丘"的实现, blog:
- *     http://www.cnblogs.com/life2refuel/p/5277111.html
+ *     虽然几乎所有内容都被我重构了, 但是此模块参考了"喜欢兰花山丘"的实现,
+ *     blog: http://www.cnblogs.com/life2refuel/p/5277111.html
  */
 
 #include <arpa/inet.h>
@@ -20,8 +20,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-
-#include "sds.h"
+#include "account.h"
 
 #define PATH_PREFIX "./src"
 #define QUEUE_SIZE 64
@@ -71,39 +70,42 @@ void response_404(int clientFileDesc);
  *     @param clientFileDesc 客户端文件描述符
  */
 void response_200(int clientFileDesc, const char *type);
-#define isSpace(c) ((c == ' ') || (c >= '\t' && c <= '\r'))
+
+/**
+ *     执行客户端传来的命令, 将返回的数据用sds存储
+ *     @param db 执行操作的database
+ *     @param s 用于存储执行的命令以及返回结果的sds
+ */
+void execCommand(dict *db, sds *s);
+
+#define isSpace(ch) (ch == ' ')
+
+#define isEnter(ch) (ch == '\n')
 
 
 int main(int argc, char **argv) {
-    pthread_attr_t attr;
+    sds *s = NULL;
+    dict *database = newDict();
     int port = atoi(argv[2]);
     int serverFileDesc = newServer(argv[1], port);
-    // 初始化线程属性
-    pthread_attr_init(&attr);
-    pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
     while (1) {
-        pthread_t tid;
         struct sockaddr_in caddr;
         socklen_t clen = sizeof caddr;
         int clientFileDesc =
                 accept(serverFileDesc, (struct sockaddr *)&caddr, &clen);
+
+        // 客户端秒速符错误
         if (clientFileDesc < 0) {
             printf("clientFileDesc < 0");
-            // CERR("accept serverFileDesc = %d is error!", serverFileDesc);
             break;
         }
         responseClient(&clientFileDesc);
-        // if (pthread_create(&tid, &attr, responseClient, &clientFileDesc) < 0) {
-            // printf("pthread_create run is error!\n");
-            // break;
-        // }
     }
 
-    // 销毁线程
-    pthread_attr_destroy(&attr);
     close(serverFileDesc);
     return 0;
 }
+
 
 int newServer(char *server, int port) {
     int serverFileDesc;
@@ -139,7 +141,6 @@ void *responseClient(int *clientFileDesc) {
     read(*clientFileDesc, buf, BUFF_SIZE);
     fputs(buf, stdout);
 
-    // printf("i am here\n");
     // 如果buff中存储的不是空格, 并且type中还能容纳字符的话,
     // 在method从存储表示method类型的字符
     for (lPtr = method, rPtr = nb;
@@ -157,18 +158,16 @@ void *responseClient(int *clientFileDesc) {
     }
 
     // 存储得到的path信息
-    // *path = '.';
     for (lPtr = path; (lPtr - path) < sizeof path - 1 && !isSpace(*rPtr);
          *lPtr++ = *rPtr++) {
         // nothing
     }
     *lPtr = '\0';
-    // printf("here\n");
-    // printf("method: %s\npath: %s\n", method, path);
+
+    printf("method: %s\npath: %s\n", method, path);
 
     // 处理GET请求
     if (strcasecmp("GET", method) == 0) {
-        // printf("here GET\n");
         responseFile(*clientFileDesc, path);
     } else if (strcasecmp("POST", method)) { // 处理post请求
         responseMessage(*clientFileDesc);
@@ -180,9 +179,6 @@ void *responseClient(int *clientFileDesc) {
     close(*clientFileDesc);
     return NULL;
 }
-
-#define isSpace(c) ((c == ' ') || (c >= '\t' && c <= '\r'))
-
 
 void responseFile(int clientFileDesc, const char *path) {
     struct stat filestat;
@@ -203,7 +199,6 @@ void responseFile(int clientFileDesc, const char *path) {
         close(clientFileDesc);
         return;
     }
-    // printf("read error\n");
 
     // 处理文件内容
     if ((file = fopen(newPath, "rb")) == NULL) { //文件解析错误, 返回404
@@ -234,24 +229,16 @@ void responseFile(int clientFileDesc, const char *path) {
 
         // 先判断文件内容存在
         uint64_t size = 0;
+
+        // 不用sendfile或fread的原因是, sendfile压根没有数据传输,
+        // fread读取不完正常文件, 亲测
         while (!feof(file) && fgets(buf, sizeof buf, file)) {
             size += strlen(buf);
             write(clientFileDesc, buf, strlen(buf));
         }
         printf("\n%lu\n", size);
-        // int fd = open(path, O_RDONLY);
-        // stat(newPath, &filestat);
-        // size_t size;
-        // char *buff;
-        // buff = mmap(NULL, filestat.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
-        // while (size = sendfile(fd, clientFileDesc, NULL, filestat.st_size)) {
-        //     // write(clientFileDesc, buf, strlen(buf));
-        // }
-        // printf("\n%lu\n", size);
     }
-    // printf("file will close\n");
     fclose(file);
-    // printf("file closed\n");
 }
 
 void responseMessage(int clientFileDesc) {
@@ -296,4 +283,64 @@ inline void response_200(int clientFileDesc, const char *type) {
     }
 
     write(clientFileDesc, header, strlen(header));
+}
+
+void execCommand(dict *database, sds *s) {
+    char *str = getSdsStr(s);
+    int count = 0;
+    char buf[2];
+    sds **sdsArr;
+    account *act = NULL;
+
+    // 从str中读取指令
+    for (int i = 0; i < 5; i++) {
+        sdsArr[i] = newSds();
+    }
+    while (*str != '\n') {
+        while (*str != ' ') {
+            buf[0] = *str;
+            buf[1] = '\0';
+            sdsCatStr(sdsArr[count], buf);
+        }
+        count++;
+    }
+    clearSds(s);
+    if (sdsCompareStr(sdsArr[0], "init") == 0) {
+
+        // 如果有账号且密码验证正确则返回账号数据, 没有账号, 先创建账号
+        if (act = getDictVal(database, getSdsStr(sdsArr[1]))) {
+            if (checkAccountPassword(act, getSdsStr(sdsArr[2]))) {
+                getAccountAll(act, s);
+                return;
+            }
+        } else {
+            setDictEntry(database, getSdsStr(sdsArr[1]), act = newAccount());
+            setAccountPassword(act, getSdsStr(sdsArr[2]));
+            setSds(s, "new account");
+        }
+    } else if (sdsCompareStr(sdsArr[0], "set") == 0) { // 已经有账户, 进行操作
+        act = getDictVal(database, getSdsStr(sdsArr[1]));
+
+        // 设置联系人
+        if (sdsCompareStr(sdsArr[2], "contacts") == 0) {
+            setDictEntry(act->contacts, getSdsStr(sdsArr[3]),
+                         newCopySds(getSdsStr(sdsArr[4])));
+        } else if (sdsCompareStr(sdsArr[2], "groups") == 0) {
+            dict *group = getDictVal(database, getSdsStr(sdsArr[3]));
+
+            // 如果不存在群组, 进行创建, 否则直接设置 set account groups
+            // groupsName name phone
+            if (!group) {
+                setDictEntry(act->groups, getSdsStr(sdsArr[3]),
+                             group = newDict());
+            }
+            setDictEntry(group, sdsArr[4], newCopySds(getSdsStr(sdsArr[5])));
+        } else {
+            printf("error: param is %s\n", getSdsStr(sdsArr[2]));
+            setSds(s, "error");
+            return;
+        }
+    } else if (sdsCompareStr(sdsArr[0], "del") == 0) {
+
+    }
 }

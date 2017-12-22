@@ -11,5 +11,5 @@ sdsTest : src/contacts/sds.c src/contacts/sds.h
 dictTest : src/contacts/dict.c src/contacts/dict.h
 > gcc src/contacts/dict.c src/contacts/sds.c src/contacts/list.c -o dictTest; ./dictTest; rm ./dictTest;
 
-contactsServer : src/contacts/server.c
-> gcc src/contacts/server.c -o server
+server1 : 
+> gcc src/contacts/server.c src/contacts/sds.c src/contacts/list.c src/contacts/account.c src/contacts/dict.c -o server1;

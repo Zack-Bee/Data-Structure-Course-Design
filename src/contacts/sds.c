@@ -77,6 +77,11 @@ void sdsReduceStr(sds *s, char *str) {
     }
 }
 
+void clearSds(sds *s) {
+    s->str[0] = '\0';
+    s->used = 0;
+}
+
 
 #define SDS_TEST
 #ifdef SDS_TEST

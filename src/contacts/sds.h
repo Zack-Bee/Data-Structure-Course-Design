@@ -90,4 +90,17 @@ void sdsCatSds(sds *s1, sds *s2);
  *     @param str 进行删除比较的str
 */
 void sdsReduceStr(sds *s, char *str);
+
+/**
+ *     得到sds字符串的长度
+ *     @param s 进行操作的sds
+ *     @return 字符串的长度
+ */
+#define getSdsLength(s) (s->used)
+
+/**
+ *     将字符串的长度变为0
+ *     @param s 进行操作的sds
+*/
+void clearSds(sds *s);
 #endif    // SDS_H

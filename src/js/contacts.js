@@ -1,5 +1,6 @@
 $(document).ready(function () {
     function init(data) {
+        console.log(data);
         if (data !== "") {
             data = JSON.parse(data);
         }

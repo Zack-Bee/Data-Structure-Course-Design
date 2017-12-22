@@ -59,7 +59,7 @@ void setAccountGroupsMember(account *act, char *group, char *name, char *phone);
  *     删除account的联系人中的成员
  *     @param act 进行删除的account
  *     @param name 联系人的名字
-*/
+ */
 void delAccountContacts(account *act, char *name);
 
 /**
@@ -74,8 +74,21 @@ void delAccountGroupsMember(account *act, char *group, char *name);
  *     删除account的群组
  *     @param act 进行删除操作的account
  *     @param group 要删除的群组的名字
-*/
+ */
 void delAccountGroups(account *act, char *group);
 
+/**
+ *     将账户中的所有数据拼接成json格式, 用于客户端页面的初始化
+ *     @param act 客户端的账户
+ *     @param s 用于存储json数据的sds
+ */
 void getAccountAll(account *act, sds *s);
+
+/**
+ *     检测账号的密码是否正确
+ *     @param act 进行检测的账号
+ *     @param password 用于检测的密码
+ *     @return 密码正确返回1, 否则返回0
+ */
+int checkAccountPassword(account *act, char *password);
 #endif
