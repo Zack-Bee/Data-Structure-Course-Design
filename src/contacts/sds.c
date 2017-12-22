@@ -83,7 +83,7 @@ void clearSds(sds *s) {
 }
 
 
-#define SDS_TEST
+// #define SDS_TEST
 #ifdef SDS_TEST
 
 void testNewSds() {

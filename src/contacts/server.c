@@ -42,7 +42,7 @@ int newServer();
  *     @param clientFileDesc 客户端文件描述符
  *     @return 返回处理结果,这里默认返回 NULL
  */
-void *responseClient(int *clientFileDesc);
+void *responseClient(int *clientFileDesc, dict *database);
 
 /**
  *     将文件 发送给客户端
@@ -57,7 +57,8 @@ void responseFile(int clientFileDesc, const char *path);
  *     @param path 请求的文件路径
  *     @param query 请求发送的过来的数据
  */
-void responseMessage(int clientFileDesc);
+void responseMessage(int clientFileDesc, dict *database, char *buf,
+                     int bufSize);
 
 /**
  *     返回404, 请求文件没有找到
@@ -99,7 +100,7 @@ int main(int argc, char **argv) {
             printf("clientFileDesc < 0");
             break;
         }
-        responseClient(&clientFileDesc);
+        responseClient(&clientFileDesc, database);
     }
 
     close(serverFileDesc);
@@ -133,12 +134,12 @@ int newServer(char *server, int port) {
     return serverFileDesc;
 }
 
-void *responseClient(int *clientFileDesc) {
+void *responseClient(int *clientFileDesc, dict *database) {
     char buf[BUFF_SIZE], path[BUFF_SIZE >> 1], method[BUFF_SIZE >> 5];
     char *lPtr, *rPtr, *query, *nb = buf;
-    // int iscgi;
+    int bufSize;
     int typeSize = sizeof(method);
-    read(*clientFileDesc, buf, BUFF_SIZE);
+    bufSize = read(*clientFileDesc, buf, BUFF_SIZE);
     fputs(buf, stdout);
 
     // 如果buff中存储的不是空格, 并且type中还能容纳字符的话,
@@ -169,8 +170,9 @@ void *responseClient(int *clientFileDesc) {
     // 处理GET请求
     if (strcasecmp("GET", method) == 0) {
         responseFile(*clientFileDesc, path);
-    } else if (strcasecmp("POST", method)) { // 处理post请求
-        responseMessage(*clientFileDesc);
+    } else if (strcasecmp("POST", method) == 0) { // 处理post请求
+        printf("get post\n");
+        responseMessage(*clientFileDesc, database, buf, bufSize);
     } else {
         response_404(*clientFileDesc);
         close(*clientFileDesc);
@@ -241,16 +243,45 @@ void responseFile(int clientFileDesc, const char *path) {
     fclose(file);
 }
 
-void responseMessage(int clientFileDesc) {
-    char buf[BUFF_SIZE];
-    char c;
-    int size;
-    size = read(clientFileDesc, buf, BUFF_SIZE);
+void responseMessage(int clientFileDesc, dict *database, char *buf,
+                     int bufSize) {
 
-
-    // 处理POST, 在浏览器实现post操作时, 会用tcp发送两个package, 一个是http
-    // header, 一个是http body, 所以这个地方再次读取了从服务器发送过来的数据,
-    // 即http body
+    // 标志是否有httpBody, 处理POST, 在浏览器实现post操作时,
+    // 有时会用tcp发送两个package, 一个是http header, 一个是http body,
+    // 有时httpBody与header一起发送, 需要再次读取一次
+    buf[bufSize] = '\0';
+    int hasHttpBody = 0;
+    int httpBodyIndex;
+    printf("%s", buf);
+    sds *s = newSds();
+    for (httpBodyIndex = 0; httpBodyIndex < bufSize - 4; httpBodyIndex++) {
+        if (strncmp(&(buf[httpBodyIndex]), "\r\n\r\n", 4) == 0) {
+            hasHttpBody = 1;
+            break;
+        }
+    }
+    if (hasHttpBody) {
+        setSds(s, &(buf[httpBodyIndex + 4]));
+        execCommand(database, s);
+        response_200(clientFileDesc, "text/application/json");
+        write(clientFileDesc, getSdsStr(s), getSdsLength(s));
+    } else {
+        int size;
+        size = read(clientFileDesc, buf, BUFF_SIZE);
+        if (size < BUFF_SIZE) {
+            buf[size] = '\0';
+            printf("post size:%d", size);
+            printf("%s", buf);
+            setSds(s, buf);
+            printf("sds str is %s\n", getSdsStr(s));
+            printf("will execCommand\n");
+            execCommand(database, s);
+            response_200(clientFileDesc, "text/application/json");
+            write(clientFileDesc, getSdsStr(s), getSdsLength(s));
+        } else {
+            printf("error: post to mush messgae\n");
+        }
+    }
 }
 
 inline void response_404(int clientFileDesc) {
@@ -289,28 +320,35 @@ void execCommand(dict *database, sds *s) {
     char *str = getSdsStr(s);
     int count = 0;
     char buf[2];
-    sds **sdsArr;
+    sds *(sdsArr[7]);
     account *act = NULL;
-
+    printf("%s\nsize:%d\n", str, getSdsLength(s));
     // 从str中读取指令
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 6; i++) {
         sdsArr[i] = newSds();
     }
     while (*str != '\n') {
-        while (*str != ' ') {
+        if (*str == ' ') {
+            count++;
+        } else {
             buf[0] = *str;
             buf[1] = '\0';
             sdsCatStr(sdsArr[count], buf);
         }
-        count++;
+        str++;
+    }
+    for (int i = 0; i < 6; i++) {
+        printf("%s\n", getSdsStr(sdsArr[i]));
     }
     clearSds(s);
     if (sdsCompareStr(sdsArr[0], "init") == 0) {
 
         // 如果有账号且密码验证正确则返回账号数据, 没有账号, 先创建账号
         if (act = getDictVal(database, getSdsStr(sdsArr[1]))) {
+            printf("has account\n");
             if (checkAccountPassword(act, getSdsStr(sdsArr[2]))) {
                 getAccountAll(act, s);
+                printf("correct password\n");
                 return;
             }
         } else {
@@ -323,8 +361,7 @@ void execCommand(dict *database, sds *s) {
 
         // 设置联系人
         if (sdsCompareStr(sdsArr[2], "contacts") == 0) {
-            setDictEntry(act->contacts, getSdsStr(sdsArr[3]),
-                         newCopySds(getSdsStr(sdsArr[4])));
+            setAccountContacts(act, getSdsStr(sdsArr[3]), getSdsStr(sdsArr[4]));
         } else if (sdsCompareStr(sdsArr[2], "groups") == 0) {
             dict *group = getDictVal(database, getSdsStr(sdsArr[3]));
 
@@ -334,13 +371,44 @@ void execCommand(dict *database, sds *s) {
                 setDictEntry(act->groups, getSdsStr(sdsArr[3]),
                              group = newDict());
             }
-            setDictEntry(group, sdsArr[4], newCopySds(getSdsStr(sdsArr[5])));
+
+            // 有五个参数时, 说明为设置群组成员
+            if ((count + 1) == 6) {
+                setAccountGroupsMember(act, getSdsStr(sdsArr[3]),
+                                       getSdsStr(sdsArr[4]),
+                                       getSdsStr(sdsArr[5]));
+            }
         } else {
             printf("error: param is %s\n", getSdsStr(sdsArr[2]));
             setSds(s, "error");
             return;
         }
+        setSds(s, "ok");
     } else if (sdsCompareStr(sdsArr[0], "del") == 0) {
+        act = getDictVal(database, getSdsStr(sdsArr[1]));
 
+        // 删除联系人
+        if (sdsCompareStr(sdsArr[2], "contacts") == 0) {
+            delAccountContacts(act, getSdsStr(sdsArr[3]));
+        } else if (sdsCompareStr(sdsArr[2], "groups") == 0) {
+            dict *group = getDictVal(database, getSdsStr(sdsArr[3]));
+
+            // 有四个参数, 说明为删除群组
+            if ((count + 1) == 4) {
+                delAccountGroups(act, getSdsStr(sdsArr[3]));
+            } else if ((count + 1) == 6) {
+                delAccountGroupsMember(act, getSdsStr(sdsArr[3]),
+                                       getSdsStr(sdsArr[4]));
+            }
+        } else {
+            printf("error: param is %s\n", getSdsStr(sdsArr[2]));
+            setSds(s, "error");
+            return;
+        }
+        setSds(s, "ok");
+    } else {
+        printf("error: param is %s\n", getSdsStr(sdsArr[0]));
+        setSds(s, "error");
+        return;
     }
 }

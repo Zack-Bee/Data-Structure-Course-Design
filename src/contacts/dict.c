@@ -43,7 +43,7 @@ void expandDict(dict *dt) {
     uint32_t hash;
 
     for (uint32_t i = 0; i < dt->size; i++) {
-        if (getListLength(dt->table[i] > 0)) {
+        if (getListLength(dt->table[i]) > 0) {
             char *str = getSdsStr(getListHead(dt->table[i])->key);
             hash = _dictHashFunction(str, dt->size * 2);
             newTable[hash] = dt->table[i];
@@ -81,13 +81,13 @@ void destroyDict(dict **dt) {
     *dt = NULL;
 }
 
-void traverseDict(dict *dt, void (*function)(void *param)) {
+void traverseDict(dict *dt, void (*function)(void **param)) {
     for (uint32_t i = 0; i < dt->size; i++) {
         traverseList(dt->table[i], function);
     }
 }
 
-#define DICT_TEST
+// #define DICT_TEST
 #ifdef DICT_TEST
 
 
@@ -106,7 +106,7 @@ void testNewDict() {
     } else {
         success = 0;
     }
-
+    
     if (success == 1) {
         printf("newDict success\n");
     } else {

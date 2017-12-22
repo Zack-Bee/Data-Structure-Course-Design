@@ -43,7 +43,7 @@ $(document).ready(function () {
         }
 
         // 向服务器发送账号密码, 并初始化页面
-        $.post("../message", "init " + account.phone + " " + password + ";", function (data) {
+        $.post("../message", "init " + account.phone + " " + password + "\n", function (data) {
 
         }, "json");
     })

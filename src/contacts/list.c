@@ -138,11 +138,11 @@ uint32_t delListNode(list *li, char *key) {
     }
 }
 
-void traverseList(list *li, void (*function)(void *param)) {
+void traverseList(list *li, void (*function)(void **param)) {
     if (li != NULL) {
         listNode *p = li->head;
         while (p != NULL) {
-            function(p->val);
+            function(&(p->val));
             p = p->next;
         }
     }
@@ -160,7 +160,7 @@ void *getListVal(list *li, char *key) {
     return NULL;
 }
 
-#define LIST_TEST
+// #define LIST_TEST
 #ifdef LIST_TEST
 void testNewList() {
     list *li = NULL;

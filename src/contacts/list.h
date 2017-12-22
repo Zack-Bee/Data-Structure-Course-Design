@@ -77,7 +77,7 @@ void *getListVal(list *li, char *key);
  *     @param li 进行遍历的list
  *     @param function 遍历使用的函数, 其中param是listNode的val
  */
-void traverseList(list *li, void (*function)(void *param));
+void traverseList(list *li, void (*function)(void **param));
 
 /**
  *     销毁linkedlist

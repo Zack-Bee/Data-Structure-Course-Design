@@ -1,8 +1,9 @@
 #include "account.h"
+#include <malloc.h>
 
 
 /*********************************PRIVATE**************************************/
-_setMember(dict *dt, char *name, char *phone) {
+void _setMember(dict *dt, char *name, char *phone) {
     sds *s = newCopySds(phone);
     setDictEntry(dt, name, phone);
 }
@@ -19,10 +20,10 @@ account *newAccount() {
 }
 
 void destroyAccount(account *act) {
-    destroySds(act->password);
-    destroyDict(act->contacts);
+    destroySds(&(act->password));
+    destroyDict(&(act->contacts));
     traverseDict(act->groups, destroyDict);
-    destroyDict(act->groups);
+    destroyDict(&(act->groups));
 }
 
 void setAccountPassword(account *act, char *password) {
@@ -58,7 +59,7 @@ void delAccountGroupsMember(account *act, char *group, char *name) {
 
 void delAccountGroups(account *act, char *group) {
     dict *dt = getDictVal(act->groups, group);
-    destroyDict(dt);
+    destroyDict(&dt);
 }
 
 // dirty, don't touch
