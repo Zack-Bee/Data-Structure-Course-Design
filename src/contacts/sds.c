@@ -51,7 +51,11 @@ int sdsCompareSds(sds *s1, sds *s2) { return (strcmp(s1->str, s2->str)); }
 
 char *getSdsStr(sds *s) { return s->str; }
 
-// #define SDS_TEST
+void sdsCatStr(sds *s, char *str) { strcat(s->str, str); }
+
+void sdsCatSds(sds *s1, sds *s2)  { strcat(s1->str, s2->str); }
+
+#define SDS_TEST
 #ifdef SDS_TEST
 
 void testNewSds() {
@@ -133,10 +137,10 @@ void testSdsCatStr() {
     }
 }
 
-void testSdsCatStr() {
+void testSdsCatSds() {
     sds *s1 = newCopySds("wwww");
     sds *s2 = newCopySds("dddd");
-    sdsCatStr(s, "dddd");
+    sdsCatSds(s1, s2);
     if (sdsCompareStr(s1, "wwwwdddd") == 0) {
         printf("sdsCatSds success\n");
     } else {
@@ -151,6 +155,8 @@ int main() {
     testSdsCompareStr();
     testNewCopySds();
     testSetSds();
+    testSdsCatStr();
+    testSdsCatSds();
     return 0;
 }
 #endif
