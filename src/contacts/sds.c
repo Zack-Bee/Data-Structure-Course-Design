@@ -52,7 +52,7 @@ int sdsCompareSds(sds *s1, sds *s2) { return (strcmp(s1->str, s2->str)); }
 char *getSdsStr(sds *s) { return s->str; }
 
 void sdsCatStr(sds *s, char *str) {
-    if(s->used+strlen(str)>=s->length){
+    while(s->used+strlen(str)>=s->length){
         s->str=(char*)realloc(s->str,2*s->length*sizeof(char));
         s->length*=2;
     }
@@ -60,7 +60,7 @@ void sdsCatStr(sds *s, char *str) {
   }
 
 void sdsCatSds(sds *s1, sds *s2)  { 
-    if(s1->used+s2->used>=s1->length){
+    while(s1->used+s2->used>=s1->length){
         s1->str=(char*)realloc(s1->str,2*s1->length*sizeof(char));
         s1->length*=2;
     }
