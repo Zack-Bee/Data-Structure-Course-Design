@@ -70,4 +70,18 @@ int sdsCompareSds(sds *s1, sds *s2);
  */ 
 char *getSdsStr(sds *s);
 
+/**
+ *     将str中的字符串拼接在sds的后面
+ *     @param s 进行拼接的sds
+ *     @param str 进行拼接的str
+*/
+void sdsCatStr(sds *s, char *str);
+
+/**
+ *     将s2中的字符串拼接在s1的后面
+ *     @param s1 进行拼接的sds
+ *     @param s2 进行拼接的sds
+*/
+void sdsCatSds(sds *s1, sds *s2);
+
 #endif    // SDS_H

@@ -123,6 +123,27 @@ void testSdsCompareStr() {
     }
 }
 
+void testSdsCatStr() {
+    sds *s = newCopySds("wwww");
+    sdsCatStr(s, "dddd");
+    if (sdsCompareStr(s, "wwwwdddd") == 0) {
+        printf("sdsCatStr success\n");
+    } else {
+        printf("sdsCatStr fail\n");        
+    }
+}
+
+void testSdsCatStr() {
+    sds *s1 = newCopySds("wwww");
+    sds *s2 = newCopySds("dddd");
+    sdsCatStr(s, "dddd");
+    if (sdsCompareStr(s1, "wwwwdddd") == 0) {
+        printf("sdsCatSds success\n");
+    } else {
+        printf("sdsCatSds fail\n");        
+    }
+}
+
 int main() {
     testNewSds();
     testDestroySds();
