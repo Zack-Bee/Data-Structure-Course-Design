@@ -114,7 +114,7 @@ uint32_t delListNode(list *li, char *key) {
             return 1;
         } else {
             for (cur = li->head; cur != NULL; cur = cur->next) {
-                printf("%s", cur->key->str);
+                // printf("%s", cur->key->str);
                 if (sdsCompareStr(cur->key, key) == 0) {
                     break;
                 }
