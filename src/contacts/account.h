@@ -77,4 +77,5 @@ void delAccountGroupsMember(account *act, char *group, char *name);
 */
 void delAccountGroups(account *act, char *group);
 
+void getAccountAll(account *act, sds *s);
 #endif

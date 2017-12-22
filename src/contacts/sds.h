@@ -84,4 +84,10 @@ void sdsCatStr(sds *s, char *str);
 */
 void sdsCatSds(sds *s1, sds *s2);
 
+/**
+ *     如果str存在于sds的尾部的话, 从sds的尾部删除str
+ *     @param s 进行操作的sds
+ *     @param str 进行删除比较的str
+*/
+void sdsReduceStr(sds *s, char *str);
 #endif    // SDS_H

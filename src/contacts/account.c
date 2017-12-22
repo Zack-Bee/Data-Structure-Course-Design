@@ -60,8 +60,12 @@ void delAccountGroups(account *act, char *group) {
     destroyDict(dt);
 }
 
+// dirty, don't touch
+void getAccountAll(account *act, sds *s) {
+    sdsCatStr(s, "{\"contacts\":{");
+    uint32_t size = act->contacts->size;
+    for (uint32_t i = 0; i < size; i++) {
+        
+    }
 
-#define ACCOUNT_TEST
-#ifdef ACCOUNT_TEST
-
-#endif
+}

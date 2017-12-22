@@ -71,13 +71,14 @@ void *getDictVal(dict *dt, char *key) {
     return getListVal(dt->table[hash], key);
 }
 
-void destroyDict(dict *dt) {
-    for (uint32_t i = 0; i < dt->size; i++) {
-        traverseList(dt->table[i], destroySds);
-        destroyList(dt->table[i]);
+void destroyDict(dict **dt) {
+    for (uint32_t i = 0, size = (*dt)->size; i < size; i++) {
+        traverseList((*dt)->table[i], destroySds);
+        destroyList(&(*dt)->table[i]);
     }
-    free(dt->table);
-    free(dt);
+    free((*dt)->table);
+    free(*dt);
+    *dt = NULL;
 }
 
 void traverseDict(dict *dt, void (*function)(void *param)) {

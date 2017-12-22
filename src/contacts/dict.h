@@ -71,7 +71,7 @@ void *getDictVal(dict *dt, char *key);
  *     销毁dict
  *     @param dt 进行操作的dict
  */
-void destroyDict(dict *dt);
+void destroyDict(dict **dt);
 
 /**
  *     使用function遍历dict

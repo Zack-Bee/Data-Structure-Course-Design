@@ -16,8 +16,8 @@ $(document).ready(function () {
         $progress = $("#progress"),
         account = {
             phone: "",
-            contacts: NULL,
-            groups: NULL
+            contacts: null,
+            groups: null
         };
 
     // 监听登录
@@ -42,7 +42,7 @@ $(document).ready(function () {
         }
 
         // 向服务器发送账号密码, 并初始化页面
-        $.post("../message", "init " + account.phone + " " + password, function (data) {
+        $.post("../message", "init " + account.phone + " " + password + ";", function (data) {
 
         }, "json");
     })

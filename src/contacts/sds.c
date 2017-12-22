@@ -55,6 +55,17 @@ void sdsCatStr(sds *s, char *str) { strcat(s->str, str); }
 
 void sdsCatSds(sds *s1, sds *s2)  { strcat(s1->str, s2->str); }
 
+void sdsReduceStr(sds *s, char *str) {
+    uint32_t len = strlen(str);
+    if (len < s->used) {
+        if (strcmp(&(s->str[s->used - len]), str) == 0) {
+            s->str[s->used - len] = '\0';
+            s->used -= len;
+        }
+    }
+}
+
+
 #define SDS_TEST
 #ifdef SDS_TEST
 
@@ -148,6 +159,18 @@ void testSdsCatSds() {
     }
 }
 
+void testSdsReduceStr() {
+    sds *s1 = newCopySds("hhhhhh");
+    sdsReduceStr(s1, "hhh");
+    sds *s2 = newCopySds("h");
+    sdsReduceStr(s2, "hhh");
+    if ((sdsCompareStr(s1, "hhh") != 0) || (sdsCompareStr(s2, "h") != 0)) {
+        printf("sdsReduceStr fail\n");
+    } else {
+        printf("sdsReduceStr success\n");   
+    }
+}
+
 int main() {
     testNewSds();
     testDestroySds();
@@ -157,6 +180,8 @@ int main() {
     testSetSds();
     testSdsCatStr();
     testSdsCatSds();
+    testSdsReduceStr();
+
     return 0;
 }
 #endif
