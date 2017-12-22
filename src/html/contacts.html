@@ -26,41 +26,41 @@
             <div class="vertical-align">
                 <div class="row">
                     <div class="progress col s8 m4 offset-s2 offset-m4">
-                        <div class="determinate" style="width: 100%"></div>
+                        <div id="progress" class="determinate" style="width: 100%"></div>
                     </div>
                     <div class="input-field col s8 m4 offset-s2 offset-m4">
                         <i class="material-icons prefix">phone_iphone</i>
-                        <input id="icon_prefix" data-length="11" type="tel" class="validate autocomplete">
-                        <label for="icon_prefix">Phone Number</label>
+                        <input id="phoneInput" data-length="11" type="tel" class="validate autocomplete">
+                        <label for="phoneInput">Phone Number</label>
                     </div>
                     <div class="input-field col s8 m4 offset-s2 offset-m4">
                         <i class="material-icons prefix">keyboard</i>
-                        <input id="icon_telephone" type="password" class="validate autocomplete">
-                        <label for="icon_telephone">Password</label>
+                        <input id="pswInput" type="password" class="validate autocomplete">
+                        <label for="pswInput">Password</label>
                     </div>
-                    <button id="singBtn" class="pulse col s6 m2 offset-s3 offset-m5 btn waves-effect waves-light" type="submit" name="action">Sign in/Sign up
+                    <button id="signBtn" class="pulse col s6 m2 offset-s3 offset-m5 btn waves-effect waves-light" type="submit" name="action">Sign in/Sign up
                         <i class="material-icons right">send</i>
                     </button>
                 </div>
             </div>
         </div>
-        <div id="btnGroup" class="fixed-action-btn vertical click-to-toggle">
+        <div id="btnGroup" class="fixed-action-btn vertical click-to-toggle hide">
             <a class="btn-floating btn-large red">
                 <i class="large material-icons">add</i>
             </a>
             <ul>
                 <li>
-                    <a class="btn-floating blue pulse" id="voice">
+                    <a class="btn-floating blue pulse" id="voiceBtn">
                         <i class="material-icons">keyboard_voice</i>
                     </a>
                 </li>
                 <li>
-                    <a class="btn-floating yellow darken-1" id="newContact">
+                    <a class="btn-floating yellow darken-1" id="newContactBtn">
                         <i class="material-icons">account_circle</i>
                     </a>
                 </li>
                 <li>
-                    <a class="btn-floating green" id="newGroup">
+                    <a class="btn-floating green" id="newGroupBtn">
                         <i class="material-icons">group</i>
                     </a>
                 </li>
