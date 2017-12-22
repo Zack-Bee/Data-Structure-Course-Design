@@ -10,6 +10,7 @@
     <!-- <link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection" /> -->
     <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"
         media="screen,projection" />
+    <link rel="stylesheet" href="../css/contacts.css">
     <link rel="manifest" href="../manifest/contactsManifest.json">
     <link rel="icon" href="https://s1.ax1x.com/2017/12/21/jpT0S.png" sizes="48x48">
     <link rel="icon" href="https://s1.ax1x.com/2017/12/21/jp5Of.png" sizes="72x72">
@@ -20,34 +21,56 @@
 </head>
 
 <body>
-
-    <div class="fixed-action-btn vertical">
-        <a class="btn-floating btn-large red">
-            <i class="large material-icons">mode_edit</i>
-        </a>
-        <ul>
-            <li>
-                <a class="btn-floating blue" id="voice">
-                    <i class="material-icons">keyboard_voice</i>
-                </a>
-            </li>
-            <li>
-                <a class="btn-floating yellow darken-1" id="newContact">
-                    <i class="material-icons">account_circle</i>
-                </a>
-            </li>
-            <li>
-                <a class="btn-floating green" id="newGroup">
-                    <i class="material-icons">group</i>
-                </a>
-            </li>
-        </ul>
+    <div class="container">
+        <div class="sign-container" id="signContainer">
+            <div class="vertical-align">
+                <div class="row">
+                    <div class="progress col s8 m4 offset-s2 offset-m4">
+                        <div class="determinate" style="width: 100%"></div>
+                    </div>
+                    <div class="input-field col s8 m4 offset-s2 offset-m4">
+                        <i class="material-icons prefix">phone_iphone</i>
+                        <input id="icon_prefix" data-length="11" type="tel" class="validate autocomplete">
+                        <label for="icon_prefix">Phone Number</label>
+                    </div>
+                    <div class="input-field col s8 m4 offset-s2 offset-m4">
+                        <i class="material-icons prefix">keyboard</i>
+                        <input id="icon_telephone" type="password" class="validate autocomplete">
+                        <label for="icon_telephone">Password</label>
+                    </div>
+                    <button id="singBtn" class="pulse col s6 m2 offset-s3 offset-m5 btn waves-effect waves-light" type="submit" name="action">Sign in/Sign up
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="btnGroup" class="fixed-action-btn vertical click-to-toggle">
+            <a class="btn-floating btn-large red">
+                <i class="large material-icons">add</i>
+            </a>
+            <ul>
+                <li>
+                    <a class="btn-floating blue pulse" id="voice">
+                        <i class="material-icons">keyboard_voice</i>
+                    </a>
+                </li>
+                <li>
+                    <a class="btn-floating yellow darken-1" id="newContact">
+                        <i class="material-icons">account_circle</i>
+                    </a>
+                </li>
+                <li>
+                    <a class="btn-floating green" id="newGroup">
+                        <i class="material-icons">group</i>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
-    <a href="tel:18640503049">给钢铁直男打电话</a>
-    <a href="sms:18640503049?body=钢铁直男你好">给钢铁直男发短信</a>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <!-- <script type="text/javascript" src="../js/materialize.min.js"></script> -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="../js/contacts.js"></script>
 </body>
 
 </html>
