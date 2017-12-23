@@ -30,7 +30,7 @@ void setSds(sds *s, char *str) {
     if (size != s->length) {
         free(s->str);
     }
-    s->str = malloc(sizeof(char) * s->length);
+    s->str = (char  *)malloc(sizeof(char) * s->length);
     s->str[0] = '\0';
     strcpy(s->str, str);
     s->used = strlen(s->str);
