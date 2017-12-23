@@ -1,8 +1,11 @@
 #include "sds.h"
 #include <iostream>
-#include <malloc.h>
 #include <string>
+#include<vector>
 #include <unordered_map>
+
+using std::make_pair;
+using std::string;
 
 typedef std::unordered_map<std::string, unsigned int> city;
 
@@ -11,34 +14,18 @@ typedef std::unordered_map<std::string, city> tree;
 #define INIT_SIZE 10000
 
 
-/**
- *     从path中读取文件, 树的分布转换为json格式存储在sds中
- *     @param path 文件的位置
- *     @return 返回存储了json的sds
- */
-sds *treeCount(char *path);
-
-sds *treeCount() {
+char *treeCount(char *path) {
+ string s= "",s1 ="";
     tree t;
-    int i = 0, j = 0;
-    city *c = (city *)malloc(100 * sizeof(city));
-    city *pre = c;
-    FILE *fp;
-    int i = 0, j = 0;
-    sds *s = newSds(), *s1 = newSds();
-    char *fileName, *cityName, *count, *treeName;
-    // cout << "Please input the name of the file:" << endl;
-    // cin >> fileName;
-    // if ((fp = fopen("fileName", "r")) == NULL) {
-    // cout << "ERROR:can't open  the file\n" << endl;
-    // exit(0);
-    // }
+    int count, i=0,j=0;
+    char *cityName, *treeName;
+    FILE *fp = fopen(path, "rb");
     while (!feof(fp)) {
-        fscanf(fp, "%s %s %d", cityName, treeName, count);
+        fscanf(fp, "%s %s %d", cityName, treeName, &count);
         for (tree::iterator it = t.begin(); it != t.end(); it++) {
             if (treeName == (*it).first) {
                 for (city::iterator iter = ((*it).second).begin();
-                     iter != ((*it).second).end(); (*it.second)++) {
+                     iter != ((*it).second).end(); ((*it).second)++) {
                     if (cityName == (*iter).first) {
                         (*iter).second += count;
                         i = 1;
@@ -53,21 +40,31 @@ sds *treeCount() {
             break;
         }
         if (j == 0) {
-            pre.insert(make_pair(cityName, count));
-            t.insert(make_pair(treeName, pre));
-            pre = pre->next;
+            city c;
+            c.insert(make_pair(cityName, count));
+            t.insert(make_pair(treeName, c));
         }
     }
-    for (tree::iterator it = t.begin(); it != t.end(); t++) {
-        ;
-        s1 = sdsStrcatStr(s1, (*it).first);
-        s1 = sdsStrcatStr(s1, ((*it).second).first);
-        s1 = sdsStrcatStr(s1, ((*it).second).second);
-        s = sdsStrcatSds(s, s1);
-        clearSds(s1);
+    s=str1("{");
+    for (tree::iterator it = t.begin(); it != t.end();it++) {
+            s1.append("\"");
+            s1.append((*it).first);
+            s1.append("\":{");
+        for(city::iterator iter=(*it).second.begin();iter!=(*it).second.end();iter++){
+            s1.append( "\"");
+            s1.append(((*it).second).first);
+            s1.append("\":\"");
+            s1.append(((*it).second).second);
+            s1.append( "\",");
+        }
+        s1.append( "},");
+        s.append(s1);
+        s1="";
     }
-    return (s->str);
+    s.append("}");
+    return s;
 }
+
 
 
 #ifdef TREE_TEST
