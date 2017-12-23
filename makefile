@@ -15,4 +15,4 @@ contacts :
 > gcc src/contacts/server.c src/contacts/sds.c src/contacts/list.c src/contacts/account.c src/contacts/dict.c -o server1;
 
 treeTest : 
-> g++ src/treeCount/treeCount.cpp src/treeCount/sds.cpp -o treeTest; ./treeCount; rm ./treeCount;
+> g++ src/treeCount/treeCount.cpp src/treeCount/sds.cpp -o treeTest -std=c++11; ./treeCount; rm ./treeCount;
