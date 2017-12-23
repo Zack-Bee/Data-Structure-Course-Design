@@ -1,58 +1,70 @@
-#include<iostream>
-#include<malloc.h>
-#include"treeCount.h"
-#include"sds.h"
+#include "sds.h"
+#include <iostream>
+#include <malloc.h>
+#include <unordered_map>
+#include <string>
+
+typedef std::unordered_map<std::string, unsigned int> city; 
+
+typedef std::unordered_map<std::string, city> tree;
+
 #define INIT_SIZE 10000
 
-using namespace std;
 
-char *treeCount() {
- tree t;
- int i = 0, j = 0;
- city *c = (city*)malloc(100 * sizeof(city));
- city *pre = c;
- FILE *fp;
- int i = 0, j = 0;
- sds *s = newSds(), *s1 = newSds();
- char *fileName, *cityName, *count, *treeName;
- cout << "Please input the name of the file:" << endl;
- cin >> fileName;
- if ((fp = fopen("fileName", "r")) == NULL) {
-  cout << "ERROR:can't open  the file\n" << endl;
-  exit(0);
- }
- while (!feof(fp)) {
-  fscanf(fp, "%s %s %d", cityName, treeName, count);
-  for (tree::iterator it = t.begin(); it != t.end(); it++) {
-   if (treeName == (*it).first) {
-    for (city::iterator iter = ((*it).second).begin(); iter != ((*it).second).end(); (*it.second)++) {
-     if (cityName == (*iter).first) {
-      (*iter).second += count;
-      i = 1;
-      break;
-     }
+/**
+ *     从path中读取文件, 树的分布转换为json格式存储在sds中
+ *     @param path 文件的位置
+ *     @return 返回存储了json的sds
+*/
+sds *treeCount(char *path);
+
+void treeCount() {
+    tree t;
+    int i = 0, j = 0;
+    city *c = (city *)malloc(100 * sizeof(city));
+    city *pre = c;
+    FILE *fp;
+    int i = 0, j = 0;
+    sds *s = newSds(), *s1 = newSds();
+    char *fileName, *cityName, *count, *treeName;
+    // cout << "Please input the name of the file:" << endl;
+    // cin >> fileName;
+    // if ((fp = fopen("fileName", "r")) == NULL) {
+        // cout << "ERROR:can't open  the file\n" << endl;
+        // exit(0);
+    // }
+    while (!feof(fp)) {
+        fscanf(fp, "%s %s %d", cityName, treeName, count);
+        for (tree::iterator it = t.begin(); it != t.end(); it++) {
+            if (treeName == (*it).first) {
+                for (city::iterator iter = ((*it).second).begin();
+                     iter != ((*it).second).end(); (*it.second)++) {
+                    if (cityName == (*iter).first) {
+                        (*iter).second += count;
+                        i = 1;
+                        break;
+                    }
+                }
+                if (i == 0) {
+                    ((*it).second).insert(make_pair(cityName, count));
+                }
+            }
+            j = 1;
+            break;
+        }
+        if (j == 0) {
+            pre.insert(make_pair(cityName, count));
+            t.insert(make_pair(treeName, pre));
+            pre = pre->next;
+        }
     }
-    if (i == 0) {
-     ((*it).second).insert(make_pair(cityName, count));
+    for (tree::iterator it = t.begin(); it != t.end(); t++) {
+        ;
+        s1 = sdsStrcatStr(s1, (*it).first);
+        s1 = sdsStrcatStr(s1, ((*it).second).first);
+        s1 = sdsStrcatStr(s1, ((*it).second).second);
+        s = sdsStrcatSds(s, s1);
+        clearSds(s1);
     }
-   }
-   j = 1;
-   break;
-  }
-  if (j == 0) {
-   pre.insert(make_pair(cityName, count));
-   t.insert(make_pair(treeName, pre));
-   pre = pre->next;
-  }
- }
- for (tree::iterator it = t.begin(); it != t.end(); t++) {
-  ;
-  s1 = sdsStrcatStr(s1, (*it).first);
-  s1 = sdsStrcatStr(s1, ((*it).second).first);
-  s1 = sdsStrcatStr(s1, ((*it).second).second);
-  s = sdsStrcatSds(s, s1);
-  clearSds(s1);
- }
- return (s->str);
+    return (s->str);
 }
-
