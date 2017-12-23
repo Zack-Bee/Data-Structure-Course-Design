@@ -57,7 +57,9 @@ void expandDict(dict *dt) {
 double getDictRadio(dict *dt) { return ((dt->used + 0.0) / dt->size); }
 
 void setDictEntry(dict *dt, char *key, void *val) {
-    uint32_t hash;
+    printf("set key %s\n", key);
+    uint32_t hash = _dictHashFunction(key, dt->size);
+    printf("hash is :%u\n", hash);
     dt->used += setListNode(dt->table[hash], key, val);
 }
 
@@ -67,7 +69,9 @@ void delDictEntry(dict *dt, char *key) {
 }
 
 void *getDictVal(dict *dt, char *key) {
+    printf("get key %s\n", key);    
     uint32_t hash = _dictHashFunction(key, dt->size);
+    printf("hash is :%u\n", hash);
     return getListVal(dt->table[hash], key);
 }
 

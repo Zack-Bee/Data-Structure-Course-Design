@@ -33,7 +33,7 @@ void setSds(sds *s, char *str) {
     s->str = malloc(sizeof(char) * s->length);
     s->str[0] = '\0';
     strcpy(s->str, str);
-    s->used = length;
+    s->used = strlen(s->str);
 }
 
 void destroySds(sds **s) {
@@ -57,6 +57,7 @@ void sdsCatStr(sds *s, char *str) {
         s->length*=2;
     }
     strcat(s->str,str);
+    s->used = strlen(s->str);
   }
 
 void sdsCatSds(sds *s1, sds *s2)  { 
@@ -65,6 +66,7 @@ void sdsCatSds(sds *s1, sds *s2)  {
         s1->length*=2;
     }
     strcat(s1->str,s2->str);
+    s1->used = strlen(s1->str);
  }
 
 void sdsReduceStr(sds *s, char *str) {

@@ -64,10 +64,10 @@ void delAccountGroups(account *act, char *group) {
 
 // dirty, don't touch
 void getAccountAll(account *act, sds *s) {
-    sdsCatStr(s, "{\"contacts\":{");
     uint32_t size = act->contacts->size;
     list *li = NULL;
     listNode *ln = NULL;
+    sdsCatStr(s, "{\"contacts\":{");
     for (uint32_t i = 0; i < size; i++) {
         li = act->contacts->table[i];
         ln = li->head;
@@ -116,6 +116,7 @@ void getAccountAll(account *act, sds *s) {
     }
     sdsReduceStr(s, ",");
     sdsCatStr(s, "}}");
+    printf("%s\n", getSdsStr(s));
 }
 
 int checkAccountPassword(account *act, char *password) {

@@ -187,8 +187,9 @@ void testSetListNode() {
     sds *s = newCopySds("hhhh");
     setListNode(li, "tuhao", s);
     setListNode(li, "lele", s);
-    if (sdsCompareStr(li->head->key, "tuhao") == 0 &&
-        sdsCompareStr(li->head->next->key, "lele") == 0 && li->length == 2) {
+    if ((sdsCompareStr(li->head->key, "tuhao") == 0) &&
+        (sdsCompareStr(li->head->next->key, "lele") == 0) &&
+        (li->length == 2) && (li->head->val) && (li->head->next->val)) {
         printf("setListNode success\n");
     } else {
         printf("setListNode fail\n");

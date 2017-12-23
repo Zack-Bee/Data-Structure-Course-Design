@@ -263,9 +263,13 @@ void responseMessage(int clientFileDesc, dict *database, char *buf,
     if (hasHttpBody) {
         setSds(s, &(buf[httpBodyIndex + 4]));
         execCommand(database, s);
-        response_200(clientFileDesc, "text/application/json");
+        printf("i will send %s", getSdsStr(s));
+        printf("message's length is %d\n", getSdsLength(s));
+        response_200(clientFileDesc, "text/plain");
         write(clientFileDesc, getSdsStr(s), getSdsLength(s));
+        printf("have http body\n");
     } else {
+        printf("don't have http body\n");
         int size;
         size = read(clientFileDesc, buf, BUFF_SIZE);
         if (size < BUFF_SIZE) {
@@ -276,7 +280,8 @@ void responseMessage(int clientFileDesc, dict *database, char *buf,
             printf("sds str is %s\n", getSdsStr(s));
             printf("will execCommand\n");
             execCommand(database, s);
-            response_200(clientFileDesc, "text/application/json");
+            printf("message's length is %d", getSdsLength(s));
+            response_200(clientFileDesc, "text/plain");
             write(clientFileDesc, getSdsStr(s), getSdsLength(s));
         } else {
             printf("error: post to mush messgae\n");
@@ -322,7 +327,7 @@ void execCommand(dict *database, sds *s) {
     char buf[2];
     sds *(sdsArr[7]);
     account *act = NULL;
-    printf("%s\nsize:%d\n", str, getSdsLength(s));
+    // printf("%s\nsize:%d\n", str, getSdsLength(s));
     // 从str中读取指令
     for (int i = 0; i < 6; i++) {
         sdsArr[i] = newSds();
@@ -337,9 +342,6 @@ void execCommand(dict *database, sds *s) {
         }
         str++;
     }
-    for (int i = 0; i < 6; i++) {
-        printf("%s\n", getSdsStr(sdsArr[i]));
-    }
     clearSds(s);
     if (sdsCompareStr(sdsArr[0], "init") == 0) {
 
@@ -348,12 +350,23 @@ void execCommand(dict *database, sds *s) {
             printf("has account\n");
             if (checkAccountPassword(act, getSdsStr(sdsArr[2]))) {
                 getAccountAll(act, s);
+                printf("%s\n", getSdsStr(s));
                 printf("correct password\n");
                 return;
+            } else {
+                printf("wronng password\n");
+                setSds(s, "wronng password");
             }
         } else {
             setDictEntry(database, getSdsStr(sdsArr[1]), act = newAccount());
             setAccountPassword(act, getSdsStr(sdsArr[2]));
+            act =  getDictVal(database, getSdsStr(sdsArr[1]));
+            // if (act) {
+                // printf("%s", getSdsStr(act->password));
+            // } else {
+                // printf("get null\n");
+            // }
+            printf("new account\n");
             setSds(s, "new account");
         }
     } else if (sdsCompareStr(sdsArr[0], "set") == 0) { // 已经有账户, 进行操作
