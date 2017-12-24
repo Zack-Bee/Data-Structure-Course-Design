@@ -17,7 +17,7 @@ typedef std::unordered_map<std::string, city> tree;
 string treeCount(char *path) {
     string s = "{", s1 = "";
     tree t;
-    int count, i , j ,n;
+    int count, i , j ,p,q,n;
     char cityName[100], treeName[100];
     char str1[100], str2[100];
     memset(str1, 0, 100);
@@ -50,21 +50,25 @@ string treeCount(char *path) {
             t.insert(make_pair(treeName, c));
         }
     }
+    p=0;
     for (tree::iterator it = t.begin(); it != t.end(); it++) {
-
-        s1.append("\"");
-        s1.append((*it).first);
-        std::cout<<s1<<std::endl;
-        s1.append("\":[");
-        n=0;
-        for (city::iterator iter = (*it).second.begin();
-             iter != (*it).second.end(); iter++) {
-                 if(n==0){
-               n=1;
+        if(p==0){
+               p=1;
            }else{
                s1.append(",");
            }
-                 s1.append("{\"name\":\"");
+        s1.append("\"");
+        s1.append((*it).first);
+        s1.append("\":[");
+        q=0;
+        for (city::iterator iter = (*it).second.begin();
+             iter != (*it).second.end(); iter++) {
+                 if(q==0){
+               q=1;
+           }else{
+               s1.append(",");
+           }
+                s1.append("{\"name\":\"");
             i = 0;
            
             while (1) {
@@ -98,7 +102,7 @@ void testTreeCount() {
     string s = treeCount(path);
     string s1="{\"柏树\":[{\"name\":\"山西\",""\"value\":\"15\"},{\"name\":\"沈阳\",""\"value\":\"10\"}]}";
     string s2="{\"柏树\":[{\"name\":\"沈阳\",""\"value\":\"10\"},{\"name\":\"山西\",""\"value\":\"15\"}]}";
-    std::cout << s << std::endl;
+    std::cout<<s<<std::endl;
     if(s.compare(s1)==0||s.compare(s2)==0){
         std::cout<<"treeCount success"<<std::endl;
     }else{
