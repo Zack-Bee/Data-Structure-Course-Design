@@ -54,3 +54,4 @@ dkms.conf
 # just for test
 test.c
 a.out
+test.cpp
