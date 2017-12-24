@@ -1,0 +1,41 @@
+\hypertarget{structlist}{}\section{list结构体 参考}
+\label{structlist}\index{list@{list}}
+
+
+{\ttfamily \#include $<$list.\+h$>$}
+
+
+
+list 的协作图\+:
+% FIG 0
+\subsection*{Public 属性}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \hyperlink{structlist_aa550d94029ee5654b79d8f8b6935c0f0}{length}
+\item 
+\hyperlink{structlistNode}{list\+Node} $\ast$ \hyperlink{structlist_a231e615cc831876b01a16f23ee4bb320}{head}
+\item 
+\hyperlink{structlistNode}{list\+Node} $\ast$ \hyperlink{structlist_ad53539b1744468c6e2c231061bb9f0b1}{tail}
+\item 
+void($\ast$ \hyperlink{structlist_a18b2e3227926805b15b91cf13fd807a5}{destroy} )(struct \hyperlink{structlist}{list} $\ast$$\ast$li)
+\end{DoxyCompactItemize}
+
+
+\subsection{类成员变量说明}
+\index{list@{list}!destroy@{destroy}}
+\index{destroy@{destroy}!list@{list}}
+\subsubsection[{\texorpdfstring{destroy}{destroy}}]{\setlength{\rightskip}{0pt plus 5cm}void($\ast$ list\+::destroy) (struct {\bf list} $\ast$$\ast$li)}\hypertarget{structlist_a18b2e3227926805b15b91cf13fd807a5}{}\label{structlist_a18b2e3227926805b15b91cf13fd807a5}
+销毁list的函数的指针 \index{list@{list}!head@{head}}
+\index{head@{head}!list@{list}}
+\subsubsection[{\texorpdfstring{head}{head}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf list\+Node}$\ast$ list\+::head}\hypertarget{structlist_a231e615cc831876b01a16f23ee4bb320}{}\label{structlist_a231e615cc831876b01a16f23ee4bb320}
+头指针 \index{list@{list}!length@{length}}
+\index{length@{length}!list@{list}}
+\subsubsection[{\texorpdfstring{length}{length}}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t list\+::length}\hypertarget{structlist_aa550d94029ee5654b79d8f8b6935c0f0}{}\label{structlist_aa550d94029ee5654b79d8f8b6935c0f0}
+线性表的长度 \index{list@{list}!tail@{tail}}
+\index{tail@{tail}!list@{list}}
+\subsubsection[{\texorpdfstring{tail}{tail}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf list\+Node}$\ast$ list\+::tail}\hypertarget{structlist_ad53539b1744468c6e2c231061bb9f0b1}{}\label{structlist_ad53539b1744468c6e2c231061bb9f0b1}
+尾指针 
+
+该结构体的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+src/contacts/\hyperlink{list_8h}{list.\+h}\end{DoxyCompactItemize}

@@ -1,0 +1,200 @@
+\hypertarget{account_8c}{}\section{src/contacts/account.c 文件参考}
+\label{account_8c}\index{src/contacts/account.\+c@{src/contacts/account.\+c}}
+{\ttfamily \#include \char`\"{}account.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$malloc.\+h$>$}\\*
+account.\+c 的引用(Include)关系图\+:
+% FIG 0
+\subsection*{函数}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{account_8c_a335dcb45d47f1993346d10640a1027ed}{\+\_\+set\+Member} (\hyperlink{structdict}{dict} $\ast$dt, char $\ast$name, char $\ast$phone)
+\item 
+\hyperlink{structaccount}{account} $\ast$ \hyperlink{account_8c_a64094bd1a793431a310144777273b99f}{new\+Account} ()
+\item 
+void \hyperlink{account_8c_aaf15eb3d6fea26fe7b23c2a55817d0aa}{destroy\+Account} (\hyperlink{structaccount}{account} $\ast$act)
+\item 
+void \hyperlink{account_8c_a7617f42ff1a76f74971b594527fd92da}{set\+Account\+Password} (\hyperlink{structaccount}{account} $\ast$act, char $\ast$password)
+\item 
+void \hyperlink{account_8c_a6a0bd22cc84552780371cdb3cc179504}{set\+Account\+Contacts} (\hyperlink{structaccount}{account} $\ast$act, char $\ast$name, char $\ast$phone)
+\item 
+void \hyperlink{account_8c_ae2527cfa79e268516be7c3feaa5f503d}{set\+Account\+Groups\+Member} (\hyperlink{structaccount}{account} $\ast$act, char $\ast$group, char $\ast$name, char $\ast$phone)
+\item 
+void \hyperlink{account_8c_a36f298c15206ac35db8030fd57cb6dfd}{del\+Account\+Contacts} (\hyperlink{structaccount}{account} $\ast$act, char $\ast$name)
+\item 
+void \hyperlink{account_8c_ae2e297423a69145a1cdddb1807df7bcd}{del\+Account\+Groups\+Member} (\hyperlink{structaccount}{account} $\ast$act, char $\ast$group, char $\ast$name)
+\item 
+void \hyperlink{account_8c_a32da87684d9b5f4c1ecd6e97db5548aa}{del\+Account\+Groups} (\hyperlink{structaccount}{account} $\ast$act, char $\ast$group)
+\item 
+void \hyperlink{account_8c_a949726f7e4ec36ec53d6e8d71c2dda33}{get\+Account\+All} (\hyperlink{structaccount}{account} $\ast$act, \hyperlink{structsds}{sds} $\ast$s)
+\item 
+int \hyperlink{account_8c_ac9e374530f4c7a1a92e6f93d8cf598ce}{check\+Account\+Password} (\hyperlink{structaccount}{account} $\ast$act, char $\ast$password)
+\end{DoxyCompactItemize}
+
+
+\subsection{函数说明}
+\index{account.\+c@{account.\+c}!\+\_\+set\+Member@{\+\_\+set\+Member}}
+\index{\+\_\+set\+Member@{\+\_\+set\+Member}!account.\+c@{account.\+c}}
+\subsubsection[{\texorpdfstring{\+\_\+set\+Member(dict $\ast$dt, char $\ast$name, char $\ast$phone)}{_setMember(dict *dt, char *name, char *phone)}}]{\setlength{\rightskip}{0pt plus 5cm}void \+\_\+set\+Member (
+\begin{DoxyParamCaption}
+\item[{{\bf dict} $\ast$}]{dt, }
+\item[{char $\ast$}]{name, }
+\item[{char $\ast$}]{phone}
+\end{DoxyParamCaption}
+)}\hypertarget{account_8c_a335dcb45d47f1993346d10640a1027ed}{}\label{account_8c_a335dcb45d47f1993346d10640a1027ed}
+\index{account.\+c@{account.\+c}!check\+Account\+Password@{check\+Account\+Password}}
+\index{check\+Account\+Password@{check\+Account\+Password}!account.\+c@{account.\+c}}
+\subsubsection[{\texorpdfstring{check\+Account\+Password(account $\ast$act, char $\ast$password)}{checkAccountPassword(account *act, char *password)}}]{\setlength{\rightskip}{0pt plus 5cm}int check\+Account\+Password (
+\begin{DoxyParamCaption}
+\item[{{\bf account} $\ast$}]{act, }
+\item[{char $\ast$}]{password}
+\end{DoxyParamCaption}
+)}\hypertarget{account_8c_ac9e374530f4c7a1a92e6f93d8cf598ce}{}\label{account_8c_ac9e374530f4c7a1a92e6f93d8cf598ce}
+检测账号的密码是否正确 
+\begin{DoxyParams}{参数}
+{\em act} & 进行检测的账号 \\
+\hline
+{\em password} & 用于检测的密码 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+密码正确返回1, 否则返回0 
+\end{DoxyReturn}
+\index{account.\+c@{account.\+c}!del\+Account\+Contacts@{del\+Account\+Contacts}}
+\index{del\+Account\+Contacts@{del\+Account\+Contacts}!account.\+c@{account.\+c}}
+\subsubsection[{\texorpdfstring{del\+Account\+Contacts(account $\ast$act, char $\ast$name)}{delAccountContacts(account *act, char *name)}}]{\setlength{\rightskip}{0pt plus 5cm}void del\+Account\+Contacts (
+\begin{DoxyParamCaption}
+\item[{{\bf account} $\ast$}]{act, }
+\item[{char $\ast$}]{name}
+\end{DoxyParamCaption}
+)}\hypertarget{account_8c_a36f298c15206ac35db8030fd57cb6dfd}{}\label{account_8c_a36f298c15206ac35db8030fd57cb6dfd}
+删除account的联系人中的成员 
+\begin{DoxyParams}{参数}
+{\em act} & 进行删除的account \\
+\hline
+{\em name} & 联系人的名字 \\
+\hline
+\end{DoxyParams}
+\index{account.\+c@{account.\+c}!del\+Account\+Groups@{del\+Account\+Groups}}
+\index{del\+Account\+Groups@{del\+Account\+Groups}!account.\+c@{account.\+c}}
+\subsubsection[{\texorpdfstring{del\+Account\+Groups(account $\ast$act, char $\ast$group)}{delAccountGroups(account *act, char *group)}}]{\setlength{\rightskip}{0pt plus 5cm}void del\+Account\+Groups (
+\begin{DoxyParamCaption}
+\item[{{\bf account} $\ast$}]{act, }
+\item[{char $\ast$}]{group}
+\end{DoxyParamCaption}
+)}\hypertarget{account_8c_a32da87684d9b5f4c1ecd6e97db5548aa}{}\label{account_8c_a32da87684d9b5f4c1ecd6e97db5548aa}
+删除account的群组 
+\begin{DoxyParams}{参数}
+{\em act} & 进行删除操作的account \\
+\hline
+{\em group} & 要删除的群组的名字 \\
+\hline
+\end{DoxyParams}
+\index{account.\+c@{account.\+c}!del\+Account\+Groups\+Member@{del\+Account\+Groups\+Member}}
+\index{del\+Account\+Groups\+Member@{del\+Account\+Groups\+Member}!account.\+c@{account.\+c}}
+\subsubsection[{\texorpdfstring{del\+Account\+Groups\+Member(account $\ast$act, char $\ast$group, char $\ast$name)}{delAccountGroupsMember(account *act, char *group, char *name)}}]{\setlength{\rightskip}{0pt plus 5cm}void del\+Account\+Groups\+Member (
+\begin{DoxyParamCaption}
+\item[{{\bf account} $\ast$}]{act, }
+\item[{char $\ast$}]{group, }
+\item[{char $\ast$}]{name}
+\end{DoxyParamCaption}
+)}\hypertarget{account_8c_ae2e297423a69145a1cdddb1807df7bcd}{}\label{account_8c_ae2e297423a69145a1cdddb1807df7bcd}
+删除account的群组中的联系人 
+\begin{DoxyParams}{参数}
+{\em act} & 进行删除的账号 \\
+\hline
+{\em group} & 进行删除的群组名 \\
+\hline
+{\em name} & 要从群组中删除的联系人的名字 \\
+\hline
+\end{DoxyParams}
+\index{account.\+c@{account.\+c}!destroy\+Account@{destroy\+Account}}
+\index{destroy\+Account@{destroy\+Account}!account.\+c@{account.\+c}}
+\subsubsection[{\texorpdfstring{destroy\+Account(account $\ast$act)}{destroyAccount(account *act)}}]{\setlength{\rightskip}{0pt plus 5cm}void destroy\+Account (
+\begin{DoxyParamCaption}
+\item[{{\bf account} $\ast$}]{act}
+\end{DoxyParamCaption}
+)}\hypertarget{account_8c_aaf15eb3d6fea26fe7b23c2a55817d0aa}{}\label{account_8c_aaf15eb3d6fea26fe7b23c2a55817d0aa}
+销毁account 
+\begin{DoxyParams}{参数}
+{\em act} & 进行销毁的account \\
+\hline
+\end{DoxyParams}
+\index{account.\+c@{account.\+c}!get\+Account\+All@{get\+Account\+All}}
+\index{get\+Account\+All@{get\+Account\+All}!account.\+c@{account.\+c}}
+\subsubsection[{\texorpdfstring{get\+Account\+All(account $\ast$act, sds $\ast$s)}{getAccountAll(account *act, sds *s)}}]{\setlength{\rightskip}{0pt plus 5cm}void get\+Account\+All (
+\begin{DoxyParamCaption}
+\item[{{\bf account} $\ast$}]{act, }
+\item[{{\bf sds} $\ast$}]{s}
+\end{DoxyParamCaption}
+)}\hypertarget{account_8c_a949726f7e4ec36ec53d6e8d71c2dda33}{}\label{account_8c_a949726f7e4ec36ec53d6e8d71c2dda33}
+将账户中的所有数据拼接成json格式, 用于客户端页面的初始化 
+\begin{DoxyParams}{参数}
+{\em act} & 客户端的账户 \\
+\hline
+{\em s} & 用于存储json数据的sds \\
+\hline
+\end{DoxyParams}
+\index{account.\+c@{account.\+c}!new\+Account@{new\+Account}}
+\index{new\+Account@{new\+Account}!account.\+c@{account.\+c}}
+\subsubsection[{\texorpdfstring{new\+Account()}{newAccount()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf account}$\ast$ new\+Account (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{account_8c_a64094bd1a793431a310144777273b99f}{}\label{account_8c_a64094bd1a793431a310144777273b99f}
+创建一个account \begin{DoxyReturn}{返回}
+返回创建的account 
+\end{DoxyReturn}
+\index{account.\+c@{account.\+c}!set\+Account\+Contacts@{set\+Account\+Contacts}}
+\index{set\+Account\+Contacts@{set\+Account\+Contacts}!account.\+c@{account.\+c}}
+\subsubsection[{\texorpdfstring{set\+Account\+Contacts(account $\ast$act, char $\ast$name, char $\ast$phone)}{setAccountContacts(account *act, char *name, char *phone)}}]{\setlength{\rightskip}{0pt plus 5cm}void set\+Account\+Contacts (
+\begin{DoxyParamCaption}
+\item[{{\bf account} $\ast$}]{act, }
+\item[{char $\ast$}]{name, }
+\item[{char $\ast$}]{phone}
+\end{DoxyParamCaption}
+)}\hypertarget{account_8c_a6a0bd22cc84552780371cdb3cc179504}{}\label{account_8c_a6a0bd22cc84552780371cdb3cc179504}
+设置account的contacts 
+\begin{DoxyParams}{参数}
+{\em act} & 进行设置的account \\
+\hline
+{\em name} & 联系人的名字 \\
+\hline
+{\em phone} & 联系人的电话 \\
+\hline
+\end{DoxyParams}
+\index{account.\+c@{account.\+c}!set\+Account\+Groups\+Member@{set\+Account\+Groups\+Member}}
+\index{set\+Account\+Groups\+Member@{set\+Account\+Groups\+Member}!account.\+c@{account.\+c}}
+\subsubsection[{\texorpdfstring{set\+Account\+Groups\+Member(account $\ast$act, char $\ast$group, char $\ast$name, char $\ast$phone)}{setAccountGroupsMember(account *act, char *group, char *name, char *phone)}}]{\setlength{\rightskip}{0pt plus 5cm}void set\+Account\+Groups\+Member (
+\begin{DoxyParamCaption}
+\item[{{\bf account} $\ast$}]{act, }
+\item[{char $\ast$}]{group, }
+\item[{char $\ast$}]{name, }
+\item[{char $\ast$}]{phone}
+\end{DoxyParamCaption}
+)}\hypertarget{account_8c_ae2527cfa79e268516be7c3feaa5f503d}{}\label{account_8c_ae2527cfa79e268516be7c3feaa5f503d}
+设置account中的群组成员的名字和电话号码 
+\begin{DoxyParams}{参数}
+{\em act} & 进行操作的account \\
+\hline
+{\em group} & 群组的名字 \\
+\hline
+{\em name} & 联系人的名字 \\
+\hline
+{\em phone} & 联系人的电话 \\
+\hline
+\end{DoxyParams}
+\index{account.\+c@{account.\+c}!set\+Account\+Password@{set\+Account\+Password}}
+\index{set\+Account\+Password@{set\+Account\+Password}!account.\+c@{account.\+c}}
+\subsubsection[{\texorpdfstring{set\+Account\+Password(account $\ast$act, char $\ast$password)}{setAccountPassword(account *act, char *password)}}]{\setlength{\rightskip}{0pt plus 5cm}void set\+Account\+Password (
+\begin{DoxyParamCaption}
+\item[{{\bf account} $\ast$}]{act, }
+\item[{char $\ast$}]{password}
+\end{DoxyParamCaption}
+)}\hypertarget{account_8c_a7617f42ff1a76f74971b594527fd92da}{}\label{account_8c_a7617f42ff1a76f74971b594527fd92da}
+设置account的password 
+\begin{DoxyParams}{参数}
+{\em act} & 进行修改的account \\
+\hline
+{\em password} & 设置的password \\
+\hline
+\end{DoxyParams}

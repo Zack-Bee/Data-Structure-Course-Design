@@ -1,0 +1,546 @@
+<!-- HTML header for doxygen 1.8.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- For Mobile Devices -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+        <meta name="generator" content="Doxygen 1.8.11"/>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <title>Data-Structure-Course-Design: src/contacts/server.c 文件参考</title>
+        <!--<link href="tabs.css" rel="stylesheet" type="text/css"/>-->
+        <script type="text/javascript" src="dynsections.js"></script>
+        <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+        <link href="doxygen.css" rel="stylesheet" type="text/css" />
+        <link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
+        <link href='https://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="doxy-boot.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand">Data-Structure-Course-Design </a>
+                </div>
+            </div>
+        </nav>
+        <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+            <div class="content" id="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 panel " style="padding-bottom: 15px;">
+                            <div style="margin-bottom: 15px;">
+<!-- end header part --><!-- 制作者 Doxygen 1.8.11 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>首页</span></a></li>
+      <li><a href="annotated.html"><span>类</span></a></li>
+      <li class="current"><a href="files.html"><span>文件</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="搜索" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>文件列表</span></a></li>
+      <li><a href="globals.html"><span>文件成员</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ddea980f3a1033b7591b5636aa027f3c.html">contacts</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#define-members">宏定义</a> &#124;
+<a href="#func-members">函数</a>  </div>
+  <div class="headertitle">
+<div class="title">server.c 文件参考</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;arpa/inet.h&gt;</code><br />
+<code>#include &lt;errno.h&gt;</code><br />
+<code>#include &lt;fcntl.h&gt;</code><br />
+<code>#include &lt;netinet/in.h&gt;</code><br />
+<code>#include &lt;pthread.h&gt;</code><br />
+<code>#include &lt;stdint.h&gt;</code><br />
+<code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+<code>#include &lt;sys/mman.h&gt;</code><br />
+<code>#include &lt;sys/sendfile.h&gt;</code><br />
+<code>#include &lt;sys/socket.h&gt;</code><br />
+<code>#include &lt;sys/stat.h&gt;</code><br />
+<code>#include &lt;sys/types.h&gt;</code><br />
+<code>#include &lt;sys/wait.h&gt;</code><br />
+<code>#include &lt;unistd.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="account_8h_source.html">account.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+server.c 的引用(Include)关系图:</div>
+<div class="dyncontent">
+<div class="center"><img src="server_8c__incl.png" border="0" usemap="#src_2contacts_2server_8c" alt=""/></div>
+<!-- MAP 0 -->
+</div>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+宏定义</h2></td></tr>
+<tr class="memitem:a8b758397778861ee867bc87f7343be37"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8c.html#a8b758397778861ee867bc87f7343be37">PATH_PREFIX</a>&#160;&#160;&#160;&quot;./src&quot;</td></tr>
+<tr class="separator:a8b758397778861ee867bc87f7343be37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a142810068f1b99cd93d3fc9f0e160e02"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8c.html#a142810068f1b99cd93d3fc9f0e160e02">QUEUE_SIZE</a>&#160;&#160;&#160;64</td></tr>
+<tr class="separator:a142810068f1b99cd93d3fc9f0e160e02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c7cd32e1bac137f05e4a752b4ad10af"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8c.html#a6c7cd32e1bac137f05e4a752b4ad10af">BUFF_SIZE</a>&#160;&#160;&#160;1024</td></tr>
+<tr class="separator:a6c7cd32e1bac137f05e4a752b4ad10af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a142810068f1b99cd93d3fc9f0e160e02"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8c.html#a142810068f1b99cd93d3fc9f0e160e02">QUEUE_SIZE</a>&#160;&#160;&#160;64</td></tr>
+<tr class="separator:a142810068f1b99cd93d3fc9f0e160e02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4bc9f099106d96eb2a037320465307a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8c.html#ab4bc9f099106d96eb2a037320465307a">isSpace</a>(ch)&#160;&#160;&#160;(ch == ' ')</td></tr>
+<tr class="separator:ab4bc9f099106d96eb2a037320465307a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e74910d6d5f2843a980c2d704492683"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8c.html#a1e74910d6d5f2843a980c2d704492683">isEnter</a>(ch)&#160;&#160;&#160;(ch == '\n')</td></tr>
+<tr class="separator:a1e74910d6d5f2843a980c2d704492683"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:a42bbfa40318977487f19c81e3c5e0672"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8c.html#a42bbfa40318977487f19c81e3c5e0672">newServer</a> ()</td></tr>
+<tr class="separator:a42bbfa40318977487f19c81e3c5e0672"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcd0b94e6cf5e068c7cb668bc8a31a21"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8c.html#afcd0b94e6cf5e068c7cb668bc8a31a21">responseClient</a> (int *clientFileDesc, <a class="el" href="structdict.html">dict</a> *database)</td></tr>
+<tr class="separator:afcd0b94e6cf5e068c7cb668bc8a31a21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a891ed805c92ec279b1739827efc0c2a0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8c.html#a891ed805c92ec279b1739827efc0c2a0">responseFile</a> (int clientFileDesc, const char *path)</td></tr>
+<tr class="separator:a891ed805c92ec279b1739827efc0c2a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5dd02e2d03f9853765ab54a8bd4cb1e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8c.html#ac5dd02e2d03f9853765ab54a8bd4cb1e">responseMessage</a> (int clientFileDesc, <a class="el" href="structdict.html">dict</a> *database, char *buf, int bufSize)</td></tr>
+<tr class="separator:ac5dd02e2d03f9853765ab54a8bd4cb1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8d8edecb6156ec75ab22a708704ac3c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8c.html#ab8d8edecb6156ec75ab22a708704ac3c">response_404</a> (int clientFileDesc)</td></tr>
+<tr class="separator:ab8d8edecb6156ec75ab22a708704ac3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3e9e84b5b05463e5e011b1829fa2ac6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8c.html#ab3e9e84b5b05463e5e011b1829fa2ac6">response_200</a> (int clientFileDesc, const char *type)</td></tr>
+<tr class="separator:ab3e9e84b5b05463e5e011b1829fa2ac6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87300aca79e392e8a4615e2d7c2c0d60"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8c.html#a87300aca79e392e8a4615e2d7c2c0d60">execCommand</a> (<a class="el" href="structdict.html">dict</a> *db, <a class="el" href="structsds.html">sds</a> *s)</td></tr>
+<tr class="separator:a87300aca79e392e8a4615e2d7c2c0d60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c04138a5bfe5d72780bb7e82a18e627"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8c.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (int argc, char **argv)</td></tr>
+<tr class="separator:a3c04138a5bfe5d72780bb7e82a18e627"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad20ada8dd8b99c45bf1ea27c67d38dc2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8c.html#ad20ada8dd8b99c45bf1ea27c67d38dc2">newServer</a> (char *server, int port)</td></tr>
+<tr class="separator:ad20ada8dd8b99c45bf1ea27c67d38dc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">宏定义说明</h2>
+<a class="anchor" id="a6c7cd32e1bac137f05e4a752b4ad10af"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BUFF_SIZE&#160;&#160;&#160;1024</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a1e74910d6d5f2843a980c2d704492683"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define isEnter</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">ch</td><td>)</td>
+          <td>&#160;&#160;&#160;(ch == '\n')</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ab4bc9f099106d96eb2a037320465307a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define isSpace</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">ch</td><td>)</td>
+          <td>&#160;&#160;&#160;(ch == ' ')</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a8b758397778861ee867bc87f7343be37"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PATH_PREFIX&#160;&#160;&#160;&quot;./src&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>虽然几乎所有内容都被我重构了, 但是此模块参考了"喜欢兰花山丘"的实现, blog: <a href="http://www.cnblogs.com/life2refuel/p/5277111.html">http://www.cnblogs.com/life2refuel/p/5277111.html</a> </p>
+
+</div>
+</div>
+<a class="anchor" id="a142810068f1b99cd93d3fc9f0e160e02"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define QUEUE_SIZE&#160;&#160;&#160;64</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a142810068f1b99cd93d3fc9f0e160e02"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define QUEUE_SIZE&#160;&#160;&#160;64</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">函数说明</h2>
+<a class="anchor" id="a87300aca79e392e8a4615e2d7c2c0d60"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void execCommand </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structdict.html">dict</a> *&#160;</td>
+          <td class="paramname"><em>db</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structsds.html">sds</a> *&#160;</td>
+          <td class="paramname"><em>s</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>执行客户端传来的命令, 将返回的数据用sds存储 </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">db</td><td>执行操作的database </td></tr>
+    <tr><td class="paramname">s</td><td>用于存储执行的命令以及返回结果的sds </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a3c04138a5bfe5d72780bb7e82a18e627"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int main </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>argv</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a42bbfa40318977487f19c81e3c5e0672"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int newServer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>创建一个server fileDesc </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">return</td><td>返回创建的server fileDesc </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ad20ada8dd8b99c45bf1ea27c67d38dc2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int newServer </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>server</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>port</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ab3e9e84b5b05463e5e011b1829fa2ac6"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void response_200 </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>clientFileDesc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>type</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>// 返回200 请求成功 </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">clientFileDesc</td><td>客户端文件描述符 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ab8d8edecb6156ec75ab22a708704ac3c"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void response_404 </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>clientFileDesc</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>返回404, 请求文件没有找到 </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">clientFileDesc</td><td>客户端文件描述符 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="afcd0b94e6cf5e068c7cb668bc8a31a21"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void * responseClient </td>
+          <td>(</td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>clientFileDesc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structdict.html">dict</a> *&#160;</td>
+          <td class="paramname"><em>database</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>在客户端链接过来, 多线程处理的函数 </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">clientFileDesc</td><td>客户端文件描述符 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>返回处理结果,这里默认返回 NULL </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a891ed805c92ec279b1739827efc0c2a0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void responseFile </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>clientFileDesc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>path</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>将文件 发送给客户端 </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">clientFileDesc</td><td>客户端文件描述符 </td></tr>
+    <tr><td class="paramname">path</td><td>发送的文件路径 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ac5dd02e2d03f9853765ab54a8bd4cb1e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void responseMessage </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>clientFileDesc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structdict.html">dict</a> *&#160;</td>
+          <td class="paramname"><em>database</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>buf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>bufSize</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>处理客户端的http请求 </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">clientFileDesc</td><td>客户端文件描述符 </td></tr>
+    <tr><td class="paramname">path</td><td>请求的文件路径 </td></tr>
+    <tr><td class="paramname">query</td><td>请求发送的过来的数据 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- HTML footer for doxygen 1.8.8-->
+<!-- start footer part -->
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  <hr class="footer"/><address class="footer"><small>
+  制作者 &#160;<a href="http://www.doxygen.org/index.html">
+  <img class="footer" src="doxygen.png" alt="doxygen"/>
+  </a> 1.8.11
+  </small></address>
+  </body>
+  </html>

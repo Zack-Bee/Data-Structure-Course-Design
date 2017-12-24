@@ -1,0 +1,129 @@
+\hypertarget{copy_8c}{}\section{src/contacts/copy.c 文件参考}
+\label{copy_8c}\index{src/contacts/copy.\+c@{src/contacts/copy.\+c}}
+{\ttfamily \#include \char`\"{}sds.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$stdint.\+h$>$}\\*
+copy.\+c 的引用(Include)关系图\+:
+% FIG 0
+\subsection*{类}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structsds}{sds}
+\end{DoxyCompactItemize}
+\subsection*{宏定义}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{copy_8c_a845e992286f2f28960ef5185fa5f99e8}{S\+D\+S\+\_\+H}
+\item 
+\#define \hyperlink{copy_8c_aec9146fde7434d155af506a49ce77649}{S\+D\+S\+\_\+\+I\+N\+I\+T\+\_\+\+S\+I\+ZE}~32
+\end{DoxyCompactItemize}
+\subsection*{类型定义}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structsds}{sds} \hyperlink{copy_8c_ad051e018579d7dea80aa4f7a00d4ba8f}{sds}
+\end{DoxyCompactItemize}
+\subsection*{函数}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structsds}{sds} $\ast$ \hyperlink{copy_8c_a020d6c7b9b92e37ed09d448262c91152}{new\+Std} (void)
+\item 
+\hyperlink{structsds}{sds} $\ast$ \hyperlink{copy_8c_a1a9f96a75718dd5b9bb221506792e7b1}{new\+Copy\+Sds} (char $\ast$str)
+\item 
+uint64\+\_\+t \hyperlink{copy_8c_acf963304d8b7bc761ae2393bd845636b}{get\+Sds\+Length} (\hyperlink{structsds}{sds} $\ast$s)
+\item 
+void \hyperlink{copy_8c_a8fe4a373f20e4f2a4bfca65dfb6fbae0}{destroy\+Sds} (\hyperlink{structsds}{sds} $\ast$s)
+\item 
+\hyperlink{structsds}{sds} $\ast$ \hyperlink{copy_8c_aed9c59de440fecb5660934aaed0de19a}{new\+Sds} (void)
+\item 
+void \hyperlink{copy_8c_ac6097287306319574dba8ce560a77927}{clear\+Sds} (\hyperlink{structsds}{sds} $\ast$s)
+\end{DoxyCompactItemize}
+
+
+\subsection{宏定义说明}
+\index{copy.\+c@{copy.\+c}!S\+D\+S\+\_\+H@{S\+D\+S\+\_\+H}}
+\index{S\+D\+S\+\_\+H@{S\+D\+S\+\_\+H}!copy.\+c@{copy.\+c}}
+\subsubsection[{\texorpdfstring{S\+D\+S\+\_\+H}{SDS_H}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+D\+S\+\_\+H}\hypertarget{copy_8c_a845e992286f2f28960ef5185fa5f99e8}{}\label{copy_8c_a845e992286f2f28960ef5185fa5f99e8}
+\index{copy.\+c@{copy.\+c}!S\+D\+S\+\_\+\+I\+N\+I\+T\+\_\+\+S\+I\+ZE@{S\+D\+S\+\_\+\+I\+N\+I\+T\+\_\+\+S\+I\+ZE}}
+\index{S\+D\+S\+\_\+\+I\+N\+I\+T\+\_\+\+S\+I\+ZE@{S\+D\+S\+\_\+\+I\+N\+I\+T\+\_\+\+S\+I\+ZE}!copy.\+c@{copy.\+c}}
+\subsubsection[{\texorpdfstring{S\+D\+S\+\_\+\+I\+N\+I\+T\+\_\+\+S\+I\+ZE}{SDS_INIT_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+D\+S\+\_\+\+I\+N\+I\+T\+\_\+\+S\+I\+ZE~32}\hypertarget{copy_8c_aec9146fde7434d155af506a49ce77649}{}\label{copy_8c_aec9146fde7434d155af506a49ce77649}
+
+
+\subsection{类型定义说明}
+\index{copy.\+c@{copy.\+c}!sds@{sds}}
+\index{sds@{sds}!copy.\+c@{copy.\+c}}
+\subsubsection[{\texorpdfstring{sds}{sds}}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf sds}  {\bf sds}}\hypertarget{copy_8c_ad051e018579d7dea80aa4f7a00d4ba8f}{}\label{copy_8c_ad051e018579d7dea80aa4f7a00d4ba8f}
+
+
+\subsection{函数说明}
+\index{copy.\+c@{copy.\+c}!clear\+Sds@{clear\+Sds}}
+\index{clear\+Sds@{clear\+Sds}!copy.\+c@{copy.\+c}}
+\subsubsection[{\texorpdfstring{clear\+Sds(sds $\ast$s)}{clearSds(sds *s)}}]{\setlength{\rightskip}{0pt plus 5cm}void clear\+Sds (
+\begin{DoxyParamCaption}
+\item[{{\bf sds} $\ast$}]{s}
+\end{DoxyParamCaption}
+)}\hypertarget{copy_8c_ac6097287306319574dba8ce560a77927}{}\label{copy_8c_ac6097287306319574dba8ce560a77927}
+释放sds中str的空间，将sds初始化 
+\begin{DoxyParams}{参数}
+{\em s} & 进行操作的sds \\
+\hline
+\end{DoxyParams}
+\index{copy.\+c@{copy.\+c}!destroy\+Sds@{destroy\+Sds}}
+\index{destroy\+Sds@{destroy\+Sds}!copy.\+c@{copy.\+c}}
+\subsubsection[{\texorpdfstring{destroy\+Sds(sds $\ast$s)}{destroySds(sds *s)}}]{\setlength{\rightskip}{0pt plus 5cm}void destroy\+Sds (
+\begin{DoxyParamCaption}
+\item[{{\bf sds} $\ast$}]{s}
+\end{DoxyParamCaption}
+)}\hypertarget{copy_8c_a8fe4a373f20e4f2a4bfca65dfb6fbae0}{}\label{copy_8c_a8fe4a373f20e4f2a4bfca65dfb6fbae0}
+销毁sds，释放空间ff 
+\begin{DoxyParams}{参数}
+{\em s} & 进行操作的sds \\
+\hline
+\end{DoxyParams}
+\index{copy.\+c@{copy.\+c}!get\+Sds\+Length@{get\+Sds\+Length}}
+\index{get\+Sds\+Length@{get\+Sds\+Length}!copy.\+c@{copy.\+c}}
+\subsubsection[{\texorpdfstring{get\+Sds\+Length(sds $\ast$s)}{getSdsLength(sds *s)}}]{\setlength{\rightskip}{0pt plus 5cm}uint64\+\_\+t get\+Sds\+Length (
+\begin{DoxyParamCaption}
+\item[{{\bf sds} $\ast$}]{s}
+\end{DoxyParamCaption}
+)}\hypertarget{copy_8c_acf963304d8b7bc761ae2393bd845636b}{}\label{copy_8c_acf963304d8b7bc761ae2393bd845636b}
+得到sds已经使用的长度 
+\begin{DoxyParams}{参数}
+{\em s} & 进行操作的sds \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+长度 
+\end{DoxyReturn}
+\index{copy.\+c@{copy.\+c}!new\+Copy\+Sds@{new\+Copy\+Sds}}
+\index{new\+Copy\+Sds@{new\+Copy\+Sds}!copy.\+c@{copy.\+c}}
+\subsubsection[{\texorpdfstring{new\+Copy\+Sds(char $\ast$str)}{newCopySds(char *str)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf sds} $\ast$ new\+Copy\+Sds (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{str}
+\end{DoxyParamCaption}
+)}\hypertarget{copy_8c_a1a9f96a75718dd5b9bb221506792e7b1}{}\label{copy_8c_a1a9f96a75718dd5b9bb221506792e7b1}
+从字符串创建sds，如果空间不够，将length$\ast$2，直到能够容纳str 
+\begin{DoxyParams}{参数}
+{\em str} & 被复制的原生字符串 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+返回创建的sds 
+\end{DoxyReturn}
+\index{copy.\+c@{copy.\+c}!new\+Sds@{new\+Sds}}
+\index{new\+Sds@{new\+Sds}!copy.\+c@{copy.\+c}}
+\subsubsection[{\texorpdfstring{new\+Sds(void)}{newSds(void)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf sds}$\ast$ new\+Sds (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{copy_8c_aed9c59de440fecb5660934aaed0de19a}{}\label{copy_8c_aed9c59de440fecb5660934aaed0de19a}
+创建一个sds，大小为\+S\+D\+S\+\_\+\+I\+N\+I\+T\+\_\+\+S\+I\+ZE \begin{DoxyReturn}{返回}
+返回创建的sds 
+\end{DoxyReturn}
+\index{copy.\+c@{copy.\+c}!new\+Std@{new\+Std}}
+\index{new\+Std@{new\+Std}!copy.\+c@{copy.\+c}}
+\subsubsection[{\texorpdfstring{new\+Std(void)}{newStd(void)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf sds}$\ast$ new\+Std (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{copy_8c_a020d6c7b9b92e37ed09d448262c91152}{}\label{copy_8c_a020d6c7b9b92e37ed09d448262c91152}
