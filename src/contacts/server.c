@@ -356,8 +356,8 @@ void execCommand(dict *database, sds *s) {
                 printf("correct password\n");
                 return;
             } else {
-                printf("wronng password\n");
-                setSds(s, "wronng password");
+                printf("error password\n");
+                setSds(s, "error password");
             }
         } else {
             setDictEntry(database, getSdsStr(sdsArr[1]), act = newAccount());
