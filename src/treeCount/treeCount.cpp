@@ -17,7 +17,7 @@ typedef std::unordered_map<std::string, city> tree;
 string treeCount(char *path) {
     string s = "{", s1 = "";
     tree t;
-    int count, i = 0, j = 0,n;
+    int count, i , j ,n;
     char cityName[100], treeName[100];
     char str1[100], str2[100];
     memset(str1, 0, 100);
@@ -25,8 +25,10 @@ string treeCount(char *path) {
     FILE *fp = fopen(path, "rb");
     while (!feof(fp)) {
         fscanf(fp, "%s %s %d", treeName, cityName, &count);
+        j=0;
         for (tree::iterator it = t.begin(); it != t.end(); it++) {
             if (treeName == (*it).first) {
+                i=0;
                 for (city::iterator iter = ((*it).second).begin();
                      iter != ((*it).second).end(); iter++) {
                     if (cityName == (*iter).first) {
@@ -38,9 +40,9 @@ string treeCount(char *path) {
                 if (i == 0) {
                     ((*it).second).insert(make_pair(cityName, count));
                 }
-            }
             j = 1;
             break;
+            }
         }
         if (j == 0) {
             city c;
@@ -52,6 +54,7 @@ string treeCount(char *path) {
 
         s1.append("\"");
         s1.append((*it).first);
+        std::cout<<s1<<std::endl;
         s1.append("\":[");
         n=0;
         for (city::iterator iter = (*it).second.begin();
