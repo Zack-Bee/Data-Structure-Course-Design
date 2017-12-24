@@ -98,6 +98,7 @@ void testTreeCount() {
     string s = treeCount(path);
     string s1="{\"柏树\":[{\"name\":\"山西\",""\"value\":\"15\"},{\"name\":\"沈阳\",""\"value\":\"10\"}]}";
     string s2="{\"柏树\":[{\"name\":\"沈阳\",""\"value\":\"10\"},{\"name\":\"山西\",""\"value\":\"15\"}]}";
+    std::cout << s << std::endl;
     if(s.compare(s1)==0||s.compare(s2)==0){
         std::cout<<"treeCount success"<<std::endl;
     }else{

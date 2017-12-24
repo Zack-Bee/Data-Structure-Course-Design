@@ -165,14 +165,16 @@ void *responseClient(int *clientFileDesc, dict *database) {
     }
     *lPtr = '\0';
 
-    printf("method: %s\npath: %s\n", method, path);
+    // printf("method: %s\npath: %s\n", method, path);
 
     // 处理GET请求
     if (strcasecmp("GET", method) == 0) {
         responseFile(*clientFileDesc, path);
+        close(*clientFileDesc);        
     } else if (strcasecmp("POST", method) == 0) { // 处理post请求
         printf("get post\n");
         responseMessage(*clientFileDesc, database, buf, bufSize);
+        close(*clientFileDesc);        
     } else {
         response_404(*clientFileDesc);
         close(*clientFileDesc);
@@ -263,7 +265,7 @@ void responseMessage(int clientFileDesc, dict *database, char *buf,
     if (hasHttpBody) {
         setSds(s, &(buf[httpBodyIndex + 4]));
         execCommand(database, s);
-        printf("i will send %s", getSdsStr(s));
+        printf("i will send message:\n%s\n", getSdsStr(s));
         printf("message's length is %d\n", getSdsLength(s));
         response_200(clientFileDesc, "text/plain");
         write(clientFileDesc, getSdsStr(s), getSdsLength(s));
@@ -385,7 +387,7 @@ void execCommand(dict *database, sds *s) {
                              group = newDict());
             }
 
-            // 有五个参数时, 说明为设置群组成员
+            // 有六个参数时, 说明为设置群组成员
             if ((count + 1) == 6) {
                 setAccountGroupsMember(act, getSdsStr(sdsArr[3]),
                                        getSdsStr(sdsArr[4]),
@@ -409,7 +411,7 @@ void execCommand(dict *database, sds *s) {
             // 有四个参数, 说明为删除群组
             if ((count + 1) == 4) {
                 delAccountGroups(act, getSdsStr(sdsArr[3]));
-            } else if ((count + 1) == 6) {
+            } else if ((count + 1) == 5) {
                 delAccountGroupsMember(act, getSdsStr(sdsArr[3]),
                                        getSdsStr(sdsArr[4]));
             }

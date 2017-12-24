@@ -5,7 +5,7 @@
 #ifndef DICT_H
 #define DICT_H
 
-#define DICT_INIT_SIZE 8
+#define DICT_INIT_SIZE 32
 
 
 /**

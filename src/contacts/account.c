@@ -64,10 +64,12 @@ void delAccountGroups(account *act, char *group) {
 
 // dirty, don't touch
 void getAccountAll(account *act, sds *s) {
+    printf("wil get account all\n");
     uint32_t size = act->contacts->size;
     list *li = NULL;
     listNode *ln = NULL;
     sdsCatStr(s, "{\"contacts\":{");
+    printf("the size of contacts table is $lu", size);
     for (uint32_t i = 0; i < size; i++) {
         li = act->contacts->table[i];
         ln = li->head;
@@ -75,12 +77,14 @@ void getAccountAll(account *act, sds *s) {
             if (ln->key) {
                 sdsCatStr(s, "\"");
                 sdsCatStr(s, ln->key->str);
-                sdsCatStr(s, "\":");
+                sdsCatStr(s, "\":\"");
                 sdsCatStr(s, getSdsStr(ln->key));
                 sdsCatStr(s, "\",");
             }
+            ln = ln->next;
         }
     }
+    printf("a\n");
     sdsReduceStr(s, ",");
     sdsCatStr(s, "},\"groups\":{");
     size = act->groups->size;
@@ -103,14 +107,16 @@ void getAccountAll(account *act, sds *s) {
                         if (lnPtr->key) {
                             sdsCatStr(s, "\"");
                             sdsCatStr(s, lnPtr->key->str);
-                            sdsCatStr(s, "\":");
+                            sdsCatStr(s, "\":\"");
                             sdsCatStr(s, getSdsStr(lnPtr->key));
                             sdsCatStr(s, "\",");
                         }
+                        lnPtr = lnPtr->next;
                     }
                 }
                 sdsReduceStr(s, ",");
                 sdsCatStr(s, "},");
+                ln = ln->next;
             }
         }
     }

@@ -50,6 +50,7 @@ listNode *getListHead(list *li) {
 }
 
 uint32_t setListNode(list *li, char *key, void *val) {
+    printf("set listNode begin\n");
     listNode *p = NULL, *q = NULL;
     for (p = li->head; p != NULL; p = p->next) {
         if (sdsCompareStr(p->key, key) == 0) {
@@ -73,10 +74,13 @@ uint32_t setListNode(list *li, char *key, void *val) {
         li->length++;
         li->tail = q;
 
+    printf("set listNode done\n");        
         return 1;
     } else {
         free(p->val);
         p->val = val;
+
+        printf("set listNode done\n");                
         return 0;
     }
 }
