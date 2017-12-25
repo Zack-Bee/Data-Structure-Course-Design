@@ -59,6 +59,8 @@ void delAccountGroupsMember(account *act, char *group, char *name) {
 
 void delAccountGroups(account *act, char *group) {
     dict *dt = getDictVal(act->groups, group);
+    printf("i will destroy group\n");
+    printf("size %lu\n", dt->size);
     destroyDict(&dt);
 }
 

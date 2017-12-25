@@ -77,17 +77,26 @@ uint32_t setListNode(list *li, char *key, void *val) {
         li->tail = q;
         printf("set listNode done\n");    
 
+<<<<<<< HEAD
+=======
+        printf("set listNode done\n");
+>>>>>>> cbb5e3534b47382183e6fb3cce07ed0b7927186c
         return 1;
     } else {
         free(p->val);
         p->val = val;
         printf("set listNode done\n");  
 
+<<<<<<< HEAD
+=======
+        printf("set listNode done\n");
+>>>>>>> cbb5e3534b47382183e6fb3cce07ed0b7927186c
         return 0;
     }
 }
 
 uint32_t delListNode(list *li, char *key) {
+    printf("del listNode begin\n");
     listNode *cur, *pre;
     if (li == NULL || li->head == NULL || li->tail == NULL) {
         return 0;
@@ -106,6 +115,8 @@ uint32_t delListNode(list *li, char *key) {
             }
             free(pre);
             li->length--;
+            printf("del listNode end at head\n");
+
 
             return 1;
         } else if (sdsCompareStr(li->tail->key, key) == 0) {
@@ -118,6 +129,8 @@ uint32_t delListNode(list *li, char *key) {
             }
             free(pre);
             li->length--;
+            printf("del listNode end at tail\n");
+
 
             return 1;
         } else {
@@ -128,7 +141,12 @@ uint32_t delListNode(list *li, char *key) {
             }
 
             if (cur == NULL) {
+<<<<<<< HEAD
                 //遍历链表，如果不存在key值与字符串相同 返回0
+=======
+                printf("del listNode end at middel1\n");
+
+>>>>>>> cbb5e3534b47382183e6fb3cce07ed0b7927186c
                 return 0;
             } else {
                 //如果链中存在节点key值与字符串相同 删除该节点
@@ -139,6 +157,7 @@ uint32_t delListNode(list *li, char *key) {
                 }
                 free(cur);
                 li->length--;
+                printf("del listNode end at middel2\n");
 
                 return 1;
             }
@@ -147,10 +166,15 @@ uint32_t delListNode(list *li, char *key) {
 }
 
 void traverseList(list *li, void (*function)(void **param)) {
+    printf("0\n");
     if (li != NULL) {
         listNode *p = li->head;
+        printf("traver 1\n");
         while (p != NULL) {
-            function(&(p->val));
+            if (p->val) {
+                printf("here");
+                function(&(p->val));
+            }
             p = p->next;
         }
     }

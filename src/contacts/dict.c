@@ -77,12 +77,16 @@ void *getDictVal(dict *dt, char *key) {
 
 void destroyDict(dict **dt) {
     for (uint32_t i = 0, size = (*dt)->size; i < size; i++) {
+        printf("%u\n", size);
+        printf("begin traverse list\n");
         traverseList((*dt)->table[i], destroySds);
+        printf("begin destroy list\n");
         destroyList(&(*dt)->table[i]);
     }
     free((*dt)->table);
     free(*dt);
     *dt = NULL;
+    printf("destroyDict done\n");
 }
 
 void traverseDict(dict *dt, void (*function)(void **param)) {
