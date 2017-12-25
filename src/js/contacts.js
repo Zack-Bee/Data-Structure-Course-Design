@@ -81,7 +81,7 @@ $(document).ready(function () {
         for (var groupName in account.groups) {
             console.log(`init have group ${groupName}`);
             contactsHTML = "";   
-            var $group = $(`group-id-${groupName}`);     
+            var $group = $(`#group-id-${groupName}`);     
             for (var name in account.groups[groupName]) {
                 console.log(`init group ${groupName} have ${name}`)
                 var phone = account.groups[groupName][name];

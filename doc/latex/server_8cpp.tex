@@ -1,0 +1,180 @@
+\hypertarget{server_8cpp}{}\section{src/tree\+Count/server.cpp 文件参考}
+\label{server_8cpp}\index{src/tree\+Count/server.\+cpp@{src/tree\+Count/server.\+cpp}}
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\\*
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$fcntl.\+h$>$}\\*
+{\ttfamily \#include $<$netinet/in.\+h$>$}\\*
+{\ttfamily \#include $<$pthread.\+h$>$}\\*
+{\ttfamily \#include $<$stdint.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$sys/mman.\+h$>$}\\*
+{\ttfamily \#include $<$sys/sendfile.\+h$>$}\\*
+{\ttfamily \#include $<$sys/socket.\+h$>$}\\*
+{\ttfamily \#include $<$sys/stat.\+h$>$}\\*
+{\ttfamily \#include $<$sys/types.\+h$>$}\\*
+{\ttfamily \#include $<$sys/wait.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}tree\+Count.\+h\char`\"{}}\\*
+server.\+cpp 的引用(Include)关系图\+:
+% FIG 0
+\subsection*{宏定义}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{server_8cpp_a8b758397778861ee867bc87f7343be37}{P\+A\+T\+H\+\_\+\+P\+R\+E\+F\+IX}~\char`\"{}./src\char`\"{}
+\item 
+\#define \hyperlink{server_8cpp_a142810068f1b99cd93d3fc9f0e160e02}{Q\+U\+E\+U\+E\+\_\+\+S\+I\+ZE}~64
+\item 
+\#define \hyperlink{server_8cpp_a6c7cd32e1bac137f05e4a752b4ad10af}{B\+U\+F\+F\+\_\+\+S\+I\+ZE}~1024
+\item 
+\#define \hyperlink{server_8cpp_a142810068f1b99cd93d3fc9f0e160e02}{Q\+U\+E\+U\+E\+\_\+\+S\+I\+ZE}~64
+\item 
+\#define \hyperlink{server_8cpp_ab4bc9f099106d96eb2a037320465307a}{is\+Space}(ch)~(ch == \textquotesingle{} \textquotesingle{})
+\item 
+\#define \hyperlink{server_8cpp_a1e74910d6d5f2843a980c2d704492683}{is\+Enter}(ch)~(ch == \textquotesingle{}\textbackslash{}n\textquotesingle{})
+\end{DoxyCompactItemize}
+\subsection*{函数}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{server_8cpp_a42bbfa40318977487f19c81e3c5e0672}{new\+Server} ()
+\item 
+void $\ast$ \hyperlink{server_8cpp_a2358f97e18b07172f7eacb2f202c5625}{response\+Client} (int $\ast$client\+File\+Desc, string \&str)
+\item 
+void \hyperlink{server_8cpp_a891ed805c92ec279b1739827efc0c2a0}{response\+File} (int client\+File\+Desc, const char $\ast$path)
+\item 
+void \hyperlink{server_8cpp_ab8d8edecb6156ec75ab22a708704ac3c}{response\+\_\+404} (int client\+File\+Desc)
+\item 
+void \hyperlink{server_8cpp_ab3e9e84b5b05463e5e011b1829fa2ac6}{response\+\_\+200} (int client\+File\+Desc, const char $\ast$type)
+\item 
+int \hyperlink{server_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\item 
+int \hyperlink{server_8cpp_ad20ada8dd8b99c45bf1ea27c67d38dc2}{new\+Server} (char $\ast$server, int port)
+\item 
+int \hyperlink{server_8cpp_a8f4d498181623ef3891f507b33e91f1e}{get\+File\+Desc\+Line} (int file\+Desc, char buf\mbox{[}$\,$\mbox{]}, int size)
+\end{DoxyCompactItemize}
+
+
+\subsection{宏定义说明}
+\index{server.\+cpp@{server.\+cpp}!B\+U\+F\+F\+\_\+\+S\+I\+ZE@{B\+U\+F\+F\+\_\+\+S\+I\+ZE}}
+\index{B\+U\+F\+F\+\_\+\+S\+I\+ZE@{B\+U\+F\+F\+\_\+\+S\+I\+ZE}!server.\+cpp@{server.\+cpp}}
+\subsubsection[{\texorpdfstring{B\+U\+F\+F\+\_\+\+S\+I\+ZE}{BUFF_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+U\+F\+F\+\_\+\+S\+I\+ZE~1024}\hypertarget{server_8cpp_a6c7cd32e1bac137f05e4a752b4ad10af}{}\label{server_8cpp_a6c7cd32e1bac137f05e4a752b4ad10af}
+\index{server.\+cpp@{server.\+cpp}!is\+Enter@{is\+Enter}}
+\index{is\+Enter@{is\+Enter}!server.\+cpp@{server.\+cpp}}
+\subsubsection[{\texorpdfstring{is\+Enter}{isEnter}}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+Enter(
+\begin{DoxyParamCaption}
+\item[{}]{ch}
+\end{DoxyParamCaption}
+)~(ch == \textquotesingle{}\textbackslash{}n\textquotesingle{})}\hypertarget{server_8cpp_a1e74910d6d5f2843a980c2d704492683}{}\label{server_8cpp_a1e74910d6d5f2843a980c2d704492683}
+\index{server.\+cpp@{server.\+cpp}!is\+Space@{is\+Space}}
+\index{is\+Space@{is\+Space}!server.\+cpp@{server.\+cpp}}
+\subsubsection[{\texorpdfstring{is\+Space}{isSpace}}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+Space(
+\begin{DoxyParamCaption}
+\item[{}]{ch}
+\end{DoxyParamCaption}
+)~(ch == \textquotesingle{} \textquotesingle{})}\hypertarget{server_8cpp_ab4bc9f099106d96eb2a037320465307a}{}\label{server_8cpp_ab4bc9f099106d96eb2a037320465307a}
+\index{server.\+cpp@{server.\+cpp}!P\+A\+T\+H\+\_\+\+P\+R\+E\+F\+IX@{P\+A\+T\+H\+\_\+\+P\+R\+E\+F\+IX}}
+\index{P\+A\+T\+H\+\_\+\+P\+R\+E\+F\+IX@{P\+A\+T\+H\+\_\+\+P\+R\+E\+F\+IX}!server.\+cpp@{server.\+cpp}}
+\subsubsection[{\texorpdfstring{P\+A\+T\+H\+\_\+\+P\+R\+E\+F\+IX}{PATH_PREFIX}}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+A\+T\+H\+\_\+\+P\+R\+E\+F\+IX~\char`\"{}./src\char`\"{}}\hypertarget{server_8cpp_a8b758397778861ee867bc87f7343be37}{}\label{server_8cpp_a8b758397778861ee867bc87f7343be37}
+虽然几乎所有内容都被我重构了, 但是此模块参考了\char`\"{}喜欢兰花山丘\char`\"{}的实现, blog\+: \href{http://www.cnblogs.com/life2refuel/p/5277111.html}{\tt http\+://www.\+cnblogs.\+com/life2refuel/p/5277111.\+html} \index{server.\+cpp@{server.\+cpp}!Q\+U\+E\+U\+E\+\_\+\+S\+I\+ZE@{Q\+U\+E\+U\+E\+\_\+\+S\+I\+ZE}}
+\index{Q\+U\+E\+U\+E\+\_\+\+S\+I\+ZE@{Q\+U\+E\+U\+E\+\_\+\+S\+I\+ZE}!server.\+cpp@{server.\+cpp}}
+\subsubsection[{\texorpdfstring{Q\+U\+E\+U\+E\+\_\+\+S\+I\+ZE}{QUEUE_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define Q\+U\+E\+U\+E\+\_\+\+S\+I\+ZE~64}\hypertarget{server_8cpp_a142810068f1b99cd93d3fc9f0e160e02}{}\label{server_8cpp_a142810068f1b99cd93d3fc9f0e160e02}
+\index{server.\+cpp@{server.\+cpp}!Q\+U\+E\+U\+E\+\_\+\+S\+I\+ZE@{Q\+U\+E\+U\+E\+\_\+\+S\+I\+ZE}}
+\index{Q\+U\+E\+U\+E\+\_\+\+S\+I\+ZE@{Q\+U\+E\+U\+E\+\_\+\+S\+I\+ZE}!server.\+cpp@{server.\+cpp}}
+\subsubsection[{\texorpdfstring{Q\+U\+E\+U\+E\+\_\+\+S\+I\+ZE}{QUEUE_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define Q\+U\+E\+U\+E\+\_\+\+S\+I\+ZE~64}\hypertarget{server_8cpp_a142810068f1b99cd93d3fc9f0e160e02}{}\label{server_8cpp_a142810068f1b99cd93d3fc9f0e160e02}
+
+
+\subsection{函数说明}
+\index{server.\+cpp@{server.\+cpp}!get\+File\+Desc\+Line@{get\+File\+Desc\+Line}}
+\index{get\+File\+Desc\+Line@{get\+File\+Desc\+Line}!server.\+cpp@{server.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+File\+Desc\+Line(int file\+Desc, char buf[], int size)}{getFileDescLine(int fileDesc, char buf[], int size)}}]{\setlength{\rightskip}{0pt plus 5cm}int get\+File\+Desc\+Line (
+\begin{DoxyParamCaption}
+\item[{int}]{file\+Desc, }
+\item[{char}]{buf\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{size}
+\end{DoxyParamCaption}
+)}\hypertarget{server_8cpp_a8f4d498181623ef3891f507b33e91f1e}{}\label{server_8cpp_a8f4d498181623ef3891f507b33e91f1e}
+\index{server.\+cpp@{server.\+cpp}!main@{main}}
+\index{main@{main}!server.\+cpp@{server.\+cpp}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$$\ast$argv)}{main(int argc, char **argv)}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$$\ast$}]{argv}
+\end{DoxyParamCaption}
+)}\hypertarget{server_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{}\label{server_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}
+\index{server.\+cpp@{server.\+cpp}!new\+Server@{new\+Server}}
+\index{new\+Server@{new\+Server}!server.\+cpp@{server.\+cpp}}
+\subsubsection[{\texorpdfstring{new\+Server()}{newServer()}}]{\setlength{\rightskip}{0pt plus 5cm}int new\+Server (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{server_8cpp_a42bbfa40318977487f19c81e3c5e0672}{}\label{server_8cpp_a42bbfa40318977487f19c81e3c5e0672}
+创建一个server file\+Desc 
+\begin{DoxyParams}{参数}
+{\em return} & 返回创建的server file\+Desc \\
+\hline
+\end{DoxyParams}
+\index{server.\+cpp@{server.\+cpp}!new\+Server@{new\+Server}}
+\index{new\+Server@{new\+Server}!server.\+cpp@{server.\+cpp}}
+\subsubsection[{\texorpdfstring{new\+Server(char $\ast$server, int port)}{newServer(char *server, int port)}}]{\setlength{\rightskip}{0pt plus 5cm}int new\+Server (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{server, }
+\item[{int}]{port}
+\end{DoxyParamCaption}
+)}\hypertarget{server_8cpp_ad20ada8dd8b99c45bf1ea27c67d38dc2}{}\label{server_8cpp_ad20ada8dd8b99c45bf1ea27c67d38dc2}
+\index{server.\+cpp@{server.\+cpp}!response\+\_\+200@{response\+\_\+200}}
+\index{response\+\_\+200@{response\+\_\+200}!server.\+cpp@{server.\+cpp}}
+\subsubsection[{\texorpdfstring{response\+\_\+200(int client\+File\+Desc, const char $\ast$type)}{response_200(int clientFileDesc, const char *type)}}]{\setlength{\rightskip}{0pt plus 5cm}void response\+\_\+200 (
+\begin{DoxyParamCaption}
+\item[{int}]{client\+File\+Desc, }
+\item[{const char $\ast$}]{type}
+\end{DoxyParamCaption}
+)}\hypertarget{server_8cpp_ab3e9e84b5b05463e5e011b1829fa2ac6}{}\label{server_8cpp_ab3e9e84b5b05463e5e011b1829fa2ac6}
+// 返回200 请求成功 
+\begin{DoxyParams}{参数}
+{\em client\+File\+Desc} & 客户端文件描述符 \\
+\hline
+\end{DoxyParams}
+\index{server.\+cpp@{server.\+cpp}!response\+\_\+404@{response\+\_\+404}}
+\index{response\+\_\+404@{response\+\_\+404}!server.\+cpp@{server.\+cpp}}
+\subsubsection[{\texorpdfstring{response\+\_\+404(int client\+File\+Desc)}{response_404(int clientFileDesc)}}]{\setlength{\rightskip}{0pt plus 5cm}void response\+\_\+404 (
+\begin{DoxyParamCaption}
+\item[{int}]{client\+File\+Desc}
+\end{DoxyParamCaption}
+)}\hypertarget{server_8cpp_ab8d8edecb6156ec75ab22a708704ac3c}{}\label{server_8cpp_ab8d8edecb6156ec75ab22a708704ac3c}
+返回404, 请求文件没有找到 
+\begin{DoxyParams}{参数}
+{\em client\+File\+Desc} & 客户端文件描述符 \\
+\hline
+\end{DoxyParams}
+\index{server.\+cpp@{server.\+cpp}!response\+Client@{response\+Client}}
+\index{response\+Client@{response\+Client}!server.\+cpp@{server.\+cpp}}
+\subsubsection[{\texorpdfstring{response\+Client(int $\ast$client\+File\+Desc, string \&str)}{responseClient(int *clientFileDesc, string &str)}}]{\setlength{\rightskip}{0pt plus 5cm}void $\ast$ response\+Client (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{client\+File\+Desc, }
+\item[{string \&}]{str}
+\end{DoxyParamCaption}
+)}\hypertarget{server_8cpp_a2358f97e18b07172f7eacb2f202c5625}{}\label{server_8cpp_a2358f97e18b07172f7eacb2f202c5625}
+在客户端链接过来, 多线程处理的函数 
+\begin{DoxyParams}{参数}
+{\em client\+File\+Desc} & 客户端文件描述符 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+返回处理结果,这里默认返回 N\+U\+LL 
+\end{DoxyReturn}
+\index{server.\+cpp@{server.\+cpp}!response\+File@{response\+File}}
+\index{response\+File@{response\+File}!server.\+cpp@{server.\+cpp}}
+\subsubsection[{\texorpdfstring{response\+File(int client\+File\+Desc, const char $\ast$path)}{responseFile(int clientFileDesc, const char *path)}}]{\setlength{\rightskip}{0pt plus 5cm}void response\+File (
+\begin{DoxyParamCaption}
+\item[{int}]{client\+File\+Desc, }
+\item[{const char $\ast$}]{path}
+\end{DoxyParamCaption}
+)}\hypertarget{server_8cpp_a891ed805c92ec279b1739827efc0c2a0}{}\label{server_8cpp_a891ed805c92ec279b1739827efc0c2a0}
+将文件 发送给客户端 
+\begin{DoxyParams}{参数}
+{\em client\+File\+Desc} & 客户端文件描述符 \\
+\hline
+{\em path} & 发送的文件路径 \\
+\hline
+\end{DoxyParams}

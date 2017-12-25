@@ -1,0 +1,129 @@
+<!-- HTML header for doxygen 1.8.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- For Mobile Devices -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+        <meta name="generator" content="Doxygen 1.8.11"/>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <title>Data-Structure-Course-Design: src/treeCount/sds.h 源文件</title>
+        <!--<link href="tabs.css" rel="stylesheet" type="text/css"/>-->
+        <script type="text/javascript" src="dynsections.js"></script>
+        <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+        <link href="doxygen.css" rel="stylesheet" type="text/css" />
+        <link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
+        <link href='https://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="doxy-boot.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand">Data-Structure-Course-Design </a>
+                </div>
+            </div>
+        </nav>
+        <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+            <div class="content" id="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 panel " style="padding-bottom: 15px;">
+                            <div style="margin-bottom: 15px;">
+<!-- end header part --><!-- 制作者 Doxygen 1.8.11 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>首页</span></a></li>
+      <li><a href="annotated.html"><span>类</span></a></li>
+      <li class="current"><a href="files.html"><span>文件</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="搜索" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>文件列表</span></a></li>
+      <li><a href="globals.html"><span>文件成员</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_f8481e06b15ad5e6b1ccbb4a6c2efc37.html">treeCount</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">sds.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="treeCount_2sds_8h.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;string.h&gt;</span></div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;stdint.h&gt;</span></div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#ifndef SDS_H</span></div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#define SDS_H</span></div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div><div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="treeCount_2sds_8h.html#aec9146fde7434d155af506a49ce77649">    7</a></span>&#160;<span class="preprocessor">#define SDS_INIT_SIZE 16</span></div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structsds.html">sds</a> {</div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    uint32_t <a class="code" href="structsds.html#a333f14feb33f9719162f37377629716a">length</a>;  </div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    uint32_t <a class="code" href="structsds.html#a5d733da962855ed70322d900c51eb65f">used</a>;  </div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordtype">char</span> *<a class="code" href="structsds.html#a3c48d440195e1e20c013334cd8dc3884">str</a>;</div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    void (*<a class="code" href="structsds.html#aa104dfaab4d63ee5b1b5c436d3aca364">destroy</a>)(<span class="keyword">struct </span><a class="code" href="structsds.html">sds</a> *s);</div><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;} <a class="code" href="contacts_2sds_8h.html#ad051e018579d7dea80aa4f7a00d4ba8f">sds</a>;</div><div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<a class="code" href="structsds.html">sds</a> *<a class="code" href="contacts_2sds_8h.html#aed9c59de440fecb5660934aaed0de19a">newSds</a>(<span class="keywordtype">void</span>);</div><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<a class="code" href="structsds.html">sds</a> *<a class="code" href="contacts_2sds_8h.html#a5242c05c637313287ea5bf841d5294a8">newCopySds</a>(<span class="keywordtype">char</span> *<a class="code" href="structsds.html#a3c48d440195e1e20c013334cd8dc3884">str</a>);</div><div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div><div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keywordtype">void</span> <a class="code" href="contacts_2sds_8h.html#a6ef1f4ec8bb29df76beecd60d453d1fb">setSds</a>(<a class="code" href="structsds.html">sds</a> *s, <span class="keywordtype">char</span> *<a class="code" href="structsds.html#a3c48d440195e1e20c013334cd8dc3884">str</a>);</div><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div><div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keywordtype">void</span> <a class="code" href="contacts_2sds_8h.html#a247a3b2200259fe736248a7443147756">destroySds</a>(<a class="code" href="structsds.html">sds</a> **s);</div><div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div><div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keywordtype">int</span> <a class="code" href="contacts_2sds_8h.html#ae7c27e742be8ffbf4a874d166deab5c1">sdsCompareStr</a>(<a class="code" href="structsds.html">sds</a> *s, <span class="keywordtype">char</span> *<a class="code" href="structsds.html#a3c48d440195e1e20c013334cd8dc3884">str</a>);</div><div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div><div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keywordtype">int</span> <a class="code" href="contacts_2sds_8h.html#aa53180776288e62dbe8cfc4855ec94de">sdsCompareSds</a>(<a class="code" href="structsds.html">sds</a> *s1, <a class="code" href="structsds.html">sds</a> *s2);</div><div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div><div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keywordtype">char</span> *<a class="code" href="contacts_2sds_8h.html#a095ff8d173f717773fb81894e7129938">getSdsStr</a>(<a class="code" href="structsds.html">sds</a> *s);</div><div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div><div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="keywordtype">void</span> <a class="code" href="contacts_2sds_8h.html#a56a722167b2bc855adeac261ff1d2cb3">sdsCatStr</a>(<a class="code" href="structsds.html">sds</a> *s, <span class="keywordtype">char</span> *<a class="code" href="structsds.html#a3c48d440195e1e20c013334cd8dc3884">str</a>);</div><div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;</div><div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="keywordtype">void</span> <a class="code" href="contacts_2sds_8h.html#ac3763456decb25a7f79e6500ff91b56d">sdsCatSds</a>(<a class="code" href="structsds.html">sds</a> *s1, <a class="code" href="structsds.html">sds</a> *s2);</div><div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div><div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="keywordtype">void</span> <a class="code" href="contacts_2sds_8h.html#a6adb6afd68f85f6f3ad3d491e6dc978e">sdsReduceStr</a>(<a class="code" href="structsds.html">sds</a> *s, <span class="keywordtype">char</span> *<a class="code" href="structsds.html#a3c48d440195e1e20c013334cd8dc3884">str</a>);</div><div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;</div><div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="treeCount_2sds_8h.html#ad7c92305c3e86d700ffd1ac897c07329">   99</a></span>&#160;<span class="preprocessor">#define getSdsLength(s) (s-&gt;used)</span></div><div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;</div><div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="keywordtype">void</span> <a class="code" href="contacts_2sds_8h.html#ac6097287306319574dba8ce560a77927">clearSds</a>(<a class="code" href="structsds.html">sds</a> *s);</div><div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="preprocessor">#endif    // SDS_H</span></div><div class="ttc" id="contacts_2sds_8h_html_a247a3b2200259fe736248a7443147756"><div class="ttname"><a href="contacts_2sds_8h.html#a247a3b2200259fe736248a7443147756">destroySds</a></div><div class="ttdeci">void destroySds(sds **s)</div><div class="ttdef"><b>Definition:</b> sds.c:39</div></div>
+<div class="ttc" id="contacts_2sds_8h_html_aed9c59de440fecb5660934aaed0de19a"><div class="ttname"><a href="contacts_2sds_8h.html#aed9c59de440fecb5660934aaed0de19a">newSds</a></div><div class="ttdeci">sds * newSds(void)</div><div class="ttdef"><b>Definition:</b> sds.c:5</div></div>
+<div class="ttc" id="contacts_2sds_8h_html_a56a722167b2bc855adeac261ff1d2cb3"><div class="ttname"><a href="contacts_2sds_8h.html#a56a722167b2bc855adeac261ff1d2cb3">sdsCatStr</a></div><div class="ttdeci">void sdsCatStr(sds *s, char *str)</div><div class="ttdef"><b>Definition:</b> sds.c:54</div></div>
+<div class="ttc" id="contacts_2sds_8h_html_aa53180776288e62dbe8cfc4855ec94de"><div class="ttname"><a href="contacts_2sds_8h.html#aa53180776288e62dbe8cfc4855ec94de">sdsCompareSds</a></div><div class="ttdeci">int sdsCompareSds(sds *s1, sds *s2)</div><div class="ttdef"><b>Definition:</b> sds.c:50</div></div>
+<div class="ttc" id="contacts_2sds_8h_html_ae7c27e742be8ffbf4a874d166deab5c1"><div class="ttname"><a href="contacts_2sds_8h.html#ae7c27e742be8ffbf4a874d166deab5c1">sdsCompareStr</a></div><div class="ttdeci">int sdsCompareStr(sds *s, char *str)</div><div class="ttdef"><b>Definition:</b> sds.c:48</div></div>
+<div class="ttc" id="structsds_html_aa104dfaab4d63ee5b1b5c436d3aca364"><div class="ttname"><a href="structsds.html#aa104dfaab4d63ee5b1b5c436d3aca364">sds::destroy</a></div><div class="ttdeci">void(* destroy)(struct sds *s)</div><div class="ttdef"><b>Definition:</b> sds.h:21</div></div>
+<div class="ttc" id="structsds_html_a5d733da962855ed70322d900c51eb65f"><div class="ttname"><a href="structsds.html#a5d733da962855ed70322d900c51eb65f">sds::used</a></div><div class="ttdeci">uint64_t used</div><div class="ttdef"><b>Definition:</b> copy.c:35</div></div>
+<div class="ttc" id="contacts_2sds_8h_html_a6ef1f4ec8bb29df76beecd60d453d1fb"><div class="ttname"><a href="contacts_2sds_8h.html#a6ef1f4ec8bb29df76beecd60d453d1fb">setSds</a></div><div class="ttdeci">void setSds(sds *s, char *str)</div><div class="ttdef"><b>Definition:</b> sds.c:24</div></div>
+<div class="ttc" id="structsds_html"><div class="ttname"><a href="structsds.html">sds</a></div><div class="ttdef"><b>Definition:</b> copy.c:33</div></div>
+<div class="ttc" id="contacts_2sds_8h_html_a6adb6afd68f85f6f3ad3d491e6dc978e"><div class="ttname"><a href="contacts_2sds_8h.html#a6adb6afd68f85f6f3ad3d491e6dc978e">sdsReduceStr</a></div><div class="ttdeci">void sdsReduceStr(sds *s, char *str)</div><div class="ttdef"><b>Definition:</b> sds.c:72</div></div>
+<div class="ttc" id="contacts_2sds_8h_html_ac6097287306319574dba8ce560a77927"><div class="ttname"><a href="contacts_2sds_8h.html#ac6097287306319574dba8ce560a77927">clearSds</a></div><div class="ttdeci">void clearSds(sds *s)</div><div class="ttdef"><b>Definition:</b> sds.c:82</div></div>
+<div class="ttc" id="structsds_html_a3c48d440195e1e20c013334cd8dc3884"><div class="ttname"><a href="structsds.html#a3c48d440195e1e20c013334cd8dc3884">sds::str</a></div><div class="ttdeci">char * str</div><div class="ttdef"><b>Definition:</b> copy.c:36</div></div>
+<div class="ttc" id="contacts_2sds_8h_html_a5242c05c637313287ea5bf841d5294a8"><div class="ttname"><a href="contacts_2sds_8h.html#a5242c05c637313287ea5bf841d5294a8">newCopySds</a></div><div class="ttdeci">sds * newCopySds(char *str)</div><div class="ttdef"><b>Definition:</b> copy.c:10</div></div>
+<div class="ttc" id="contacts_2sds_8h_html_ac3763456decb25a7f79e6500ff91b56d"><div class="ttname"><a href="contacts_2sds_8h.html#ac3763456decb25a7f79e6500ff91b56d">sdsCatSds</a></div><div class="ttdeci">void sdsCatSds(sds *s1, sds *s2)</div><div class="ttdef"><b>Definition:</b> sds.c:63</div></div>
+<div class="ttc" id="contacts_2sds_8h_html_ad051e018579d7dea80aa4f7a00d4ba8f"><div class="ttname"><a href="contacts_2sds_8h.html#ad051e018579d7dea80aa4f7a00d4ba8f">sds</a></div><div class="ttdeci">struct sds sds</div></div>
+<div class="ttc" id="structsds_html_a333f14feb33f9719162f37377629716a"><div class="ttname"><a href="structsds.html#a333f14feb33f9719162f37377629716a">sds::length</a></div><div class="ttdeci">uint64_t length</div><div class="ttdef"><b>Definition:</b> copy.c:34</div></div>
+<div class="ttc" id="contacts_2sds_8h_html_a095ff8d173f717773fb81894e7129938"><div class="ttname"><a href="contacts_2sds_8h.html#a095ff8d173f717773fb81894e7129938">getSdsStr</a></div><div class="ttdeci">char * getSdsStr(sds *s)</div><div class="ttdef"><b>Definition:</b> sds.c:52</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- HTML footer for doxygen 1.8.8-->
+<!-- start footer part -->
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  <hr class="footer"/><address class="footer"><small>
+  制作者 &#160;<a href="http://www.doxygen.org/index.html">
+  <img class="footer" src="doxygen.png" alt="doxygen"/>
+  </a> 1.8.11
+  </small></address>
+  </body>
+  </html>

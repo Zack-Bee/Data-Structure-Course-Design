@@ -30,6 +30,8 @@ server.\+c 的引用(Include)关系图\+:
 \item 
 \#define \hyperlink{server_8c_a142810068f1b99cd93d3fc9f0e160e02}{Q\+U\+E\+U\+E\+\_\+\+S\+I\+ZE}~64
 \item 
+\#define \hyperlink{server_8c_a8331bf314f7f1f38f05b41285ed5e6d8}{A\+O\+F\+\_\+\+F\+I\+LE}~\char`\"{}./contacts.\+aof\char`\"{}
+\item 
 \#define \hyperlink{server_8c_ab4bc9f099106d96eb2a037320465307a}{is\+Space}(ch)~(ch == \textquotesingle{} \textquotesingle{})
 \item 
 \#define \hyperlink{server_8c_a1e74910d6d5f2843a980c2d704492683}{is\+Enter}(ch)~(ch == \textquotesingle{}\textbackslash{}n\textquotesingle{})
@@ -37,7 +39,7 @@ server.\+c 的引用(Include)关系图\+:
 \subsection*{函数}
 \begin{DoxyCompactItemize}
 \item 
-int \hyperlink{server_8c_a42bbfa40318977487f19c81e3c5e0672}{new\+Server} ()
+int \hyperlink{server_8c_ad20ada8dd8b99c45bf1ea27c67d38dc2}{new\+Server} (char $\ast$server, int port)
 \item 
 void $\ast$ \hyperlink{server_8c_afcd0b94e6cf5e068c7cb668bc8a31a21}{response\+Client} (int $\ast$client\+File\+Desc, \hyperlink{structdict}{dict} $\ast$database)
 \item 
@@ -51,13 +53,20 @@ void \hyperlink{server_8c_ab3e9e84b5b05463e5e011b1829fa2ac6}{response\+\_\+200} 
 \item 
 void \hyperlink{server_8c_a87300aca79e392e8a4615e2d7c2c0d60}{exec\+Command} (\hyperlink{structdict}{dict} $\ast$db, \hyperlink{structsds}{sds} $\ast$s)
 \item 
-int \hyperlink{server_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+void \hyperlink{server_8c_aa353d846e61c0899fef1f6a2923b491f}{init\+Database} (\hyperlink{structdict}{dict} $\ast$database, char $\ast$path)
 \item 
-int \hyperlink{server_8c_ad20ada8dd8b99c45bf1ea27c67d38dc2}{new\+Server} (char $\ast$server, int port)
+void \hyperlink{server_8c_a20cae4341fa37d53785883f4885f7b93}{aof} (\hyperlink{structsds}{sds} $\ast$s, char $\ast$path)
+\item 
+int \hyperlink{server_8c_a8f4d498181623ef3891f507b33e91f1e}{get\+File\+Desc\+Line} (int file\+Desc, char buf\mbox{[}$\,$\mbox{]}, int size)
+\item 
+int \hyperlink{server_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
 \end{DoxyCompactItemize}
 
 
 \subsection{宏定义说明}
+\index{server.\+c@{server.\+c}!A\+O\+F\+\_\+\+F\+I\+LE@{A\+O\+F\+\_\+\+F\+I\+LE}}
+\index{A\+O\+F\+\_\+\+F\+I\+LE@{A\+O\+F\+\_\+\+F\+I\+LE}!server.\+c@{server.\+c}}
+\subsubsection[{\texorpdfstring{A\+O\+F\+\_\+\+F\+I\+LE}{AOF_FILE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+O\+F\+\_\+\+F\+I\+LE~\char`\"{}./contacts.\+aof\char`\"{}}\hypertarget{server_8c_a8331bf314f7f1f38f05b41285ed5e6d8}{}\label{server_8c_a8331bf314f7f1f38f05b41285ed5e6d8}
 \index{server.\+c@{server.\+c}!B\+U\+F\+F\+\_\+\+S\+I\+ZE@{B\+U\+F\+F\+\_\+\+S\+I\+ZE}}
 \index{B\+U\+F\+F\+\_\+\+S\+I\+ZE@{B\+U\+F\+F\+\_\+\+S\+I\+ZE}!server.\+c@{server.\+c}}
 \subsubsection[{\texorpdfstring{B\+U\+F\+F\+\_\+\+S\+I\+ZE}{BUFF_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+U\+F\+F\+\_\+\+S\+I\+ZE~1024}\hypertarget{server_8c_a6c7cd32e1bac137f05e4a752b4ad10af}{}\label{server_8c_a6c7cd32e1bac137f05e4a752b4ad10af}
@@ -87,6 +96,21 @@ int \hyperlink{server_8c_ad20ada8dd8b99c45bf1ea27c67d38dc2}{new\+Server} (char $
 
 
 \subsection{函数说明}
+\index{server.\+c@{server.\+c}!aof@{aof}}
+\index{aof@{aof}!server.\+c@{server.\+c}}
+\subsubsection[{\texorpdfstring{aof(sds $\ast$s, char $\ast$path)}{aof(sds *s, char *path)}}]{\setlength{\rightskip}{0pt plus 5cm}void aof (
+\begin{DoxyParamCaption}
+\item[{{\bf sds} $\ast$}]{s, }
+\item[{char $\ast$}]{path}
+\end{DoxyParamCaption}
+)}\hypertarget{server_8c_a20cae4341fa37d53785883f4885f7b93}{}\label{server_8c_a20cae4341fa37d53785883f4885f7b93}
+将收到的指令写入aof文件, 用于服务器重启, 防止数据库丢失数据 
+\begin{DoxyParams}{参数}
+{\em s} & 用于写入是数据 \\
+\hline
+{\em path} & 存储的aof文件 \\
+\hline
+\end{DoxyParams}
 \index{server.\+c@{server.\+c}!exec\+Command@{exec\+Command}}
 \index{exec\+Command@{exec\+Command}!server.\+c@{server.\+c}}
 \subsubsection[{\texorpdfstring{exec\+Command(dict $\ast$db, sds $\ast$s)}{execCommand(dict *db, sds *s)}}]{\setlength{\rightskip}{0pt plus 5cm}void exec\+Command (
@@ -102,6 +126,42 @@ int \hyperlink{server_8c_ad20ada8dd8b99c45bf1ea27c67d38dc2}{new\+Server} (char $
 {\em s} & 用于存储执行的命令以及返回结果的sds \\
 \hline
 \end{DoxyParams}
+\index{server.\+c@{server.\+c}!get\+File\+Desc\+Line@{get\+File\+Desc\+Line}}
+\index{get\+File\+Desc\+Line@{get\+File\+Desc\+Line}!server.\+c@{server.\+c}}
+\subsubsection[{\texorpdfstring{get\+File\+Desc\+Line(int file\+Desc, char buf[], int size)}{getFileDescLine(int fileDesc, char buf[], int size)}}]{\setlength{\rightskip}{0pt plus 5cm}int get\+File\+Desc\+Line (
+\begin{DoxyParamCaption}
+\item[{int}]{file\+Desc, }
+\item[{char}]{buf\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{size}
+\end{DoxyParamCaption}
+)}\hypertarget{server_8c_a8f4d498181623ef3891f507b33e91f1e}{}\label{server_8c_a8f4d498181623ef3891f507b33e91f1e}
+得到文件中的一行 
+\begin{DoxyParams}{参数}
+{\em file\+Desc} & 目标文件描述符 \\
+\hline
+{\em buf} & 存储获得的数据 \\
+\hline
+{\em int} & size buf的大小 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+返回读取到的字符的长度 
+\end{DoxyReturn}
+\index{server.\+c@{server.\+c}!init\+Database@{init\+Database}}
+\index{init\+Database@{init\+Database}!server.\+c@{server.\+c}}
+\subsubsection[{\texorpdfstring{init\+Database(dict $\ast$database, char $\ast$path)}{initDatabase(dict *database, char *path)}}]{\setlength{\rightskip}{0pt plus 5cm}void init\+Database (
+\begin{DoxyParamCaption}
+\item[{{\bf dict} $\ast$}]{database, }
+\item[{char $\ast$}]{path}
+\end{DoxyParamCaption}
+)}\hypertarget{server_8c_aa353d846e61c0899fef1f6a2923b491f}{}\label{server_8c_aa353d846e61c0899fef1f6a2923b491f}
+从文件中读取数据, 用于初始化数据库 
+\begin{DoxyParams}{参数}
+{\em database} & 要执行初始化的数据库 \\
+\hline
+{\em path} & 用于初始化服务器的文件 \\
+\hline
+\end{DoxyParams}
 \index{server.\+c@{server.\+c}!main@{main}}
 \index{main@{main}!server.\+c@{server.\+c}}
 \subsubsection[{\texorpdfstring{main(int argc, char $\ast$$\ast$argv)}{main(int argc, char **argv)}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
@@ -112,24 +172,19 @@ int \hyperlink{server_8c_ad20ada8dd8b99c45bf1ea27c67d38dc2}{new\+Server} (char $
 )}\hypertarget{server_8c_a3c04138a5bfe5d72780bb7e82a18e627}{}\label{server_8c_a3c04138a5bfe5d72780bb7e82a18e627}
 \index{server.\+c@{server.\+c}!new\+Server@{new\+Server}}
 \index{new\+Server@{new\+Server}!server.\+c@{server.\+c}}
-\subsubsection[{\texorpdfstring{new\+Server()}{newServer()}}]{\setlength{\rightskip}{0pt plus 5cm}int new\+Server (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}\hypertarget{server_8c_a42bbfa40318977487f19c81e3c5e0672}{}\label{server_8c_a42bbfa40318977487f19c81e3c5e0672}
-创建一个server file\+Desc 
-\begin{DoxyParams}{参数}
-{\em return} & 返回创建的server file\+Desc \\
-\hline
-\end{DoxyParams}
-\index{server.\+c@{server.\+c}!new\+Server@{new\+Server}}
-\index{new\+Server@{new\+Server}!server.\+c@{server.\+c}}
 \subsubsection[{\texorpdfstring{new\+Server(char $\ast$server, int port)}{newServer(char *server, int port)}}]{\setlength{\rightskip}{0pt plus 5cm}int new\+Server (
 \begin{DoxyParamCaption}
 \item[{char $\ast$}]{server, }
 \item[{int}]{port}
 \end{DoxyParamCaption}
 )}\hypertarget{server_8c_ad20ada8dd8b99c45bf1ea27c67d38dc2}{}\label{server_8c_ad20ada8dd8b99c45bf1ea27c67d38dc2}
+创建一个server file\+Desc 
+\begin{DoxyParams}{参数}
+{\em server} & server监听的地址  port 监听的端口 \\
+\hline
+{\em return} & 返回创建的server file\+Desc \\
+\hline
+\end{DoxyParams}
 \index{server.\+c@{server.\+c}!response\+\_\+200@{response\+\_\+200}}
 \index{response\+\_\+200@{response\+\_\+200}!server.\+c@{server.\+c}}
 \subsubsection[{\texorpdfstring{response\+\_\+200(int client\+File\+Desc, const char $\ast$type)}{response_200(int clientFileDesc, const char *type)}}]{\setlength{\rightskip}{0pt plus 5cm}void response\+\_\+200 (

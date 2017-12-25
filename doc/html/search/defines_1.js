@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['dict_5finit_5fsize',['DICT_INIT_SIZE',['../dict_8h.html#a740e9acce14f0075c85b3d71b4507e45',1,'dict.h']]]
+  ['buff_5fsize',['BUFF_SIZE',['../server_8c.html#a6c7cd32e1bac137f05e4a752b4ad10af',1,'BUFF_SIZE():&#160;server.c'],['../server_8cpp.html#a6c7cd32e1bac137f05e4a752b4ad10af',1,'BUFF_SIZE():&#160;server.cpp']]]
 ];

@@ -1,17 +1,4 @@
-#include "sds.h"
-#include <iostream>
-#include <string>
-#include <unordered_map>
-#include <vector>
-
-using std::make_pair;
-using std::string;
-
-typedef std::unordered_map<std::string, unsigned int> city;
-
-typedef std::unordered_map<std::string, city> tree;
-
-#define INIT_SIZE 10000
+#include "treeCount.h"
 
 
 string treeCount(char *path) {
@@ -94,7 +81,7 @@ string treeCount(char *path) {
     return s;
 }
 
-#define TREE_TEST
+// #define TREE_TEST
 #ifdef TREE_TEST
 
 void testTreeCount() {

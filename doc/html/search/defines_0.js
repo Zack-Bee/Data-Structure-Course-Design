@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['buff_5fsize',['BUFF_SIZE',['../server_8c.html#a6c7cd32e1bac137f05e4a752b4ad10af',1,'server.c']]]
+  ['aof_5ffile',['AOF_FILE',['../server_8c.html#a8331bf314f7f1f38f05b41285ed5e6d8',1,'server.c']]]
 ];

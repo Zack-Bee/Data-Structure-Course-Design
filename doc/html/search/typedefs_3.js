@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['sds',['sds',['../copy_8c.html#ad051e018579d7dea80aa4f7a00d4ba8f',1,'sds():&#160;copy.c'],['../sds_8h.html#ad051e018579d7dea80aa4f7a00d4ba8f',1,'sds():&#160;sds.h']]]
+  ['list',['list',['../list_8h.html#a64b7067460a74ef44e8bbb9c65ce6a37',1,'list.h']]],
+  ['listnode',['listNode',['../list_8h.html#af109d357e4f8eabf6ebb533ca9e45ab9',1,'list.h']]]
 ];

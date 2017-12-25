@@ -1,0 +1,58 @@
+\hypertarget{treeCount_8h}{}\section{src/tree\+Count/tree\+Count.h 文件参考}
+\label{treeCount_8h}\index{src/tree\+Count/tree\+Count.\+h@{src/tree\+Count/tree\+Count.\+h}}
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$unordered\+\_\+map$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+tree\+Count.\+h 的引用(Include)关系图\+:
+% FIG 0
+此图展示该文件直接或间接的被哪些文件引用了\+:
+% FIG 1
+\subsection*{宏定义}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{treeCount_8h_a7ab9c9406d6e8432e3786bd89ec79695}{I\+N\+I\+T\+\_\+\+S\+I\+ZE}~10000
+\end{DoxyCompactItemize}
+\subsection*{类型定义}
+\begin{DoxyCompactItemize}
+\item 
+typedef std\+::unordered\+\_\+map$<$ std\+::string, unsigned int $>$ \hyperlink{treeCount_8h_a77335565b309186defc3bf77bbb761f0}{city}
+\item 
+typedef std\+::unordered\+\_\+map$<$ std\+::string, \hyperlink{treeCount_8h_a77335565b309186defc3bf77bbb761f0}{city} $>$ \hyperlink{treeCount_8h_a9a634e064716cc50588afea63da62247}{tree}
+\end{DoxyCompactItemize}
+\subsection*{函数}
+\begin{DoxyCompactItemize}
+\item 
+string \hyperlink{treeCount_8h_a07997e67a70c43180caaf026cbcd3593}{tree\+Count} (char $\ast$path)
+\end{DoxyCompactItemize}
+
+
+\subsection{宏定义说明}
+\index{tree\+Count.\+h@{tree\+Count.\+h}!I\+N\+I\+T\+\_\+\+S\+I\+ZE@{I\+N\+I\+T\+\_\+\+S\+I\+ZE}}
+\index{I\+N\+I\+T\+\_\+\+S\+I\+ZE@{I\+N\+I\+T\+\_\+\+S\+I\+ZE}!tree\+Count.\+h@{tree\+Count.\+h}}
+\subsubsection[{\texorpdfstring{I\+N\+I\+T\+\_\+\+S\+I\+ZE}{INIT_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+N\+I\+T\+\_\+\+S\+I\+ZE~10000}\hypertarget{treeCount_8h_a7ab9c9406d6e8432e3786bd89ec79695}{}\label{treeCount_8h_a7ab9c9406d6e8432e3786bd89ec79695}
+
+
+\subsection{类型定义说明}
+\index{tree\+Count.\+h@{tree\+Count.\+h}!city@{city}}
+\index{city@{city}!tree\+Count.\+h@{tree\+Count.\+h}}
+\subsubsection[{\texorpdfstring{city}{city}}]{\setlength{\rightskip}{0pt plus 5cm}typedef std\+::unordered\+\_\+map$<$std\+::string, unsigned int$>$ {\bf city}}\hypertarget{treeCount_8h_a77335565b309186defc3bf77bbb761f0}{}\label{treeCount_8h_a77335565b309186defc3bf77bbb761f0}
+\index{tree\+Count.\+h@{tree\+Count.\+h}!tree@{tree}}
+\index{tree@{tree}!tree\+Count.\+h@{tree\+Count.\+h}}
+\subsubsection[{\texorpdfstring{tree}{tree}}]{\setlength{\rightskip}{0pt plus 5cm}typedef std\+::unordered\+\_\+map$<$std\+::string, {\bf city}$>$ {\bf tree}}\hypertarget{treeCount_8h_a9a634e064716cc50588afea63da62247}{}\label{treeCount_8h_a9a634e064716cc50588afea63da62247}
+
+
+\subsection{函数说明}
+\index{tree\+Count.\+h@{tree\+Count.\+h}!tree\+Count@{tree\+Count}}
+\index{tree\+Count@{tree\+Count}!tree\+Count.\+h@{tree\+Count.\+h}}
+\subsubsection[{\texorpdfstring{tree\+Count(char $\ast$path)}{treeCount(char *path)}}]{\setlength{\rightskip}{0pt plus 5cm}string tree\+Count (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{path}
+\end{DoxyParamCaption}
+)}\hypertarget{treeCount_8h_a07997e67a70c43180caaf026cbcd3593}{}\label{treeCount_8h_a07997e67a70c43180caaf026cbcd3593}
+使用hash统计path文件中的树木分布, 转化为json格式返回 
+\begin{DoxyParams}{参数}
+{\em path} & 需要统计的树木分布文件 \\
+\hline
+\end{DoxyParams}

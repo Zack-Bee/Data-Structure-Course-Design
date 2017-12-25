@@ -8,7 +8,7 @@ digraph "src/contacts/list.c"
   Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node3 [label="stdint.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
   Node2 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node4 [label="sds.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$sds_8h.html"];
+  Node4 [label="sds.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$contacts_2sds_8h.html"];
   Node4 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node5 [label="string.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
   Node4 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];

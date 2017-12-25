@@ -19,6 +19,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
+#include <string.h>
 
 #include "account.h"
 
@@ -35,9 +36,11 @@
 
 /**
  *     创建一个server fileDesc
+ *     @param server server监听的地址
+ *     @port port 监听的端口
  *     @param return 返回创建的server fileDesc
  */
-int newServer();
+int newServer(char *server, int port);
 
 /**
  *     在客户端链接过来, 多线程处理的函数
@@ -94,6 +97,16 @@ void initDatabase(dict *database, char *path);
  *     @param path 存储的aof文件
  */ 
 void aof(sds *s, char *path);
+
+/**
+ *     得到文件中的一行
+ *     @param fileDesc 目标文件描述符
+ *     @param buf 存储获得的数据
+ *     @param int size buf的大小
+ *     @return 返回读取到的字符的长度
+ */
+int getFileDescLine(int fileDesc, char buf[], int size);
+
 
 #define isSpace(ch) (ch == ' ')
 
@@ -283,6 +296,7 @@ void responseMessage(int clientFileDesc, dict *database, char *buf,
     }
     if (hasHttpBody) {
         setSds(s, &(buf[httpBodyIndex + 4]));
+        aof(s, AOF_FILE);
         execCommand(database, s);
         printf("i will send message:\n%s\n", getSdsStr(s));
         printf("message's length is %d\n", getSdsLength(s));
@@ -298,6 +312,7 @@ void responseMessage(int clientFileDesc, dict *database, char *buf,
             printf("post size:%d", size);
             printf("%s", buf);
             setSds(s, buf);
+            aof(s, AOF_FILE);
             printf("sds str is %s\n", getSdsStr(s));
             printf("will execCommand\n");
             execCommand(database, s);
@@ -343,7 +358,6 @@ inline void response_200(int clientFileDesc, const char *type) {
 }
 
 void execCommand(dict *database, sds *s) {
-    aof(s, AOF_FILE);
     char *str = getSdsStr(s);
     int count = 0;
     char buf[2];
@@ -467,7 +481,7 @@ void initDatabase(dict *database, char *path) {
         setSds(s, buf);
         execCommand(database, s);
     }
-    printf("init database done");
+    printf("init database done\n");
 }
 
 int getFileDescLine(int fileDesc, char buf[], int size) {

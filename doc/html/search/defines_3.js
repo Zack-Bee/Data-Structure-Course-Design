@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['isenter',['isEnter',['../server_8c.html#a1e74910d6d5f2843a980c2d704492683',1,'server.c']]],
-  ['isspace',['isSpace',['../server_8c.html#ab4bc9f099106d96eb2a037320465307a',1,'server.c']]]
+  ['getsdslength',['getSdsLength',['../contacts_2sds_8h.html#ad7c92305c3e86d700ffd1ac897c07329',1,'getSdsLength():&#160;sds.h'],['../treeCount_2sds_8h.html#ad7c92305c3e86d700ffd1ac897c07329',1,'getSdsLength():&#160;sds.h']]]
 ];

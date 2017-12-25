@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['getsdslength',['getSdsLength',['../sds_8h.html#ad7c92305c3e86d700ffd1ac897c07329',1,'sds.h']]]
+  ['dict_5finit_5fsize',['DICT_INIT_SIZE',['../dict_8h.html#a740e9acce14f0075c85b3d71b4507e45',1,'dict.h']]]
 ];

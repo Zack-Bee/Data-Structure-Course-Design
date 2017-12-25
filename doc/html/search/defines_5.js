@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['queue_5fsize',['QUEUE_SIZE',['../server_8c.html#a142810068f1b99cd93d3fc9f0e160e02',1,'QUEUE_SIZE():&#160;server.c'],['../server_8c.html#a142810068f1b99cd93d3fc9f0e160e02',1,'QUEUE_SIZE():&#160;server.c']]]
+  ['path_5fprefix',['PATH_PREFIX',['../server_8c.html#a8b758397778861ee867bc87f7343be37',1,'PATH_PREFIX():&#160;server.c'],['../server_8cpp.html#a8b758397778861ee867bc87f7343be37',1,'PATH_PREFIX():&#160;server.cpp']]]
 ];
