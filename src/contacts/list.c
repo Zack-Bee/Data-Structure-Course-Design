@@ -52,11 +52,13 @@ listNode *getListHead(list *li) {
 uint32_t setListNode(list *li, char *key, void *val) {
     printf("set listNode begin\n");
     listNode *p = NULL, *q = NULL;
+    //遍历各节点 如果节点key值与字符串key值相同 退出循环
     for (p = li->head; p != NULL; p = p->next) {
         if (sdsCompareStr(p->key, key) == 0) {
             break;
         }
     }
+    //若不存在key值相同的节点 创建新节点连接至链尾
     if (p == NULL) {
         q = (listNode *)malloc(sizeof(listNode));
         if (li->tail != NULL) {
@@ -73,14 +75,14 @@ uint32_t setListNode(list *li, char *key, void *val) {
         q->val = val;
         li->length++;
         li->tail = q;
+        printf("set listNode done\n");    
 
-    printf("set listNode done\n");        
         return 1;
     } else {
         free(p->val);
         p->val = val;
+        printf("set listNode done\n");  
 
-        printf("set listNode done\n");                
         return 0;
     }
 }
@@ -90,6 +92,7 @@ uint32_t delListNode(list *li, char *key) {
     if (li == NULL || li->head == NULL || li->tail == NULL) {
         return 0;
     } else {
+        //如果链头节点key值与字符串key值相同 删除头节点
         if (sdsCompareStr(li->head->key, key) == 0) {
             pre = li->head;
             li->head = pre->next;
@@ -106,6 +109,7 @@ uint32_t delListNode(list *li, char *key) {
 
             return 1;
         } else if (sdsCompareStr(li->tail->key, key) == 0) {
+            //如果链尾节点key值与字符串key值相同 删除链尾节点
             pre = li->tail;
             li->tail = li->tail->prev;
             li->tail->next = NULL;
@@ -118,16 +122,16 @@ uint32_t delListNode(list *li, char *key) {
             return 1;
         } else {
             for (cur = li->head; cur != NULL; cur = cur->next) {
-                // printf("%s", cur->key->str);
                 if (sdsCompareStr(cur->key, key) == 0) {
                     break;
                 }
             }
 
             if (cur == NULL) {
+                //遍历链表，如果不存在key值与字符串相同 返回0
                 return 0;
             } else {
-
+                //如果链中存在节点key值与字符串相同 删除该节点
                 cur->prev->next = cur->next;
                 cur->next->prev = cur->prev;
                 if (cur->key != NULL) {
