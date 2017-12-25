@@ -235,7 +235,7 @@ function genOption(treeName, data) {
         },
         visualMap: {
             min: 0,
-            max: 400,
+            max: 300,
             calculable: true,
             inRange: {
                 color: ['#c8e6c9', '#388e3c', '#0b3806']
