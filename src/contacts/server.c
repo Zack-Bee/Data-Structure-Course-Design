@@ -419,7 +419,7 @@ void execCommand(dict *database, sds *s) {
             if (!group) {
                 setDictEntry(act->groups, getSdsStr(sdsArr[3]),
                              group = newDict());
-                printf("the new group size%lu\n");
+                printf("the new group size %lu\n", group->size);
             }
 
             // 有六个参数时, 说明为设置群组成员

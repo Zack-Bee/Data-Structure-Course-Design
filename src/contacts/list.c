@@ -10,7 +10,7 @@ list *newList(void) {
     } else {
         li->length = 0;
         li->head = NULL;
-        li->tail = li->head;
+        li->tail = NULL;
         li->destroy = destroyList;
         return li;
     }
@@ -25,6 +25,7 @@ void destroyList(list **li) {
         q = p->next;
         if (p->key != NULL) {
             destroySds(&(p->key));
+            p->key = NULL;
         }
         free(p);
         p = q;
@@ -77,7 +78,7 @@ uint32_t setListNode(list *li, char *key, void *val) {
         li->tail = q;
         printf("set listNode done\n");    
 
-        printf("set listNode done\n");
+        // printf("set listNode done\n");
         return 1;
     } else {
         free(p->val);
@@ -155,18 +156,20 @@ uint32_t delListNode(list *li, char *key) {
 }
 
 void traverseList(list *li, void (*function)(void **param)) {
-    printf("0\n");
+    printf("traverse list begin\n");    
+    // printf("0\n");
     if (li != NULL) {
         listNode *p = li->head;
-        printf("traver 1\n");
+        // printf("traver 1\n");
         while (p != NULL) {
             if (p->val) {
-                printf("here");
+                // printf("here");
                 function(&(p->val));
             }
             p = p->next;
         }
     }
+    printf("traverse list done\n");
 }
 
 void *getListVal(list *li, char *key) {
@@ -179,6 +182,20 @@ void *getListVal(list *li, char *key) {
         }
     }
     return NULL;
+}
+
+void *initListVal(list *li, char *key) {
+    if (li != NULL) {
+        listNode *p;
+        for (p = li->head; p != NULL; p = p->next) {
+            if (sdsCompareStr(p->key, key) == 0) {
+                p->key = NULL;
+                void *ptr = p->val;
+                p->val = NULL;
+                return ptr;
+            }
+        }
+    }
 }
 
 // #define LIST_TEST

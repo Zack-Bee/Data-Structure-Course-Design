@@ -77,11 +77,12 @@ void *getDictVal(dict *dt, char *key) {
 
 void destroyDict(dict **dt) {
     for (uint32_t i = 0, size = (*dt)->size; i < size; i++) {
-        printf("%u\n", size);
-        printf("begin traverse list\n");
+        // printf("the dict size if %lu\n", size);
+        // printf("begin traverse list\n");
         traverseList((*dt)->table[i], destroySds);
-        printf("begin destroy list\n");
+        // printf("begin destroy list\n");
         destroyList(&(*dt)->table[i]);
+        (*dt)->table[i] = NULL;
     }
     free((*dt)->table);
     free(*dt);
@@ -93,6 +94,13 @@ void traverseDict(dict *dt, void (*function)(void **param)) {
     for (uint32_t i = 0; i < dt->size; i++) {
         traverseList(dt->table[i], function);
     }
+}
+
+void *initDictVal(dict *dt, char *key) {
+    printf("get key %s\n", key);
+    uint32_t hash = _dictHashFunction(key, dt->size);
+    printf("hash is :%u\n", hash);
+    return initListVal(dt->table[hash], key);
 }
 
 // #define DICT_TEST

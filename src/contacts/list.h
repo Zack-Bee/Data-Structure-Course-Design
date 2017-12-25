@@ -85,4 +85,12 @@ void traverseList(list *li, void (*function)(void **param));
  */
 void destroyList(list **li);
 
+/**
+ *     将key对应的val置为NULL, 并返回原本的val
+ *     @param li 进行操作的list
+ *     @param key 查询的key
+ *     @return 如果存在返回原本的val, 不存在则返回NULL
+ */
+void *initListVal(list *li, char *key);
+
 #endif // LINKEDLIST_H

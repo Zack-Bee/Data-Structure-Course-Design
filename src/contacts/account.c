@@ -58,7 +58,7 @@ void delAccountGroupsMember(account *act, char *group, char *name) {
 }
 
 void delAccountGroups(account *act, char *group) {
-    dict *dt = getDictVal(act->groups, group);
+    dict *dt = initDictVal(act->groups, group);
     printf("i will destroy group\n");
     printf("size %lu\n", dt->size);
     destroyDict(&dt);
@@ -71,19 +71,21 @@ void getAccountAll(account *act, sds *s) {
     list *li = NULL;
     listNode *ln = NULL;
     sdsCatStr(s, "{\"contacts\":{");
-    printf("the size of contacts table is $lu", size);
+    printf("the size of contacts table is %d\n", size);
     for (uint32_t i = 0; i < size; i++) {
         li = act->contacts->table[i];
-        ln = li->head;
-        while (ln) {
-            if (ln->key) {
-                sdsCatStr(s, "\"");
-                sdsCatStr(s, ln->key->str);
-                sdsCatStr(s, "\":\"");
-                sdsCatStr(s, getSdsStr(ln->key));
-                sdsCatStr(s, "\",");
+        if (li) {
+            ln = li->head;
+            while (ln) {
+                if (ln->key) {
+                    sdsCatStr(s, "\"");
+                    sdsCatStr(s, ln->key->str);
+                    sdsCatStr(s, "\":\"");
+                    sdsCatStr(s, getSdsStr(ln->key));
+                    sdsCatStr(s, "\",");
+                }
+                ln = ln->next;
             }
-            ln = ln->next;
         }
     }
     printf("a\n");
@@ -93,35 +95,46 @@ void getAccountAll(account *act, sds *s) {
     li = NULL;
     ln = NULL;
     dict *dt = NULL;
+    printf("b\n");
     for (uint32_t i = 0; i < size; i++) {
         li = act->groups->table[i];
-        ln = li->head;
-        while (ln) {
-            if (ln->key) {
-                sdsCatStr(s, "\"");
-                sdsCatSds(s, ln->key);
-                sdsCatStr(s, "\":{");
-                dt = ln->val;
-                for (uint32_t j = 0; j < dt->size; j++) {
-                    list *liPtr = dt->table[j];
-                    listNode *lnPtr = liPtr->head;
-                    while (lnPtr) {
-                        if (lnPtr->key) {
-                            sdsCatStr(s, "\"");
-                            sdsCatStr(s, lnPtr->key->str);
-                            sdsCatStr(s, "\":\"");
-                            sdsCatStr(s, getSdsStr(lnPtr->key));
-                            sdsCatStr(s, "\",");
+        if (li) {
+            printf("1\n");
+            ln = li->head;
+            while (ln) {
+                if (ln->key) {
+                    sdsCatStr(s, "\"");
+                    sdsCatSds(s, ln->key);
+                    sdsCatStr(s, "\":{");
+                    dt = ln->val;
+                    printf("2\n");
+                    if (dt) {
+                        for (uint32_t j = 0; j < dt->size; j++) {
+                            list *liPtr = dt->table[j];
+                            if (liPtr) {
+                                listNode *lnPtr = liPtr->head;
+                                printf("3\n");
+                                while (lnPtr) {
+                                    if (lnPtr->key && lnPtr->key) {
+                                        sdsCatStr(s, "\"");
+                                        sdsCatStr(s, lnPtr->key->str);
+                                        sdsCatStr(s, "\":\"");
+                                        sdsCatStr(s, getSdsStr(lnPtr->key));
+                                        sdsCatStr(s, "\",");
+                                    }
+                                    lnPtr = lnPtr->next;
+                                }
+                            }
                         }
-                        lnPtr = lnPtr->next;
                     }
+                    sdsReduceStr(s, ",");
+                    sdsCatStr(s, "},");
                 }
-                sdsReduceStr(s, ",");
-                sdsCatStr(s, "},");
                 ln = ln->next;
             }
         }
     }
+    printf("c\n");
     sdsReduceStr(s, ",");
     sdsCatStr(s, "}}");
     printf("%s\n", getSdsStr(s));

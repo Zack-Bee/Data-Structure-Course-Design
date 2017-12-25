@@ -80,4 +80,12 @@ void destroyDict(dict **dt);
 */
 void traverseDict(dict *dt, void (*function)(void **param));
 
+/**
+ *     将key对应的val置空*patch
+ *     @param dt 进行操作的dict
+ *     @param key 查找的key
+ *     @return 返回val的地址
+*/
+void *initDictVal(dict *dt, char *key);
+
 #endif    // DICT_H
