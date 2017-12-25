@@ -77,7 +77,7 @@ void getAccountAll(account *act, sds *s) {
         if (li) {
             ln = li->head;
             while (ln) {
-                if (ln->key) {
+                if (ln->key && sdsCompareStr(ln->key, "")) {
                     sdsCatStr(s, "\"");
                     sdsCatStr(s, ln->key->str);
                     sdsCatStr(s, "\":\"");
@@ -99,7 +99,7 @@ void getAccountAll(account *act, sds *s) {
     for (uint32_t i = 0; i < size; i++) {
         li = act->groups->table[i];
         if (li) {
-            printf("1\n");
+            // printf("1\n");
             ln = li->head;
             while (ln) {
                 if (ln->key) {
@@ -107,15 +107,20 @@ void getAccountAll(account *act, sds *s) {
                     sdsCatSds(s, ln->key);
                     sdsCatStr(s, "\":{");
                     dt = ln->val;
-                    printf("2\n");
+                    // printf("2\n");
                     if (dt) {
                         for (uint32_t j = 0; j < dt->size; j++) {
                             list *liPtr = dt->table[j];
                             if (liPtr) {
                                 listNode *lnPtr = liPtr->head;
-                                printf("3\n");
+                                // printf("3\n");
                                 while (lnPtr) {
-                                    if (lnPtr->key && lnPtr->key) {
+                                    if (lnPtr->key &&
+                                        (sdsCompareStr(lnPtr->key, "") != 0)) {
+                                        printf("the key is %s\n",
+                                               getSdsStr(lnPtr->key));
+                                        printf("the length is %lu\n",
+                                               getSdsLength(lnPtr->key));
                                         sdsCatStr(s, "\"");
                                         sdsCatStr(s, lnPtr->key->str);
                                         sdsCatStr(s, "\":\"");

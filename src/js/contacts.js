@@ -28,6 +28,18 @@ $(document).ready(function () {
         return str.replace(/\s/g, "");
     }
 
+    // 删除没有值的key
+    function delNoneKey(obj) {
+        for (var key in obj) {
+            console.log(key.charCodeAt(0));
+            if (isNaN(key.charCodeAt(0))) {
+                obj[key] = "";
+                delete obj[key];
+                console.log(key);
+            }
+        }
+    }
+
     // 处理登录事件
     function signIn(data) {
         console.log(data);
@@ -52,7 +64,9 @@ $(document).ready(function () {
             if (obj.contacts) {
                 account.contacts = obj.contacts;
             }
+
             if (obj.groups) {
+                delNoneKey(obj.groups);
                 account.groups = obj.groups;
             }
             account.isNewAccount = false;

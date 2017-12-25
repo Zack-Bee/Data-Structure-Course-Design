@@ -91,6 +91,6 @@ void destroyList(list **li);
  *     @param key 查询的key
  *     @return 如果存在返回原本的val, 不存在则返回NULL
  */
-void *initListVal(list *li, char *key);
+void *initListNode(list *li, char *key);
 
 #endif // LINKEDLIST_H

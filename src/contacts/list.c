@@ -184,12 +184,12 @@ void *getListVal(list *li, char *key) {
     return NULL;
 }
 
-void *initListVal(list *li, char *key) {
+void *initListNode(list *li, char *key) {
     if (li != NULL) {
         listNode *p;
         for (p = li->head; p != NULL; p = p->next) {
             if (sdsCompareStr(p->key, key) == 0) {
-                p->key = NULL;
+                clearSds(p->key);
                 void *ptr = p->val;
                 p->val = NULL;
                 return ptr;

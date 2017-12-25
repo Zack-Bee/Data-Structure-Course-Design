@@ -100,7 +100,7 @@ void *initDictVal(dict *dt, char *key) {
     printf("get key %s\n", key);
     uint32_t hash = _dictHashFunction(key, dt->size);
     printf("hash is :%u\n", hash);
-    return initListVal(dt->table[hash], key);
+    return initListNode(dt->table[hash], key);
 }
 
 // #define DICT_TEST
