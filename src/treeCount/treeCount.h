@@ -1,11 +1,13 @@
+#ifndef TREE_COUNT_H
+#define TREE_COUNT_H
+
 #include <string.h>
 #include <iostream>
 #include <string>
 #include <unordered_map>
 #include <vector>
 
-#ifndef TREE_COUNT_H
-#define TREE_COUNT_H
+
 
 using std::make_pair;
 using std::string;

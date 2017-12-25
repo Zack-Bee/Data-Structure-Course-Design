@@ -1,3 +1,22 @@
 html {
     height: 100%;
 }
+
+body {
+    height: 100%; 
+    margin: 0;
+}
+
+#container {
+    height: 100%;
+}
+
+.select-wrapper {
+    /* position: fixed; */
+    left: 0;
+    top: 0;
+}
+
+.wraper-wraper {
+    position: static;
+}
