@@ -7,23 +7,29 @@ string treeCount(char *path) {
     int count, i , j ,p,q,n;
     char cityName[100], treeName[100];
     char str1[100], str2[100];
+    //将字符串str1，str2初始化 设置为0
     memset(str1, 0, 100);
     memset(str2, 0, 100);
     FILE *fp = fopen(path, "rb");
     while (!feof(fp)) {
         fscanf(fp, "%s %s %d", treeName, cityName, &count);
         j=0;
+        //遍历tree
         for (tree::iterator it = t.begin(); it != t.end(); it++) {
+            //如果tree中存在key为treeName的节点
             if (treeName == (*it).first) {
                 i=0;
+                //遍历该节点的city
                 for (city::iterator iter = ((*it).second).begin();
                      iter != ((*it).second).end(); iter++) {
+                    //如果city中存在key为cityName的节点
                     if (cityName == (*iter).first) {
                         (*iter).second += count;
                         i = 1;
                         break;
                     }
                 }
+                //如果不存在key为cityName的节点 加入新节点
                 if (i == 0) {
                     ((*it).second).insert(make_pair(cityName, count));
                 }
@@ -31,12 +37,14 @@ string treeCount(char *path) {
             break;
             }
         }
+        //如果不存在key为treeName的节点 加入新节点
         if (j == 0) {
             city c;
             c.insert(make_pair(cityName, count));
             t.insert(make_pair(treeName, c));
         }
     }
+    //遍历各节点，将数据按json格式保存在字符串s中
     p=0;
     for (tree::iterator it = t.begin(); it != t.end(); it++) {
         if(p==0){
@@ -50,11 +58,11 @@ string treeCount(char *path) {
         q=0;
         for (city::iterator iter = (*it).second.begin();
              iter != (*it).second.end(); iter++) {
-                 if(q==0){
-               q=1;
-           }else{
+                if(q==0){
+                   q=1;
+            }else{
                s1.append(",");
-           }
+            }
                 s1.append("{\"name\":\"");
             i = 0;
            
@@ -78,6 +86,7 @@ string treeCount(char *path) {
         s1 = "";
     }
     s.append("}");
+    
     return s;
 }
 
