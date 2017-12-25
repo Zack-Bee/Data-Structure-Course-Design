@@ -5,11 +5,7 @@ string treeCount(char *path) {
     string s = "{", s1 = "";
     tree t;
     int count, i , j ,p,q,n;
-    char cityName[100], treeName[100];
-    char str1[100], str2[100];
-    //将字符串str1，str2初始化 设置为0
-    memset(str1, 0, 100);
-    memset(str2, 0, 100);
+    char cityName[100], treeName[100],s2[100];
     FILE *fp = fopen(path, "rb");
     while (!feof(fp)) {
         fscanf(fp, "%s %s %d", treeName, cityName, &count);
@@ -64,21 +60,10 @@ string treeCount(char *path) {
                s1.append(",");
             }
                 s1.append("{\"name\":\"");
-            i = 0;
-           
-            while (1) {
-                str1[i] = ((*iter).second % 10) + '0';
-                i++;
-                (*iter).second = (*iter).second / 10;
-                if ((*iter).second == 0)
-                    break;
-            }
-            for (j = 0, i = i - 1; i >= 0; i--, j++) {
-                str2[j] = str1[i];
-            }
-            s1.append((*iter).first);
+                sprintf(s2,"%d",(*iter).second);
+              s1.append((*iter).first);
             s1.append("\",\"value\":\"");
-            s1.append(str2);
+            s1.append(s2);
             s1.append("\"}");
         }
         s1.append("]");
@@ -90,7 +75,7 @@ string treeCount(char *path) {
     return s;
 }
 
-// #define TREE_TEST
+#define TREE_TEST
 #ifdef TREE_TEST
 
 void testTreeCount() {
