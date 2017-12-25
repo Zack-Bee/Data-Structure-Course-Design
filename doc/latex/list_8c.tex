@@ -1,0 +1,154 @@
+\hypertarget{list_8c}{}\section{src/contacts/list.c 文件参考}
+\label{list_8c}\index{src/contacts/list.\+c@{src/contacts/list.\+c}}
+{\ttfamily \#include \char`\"{}list.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}sds.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$malloc.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+list.\+c 的引用(Include)关系图\+:
+% FIG 0
+\subsection*{函数}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structlist}{list} $\ast$ \hyperlink{list_8c_a423c559f3aa69ba59929cd173f1c21f6}{new\+List} (void)
+\item 
+void \hyperlink{list_8c_a2f6c6d7ceb4352c0d596e5d1c236c3d8}{destroy\+List} (\hyperlink{structlist}{list} $\ast$$\ast$li)
+\item 
+uint32\+\_\+t \hyperlink{list_8c_aab5486389c151268998112032a9c13dc}{get\+List\+Length} (\hyperlink{structlist}{list} $\ast$li)
+\item 
+\hyperlink{structlistNode}{list\+Node} $\ast$ \hyperlink{list_8c_a3cbc57d3acd1d93bc8481ba4075dd8b8}{get\+List\+Head} (\hyperlink{structlist}{list} $\ast$li)
+\item 
+uint32\+\_\+t \hyperlink{list_8c_a72041df05c2084e52e46ed7741aa88a9}{set\+List\+Node} (\hyperlink{structlist}{list} $\ast$li, char $\ast$key, void $\ast$val)
+\item 
+uint32\+\_\+t \hyperlink{list_8c_a7aba38123c95c75330d2be7bc07d8834}{del\+List\+Node} (\hyperlink{structlist}{list} $\ast$li, char $\ast$key)
+\item 
+void \hyperlink{list_8c_ac4854870c263ae9b381d09d8b17904ca}{traverse\+List} (\hyperlink{structlist}{list} $\ast$li, void($\ast$function)(void $\ast$$\ast$param))
+\item 
+void $\ast$ \hyperlink{list_8c_a2ac0887bf09482e4b96d87b4712ac880}{get\+List\+Val} (\hyperlink{structlist}{list} $\ast$li, char $\ast$key)
+\end{DoxyCompactItemize}
+
+
+\subsection{函数说明}
+\index{list.\+c@{list.\+c}!del\+List\+Node@{del\+List\+Node}}
+\index{del\+List\+Node@{del\+List\+Node}!list.\+c@{list.\+c}}
+\subsubsection[{\texorpdfstring{del\+List\+Node(list $\ast$li, char $\ast$key)}{delListNode(list *li, char *key)}}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t del\+List\+Node (
+\begin{DoxyParamCaption}
+\item[{{\bf list} $\ast$}]{li, }
+\item[{char $\ast$}]{key}
+\end{DoxyParamCaption}
+)}\hypertarget{list_8c_a7aba38123c95c75330d2be7bc07d8834}{}\label{list_8c_a7aba38123c95c75330d2be7bc07d8834}
+根据key删除节点 
+\begin{DoxyParams}{参数}
+{\em li} & 进行操作的list \\
+\hline
+{\em key} & 进行查询的key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+如果删除了节点, 则返回1, 否则返回0 
+\end{DoxyReturn}
+\index{list.\+c@{list.\+c}!destroy\+List@{destroy\+List}}
+\index{destroy\+List@{destroy\+List}!list.\+c@{list.\+c}}
+\subsubsection[{\texorpdfstring{destroy\+List(list $\ast$$\ast$li)}{destroyList(list **li)}}]{\setlength{\rightskip}{0pt plus 5cm}void destroy\+List (
+\begin{DoxyParamCaption}
+\item[{{\bf list} $\ast$$\ast$}]{li}
+\end{DoxyParamCaption}
+)}\hypertarget{list_8c_a2f6c6d7ceb4352c0d596e5d1c236c3d8}{}\label{list_8c_a2f6c6d7ceb4352c0d596e5d1c236c3d8}
+销毁linkedlist 
+\begin{DoxyParams}{参数}
+{\em li} & 进行操作的linkedlist \\
+\hline
+\end{DoxyParams}
+\index{list.\+c@{list.\+c}!get\+List\+Head@{get\+List\+Head}}
+\index{get\+List\+Head@{get\+List\+Head}!list.\+c@{list.\+c}}
+\subsubsection[{\texorpdfstring{get\+List\+Head(list $\ast$li)}{getListHead(list *li)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf list\+Node}$\ast$ get\+List\+Head (
+\begin{DoxyParamCaption}
+\item[{{\bf list} $\ast$}]{li}
+\end{DoxyParamCaption}
+)}\hypertarget{list_8c_a3cbc57d3acd1d93bc8481ba4075dd8b8}{}\label{list_8c_a3cbc57d3acd1d93bc8481ba4075dd8b8}
+得到list\+Head 
+\begin{DoxyParams}{参数}
+{\em li} & 进行操作的list \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+如果list\+Head存在的话, 返回, 否则返回\+N\+U\+LL 
+\end{DoxyReturn}
+\index{list.\+c@{list.\+c}!get\+List\+Length@{get\+List\+Length}}
+\index{get\+List\+Length@{get\+List\+Length}!list.\+c@{list.\+c}}
+\subsubsection[{\texorpdfstring{get\+List\+Length(list $\ast$li)}{getListLength(list *li)}}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t get\+List\+Length (
+\begin{DoxyParamCaption}
+\item[{{\bf list} $\ast$}]{li}
+\end{DoxyParamCaption}
+)}\hypertarget{list_8c_aab5486389c151268998112032a9c13dc}{}\label{list_8c_aab5486389c151268998112032a9c13dc}
+得到list的长度 
+\begin{DoxyParams}{参数}
+{\em li} & 进行操作的list \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+list的长度 
+\end{DoxyReturn}
+\index{list.\+c@{list.\+c}!get\+List\+Val@{get\+List\+Val}}
+\index{get\+List\+Val@{get\+List\+Val}!list.\+c@{list.\+c}}
+\subsubsection[{\texorpdfstring{get\+List\+Val(list $\ast$li, char $\ast$key)}{getListVal(list *li, char *key)}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ get\+List\+Val (
+\begin{DoxyParamCaption}
+\item[{{\bf list} $\ast$}]{li, }
+\item[{char $\ast$}]{key}
+\end{DoxyParamCaption}
+)}\hypertarget{list_8c_a2ac0887bf09482e4b96d87b4712ac880}{}\label{list_8c_a2ac0887bf09482e4b96d87b4712ac880}
+根据key返回相应list\+Node中的val 
+\begin{DoxyParams}{参数}
+{\em li} & 进行查询的list \\
+\hline
+{\em key} & 用于查询的key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+返回查询到的val, 如果没有结果, 返回\+N\+U\+LL 
+\end{DoxyReturn}
+\index{list.\+c@{list.\+c}!new\+List@{new\+List}}
+\index{new\+List@{new\+List}!list.\+c@{list.\+c}}
+\subsubsection[{\texorpdfstring{new\+List(void)}{newList(void)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf list}$\ast$ new\+List (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{list_8c_a423c559f3aa69ba59929cd173f1c21f6}{}\label{list_8c_a423c559f3aa69ba59929cd173f1c21f6}
+malloc空间，创建一个新的linkedlist \begin{DoxyReturn}{返回}
+返回linkedlist的指针 
+\end{DoxyReturn}
+\index{list.\+c@{list.\+c}!set\+List\+Node@{set\+List\+Node}}
+\index{set\+List\+Node@{set\+List\+Node}!list.\+c@{list.\+c}}
+\subsubsection[{\texorpdfstring{set\+List\+Node(list $\ast$li, char $\ast$key, void $\ast$val)}{setListNode(list *li, char *key, void *val)}}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t set\+List\+Node (
+\begin{DoxyParamCaption}
+\item[{{\bf list} $\ast$}]{li, }
+\item[{char $\ast$}]{key, }
+\item[{void $\ast$}]{val}
+\end{DoxyParamCaption}
+)}\hypertarget{list_8c_a72041df05c2084e52e46ed7741aa88a9}{}\label{list_8c_a72041df05c2084e52e46ed7741aa88a9}
+设置节点的key, val, 如果节点中相应的key不存在, 则创建新的节点插入. 如果存在的话, 将原来的的val销毁 
+\begin{DoxyParams}{参数}
+{\em li} & 进行操作的list \\
+\hline
+{\em key} & 进行查询的key \\
+\hline
+{\em val} & 设置的val \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+如果新建了节点加入, 则返回1, 否则返回0 
+\end{DoxyReturn}
+\index{list.\+c@{list.\+c}!traverse\+List@{traverse\+List}}
+\index{traverse\+List@{traverse\+List}!list.\+c@{list.\+c}}
+\subsubsection[{\texorpdfstring{traverse\+List(list $\ast$li, void($\ast$function)(void $\ast$$\ast$param))}{traverseList(list *li, void(*function)(void **param))}}]{\setlength{\rightskip}{0pt plus 5cm}void traverse\+List (
+\begin{DoxyParamCaption}
+\item[{{\bf list} $\ast$}]{li, }
+\item[{void($\ast$)(void $\ast$$\ast$param)}]{function}
+\end{DoxyParamCaption}
+)}\hypertarget{list_8c_ac4854870c263ae9b381d09d8b17904ca}{}\label{list_8c_ac4854870c263ae9b381d09d8b17904ca}
+使用function对list进行遍历 
+\begin{DoxyParams}{参数}
+{\em li} & 进行遍历的list \\
+\hline
+{\em function} & 遍历使用的函数, 其中param是list\+Node的val \\
+\hline
+\end{DoxyParams}

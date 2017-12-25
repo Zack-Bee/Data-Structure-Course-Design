@@ -1,0 +1,44 @@
+\hypertarget{structaccount}{}\section{account结构体 参考}
+\label{structaccount}\index{account@{account}}
+
+
+{\ttfamily \#include $<$account.\+h$>$}
+
+
+
+account 的协作图\+:
+% FIG 0
+\subsection*{Public 属性}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structsds}{sds} $\ast$ \hyperlink{structaccount_a3e45fe694a28895f58b011f410f3f57f}{password}
+\item 
+\hyperlink{structdict}{dict} $\ast$ \hyperlink{structaccount_ab8f06f05514d9d0f6744875561a4ae74}{contacts}
+\item 
+\hyperlink{structdict}{dict} $\ast$ \hyperlink{structaccount_a957e1ae193761d02468d729a7ee842a2}{groups}
+\item 
+void($\ast$ \hyperlink{structaccount_a1626cfddfd556e10730fc554c3a056aa}{destroy} )(struct \hyperlink{structaccount}{account} $\ast$act)
+\end{DoxyCompactItemize}
+
+
+\subsection{详细描述}
+账号结构 
+
+\subsection{类成员变量说明}
+\index{account@{account}!contacts@{contacts}}
+\index{contacts@{contacts}!account@{account}}
+\subsubsection[{\texorpdfstring{contacts}{contacts}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf dict}$\ast$ account\+::contacts}\hypertarget{structaccount_ab8f06f05514d9d0f6744875561a4ae74}{}\label{structaccount_ab8f06f05514d9d0f6744875561a4ae74}
+联系人字典 \index{account@{account}!destroy@{destroy}}
+\index{destroy@{destroy}!account@{account}}
+\subsubsection[{\texorpdfstring{destroy}{destroy}}]{\setlength{\rightskip}{0pt plus 5cm}void($\ast$ account\+::destroy) (struct {\bf account} $\ast$act)}\hypertarget{structaccount_a1626cfddfd556e10730fc554c3a056aa}{}\label{structaccount_a1626cfddfd556e10730fc554c3a056aa}
+销毁函数的指针 \index{account@{account}!groups@{groups}}
+\index{groups@{groups}!account@{account}}
+\subsubsection[{\texorpdfstring{groups}{groups}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf dict}$\ast$ account\+::groups}\hypertarget{structaccount_a957e1ae193761d02468d729a7ee842a2}{}\label{structaccount_a957e1ae193761d02468d729a7ee842a2}
+联系人群组 \index{account@{account}!password@{password}}
+\index{password@{password}!account@{account}}
+\subsubsection[{\texorpdfstring{password}{password}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf sds}$\ast$ account\+::password}\hypertarget{structaccount_a3e45fe694a28895f58b011f410f3f57f}{}\label{structaccount_a3e45fe694a28895f58b011f410f3f57f}
+账号的密码 
+
+该结构体的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+src/contacts/\hyperlink{account_8h}{account.\+h}\end{DoxyCompactItemize}
