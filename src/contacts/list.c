@@ -74,18 +74,19 @@ uint32_t setListNode(list *li, char *key, void *val) {
         li->length++;
         li->tail = q;
 
-    printf("set listNode done\n");        
+        printf("set listNode done\n");
         return 1;
     } else {
         free(p->val);
         p->val = val;
 
-        printf("set listNode done\n");                
+        printf("set listNode done\n");
         return 0;
     }
 }
 
 uint32_t delListNode(list *li, char *key) {
+    printf("del listNode begin\n");
     listNode *cur, *pre;
     if (li == NULL || li->head == NULL || li->tail == NULL) {
         return 0;
@@ -103,6 +104,8 @@ uint32_t delListNode(list *li, char *key) {
             }
             free(pre);
             li->length--;
+            printf("del listNode end at head\n");
+
 
             return 1;
         } else if (sdsCompareStr(li->tail->key, key) == 0) {
@@ -114,6 +117,8 @@ uint32_t delListNode(list *li, char *key) {
             }
             free(pre);
             li->length--;
+            printf("del listNode end at tail\n");
+
 
             return 1;
         } else {
@@ -125,6 +130,8 @@ uint32_t delListNode(list *li, char *key) {
             }
 
             if (cur == NULL) {
+                printf("del listNode end at middel1\n");
+
                 return 0;
             } else {
 
@@ -135,6 +142,7 @@ uint32_t delListNode(list *li, char *key) {
                 }
                 free(cur);
                 li->length--;
+                printf("del listNode end at middel2\n");
 
                 return 1;
             }
@@ -143,10 +151,15 @@ uint32_t delListNode(list *li, char *key) {
 }
 
 void traverseList(list *li, void (*function)(void **param)) {
+    printf("0\n");
     if (li != NULL) {
         listNode *p = li->head;
+        printf("traver 1\n");
         while (p != NULL) {
-            function(&(p->val));
+            if (p->val) {
+                printf("here");
+                function(&(p->val));
+            }
             p = p->next;
         }
     }

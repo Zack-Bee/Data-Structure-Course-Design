@@ -295,6 +295,7 @@ $(document).ready(function () {
         if (!account.groups.hasOwnProperty(groupName)) {
             return false;
         }
+        console.log(`i will delete group ${groupName}`);
         $.post("../message", 
                 `del ${account.phone} groups ${groupName}\n`, 
                 function (data) {
@@ -413,16 +414,34 @@ $(document).ready(function () {
         $(".collapsible").collapsible();
 
         // 监听删除联系人按钮的点击
-        $(".del-from-contact").click(handleDeleteContact);
+        var delFromContactTags = document.querySelectorAll(".del-from-contact");
+        for (var i = 0; i < delFromContactTags.length; i++) {
+            delFromContactTags[i].addEventListener("click", handleDeleteContact)
+        }
+        // $(".del-from-contact").click(handleDeleteContact);
 
         // 监听从群组删除联系人
-        $(".del-from-group").click(handleDeleteContactFromGroup);
+        var delContactFromGroupTags = document.querySelectorAll(".del-from-group");
+        for (var i = 0; i < delContactFromGroupTags.length; i++) {
+            delContactFromGroupTags[i].addEventListener("click",
+                    handleDeleteContactFromGroup);
+        }
+        // $(".del-from-group").click(handleDeleteContactFromGroup);
 
         // 监听删除群组
-        $(".del-group").click(handleDeleteGroup);
+        var delGroupTags  = document.querySelectorAll(".del-group");
+        for (var i = 0; i < delGroupTags.length; i++) {
+            delGroupTags[i].addEventListener("click", handleDeleteGroup);
+        }
+        // $(".del-group").click(handleDeleteGroup);
 
         // 监听加入群组按钮的点击
-        $(".add-to-group").click(handleAddContactToGroup);
+        var addToGroupTags = document.querySelectorAll(".add-to-group");
+        for (var i = 0; i < addToGroupTags.length; i++) {
+            addToGroupTags[i].addEventListener("click",
+                    handleAddContactToGroup);
+        }
+        // $(".add-to-group").click(handleAddContactToGroup);
     }
 
     function genForm() {
@@ -448,7 +467,7 @@ $(document).ready(function () {
         } else if (account.operation === "create contact") {
             temp = `<div class="input-field col s8 m4 offset-s2 offset-m4">
                         <i class="material-icons prefix">account_circle</i>
-                        <input id="nameInput" type="tel" class="validate">
+                        <input id="nameInput" type="text" class="validate">
                         <label for="nameInput">姓名</label>
                     </div>
                     <div class="input-field col s8 m4 offset-s2 offset-m4">

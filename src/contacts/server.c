@@ -385,6 +385,7 @@ void execCommand(dict *database, sds *s) {
             if (!group) {
                 setDictEntry(act->groups, getSdsStr(sdsArr[3]),
                              group = newDict());
+                printf("the new group size%lu\n");
             }
 
             // 有六个参数时, 说明为设置群组成员
@@ -410,8 +411,10 @@ void execCommand(dict *database, sds *s) {
 
             // 有四个参数, 说明为删除群组
             if ((count + 1) == 4) {
+                printf("will del group\n");
                 delAccountGroups(act, getSdsStr(sdsArr[3]));
             } else if ((count + 1) == 5) {
+                printf("will del group member\n");
                 delAccountGroupsMember(act, getSdsStr(sdsArr[3]),
                                        getSdsStr(sdsArr[4]));
             }
