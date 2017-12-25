@@ -75,7 +75,7 @@ string treeCount(char *path) {
     return s;
 }
 
-#define TREE_TEST
+// #define TREE_TEST
 #ifdef TREE_TEST
 
 void testTreeCount() {

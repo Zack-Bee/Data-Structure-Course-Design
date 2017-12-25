@@ -7,6 +7,7 @@
 
 #define DICT_INIT_SIZE 32
 
+#define REHASH_RADIO (0.8)
 
 /**
  * 字典结构, 每一个hashtable的节点第一个为空

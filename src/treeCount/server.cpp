@@ -77,7 +77,9 @@ int main(int argc, char **argv) {
     // 初始化数据库
     int port = atoi(argv[2]);
     int serverFileDesc = newServer(argv[1], port);
+    printf("init data begin\n");    
     string str = treeCount(argv[3]);
+    printf("init data done\n");
     while (1) {
         struct sockaddr_in caddr;
         socklen_t clen = sizeof caddr;

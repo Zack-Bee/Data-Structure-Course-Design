@@ -61,6 +61,10 @@ void setDictEntry(dict *dt, char *key, void *val) {
     uint32_t hash = _dictHashFunction(key, dt->size);
     printf("hash is :%u\n", hash);
     dt->used += setListNode(dt->table[hash], key, val);
+
+    if (getDictRadio(dt) > REHASH_RADIO) {
+        expandDict(dt);
+    }
 }
 
 void delDictEntry(dict *dt, char *key) {
