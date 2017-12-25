@@ -31,6 +31,8 @@
 // listen监听队列的大小
 #define QUEUE_SIZE 64
 
+#define AOF_FILE "./contacts.aof"
+
 /**
  *     创建一个server fileDesc
  *     @param return 返回创建的server fileDesc
@@ -79,6 +81,20 @@ void response_200(int clientFileDesc, const char *type);
  */
 void execCommand(dict *db, sds *s);
 
+/**
+ *     从文件中读取数据, 用于初始化数据库
+ *     @param database 要执行初始化的数据库
+ *     @param path 用于初始化服务器的文件
+ */
+void initDatabase(dict *database, char *path);
+
+/**
+ *     将收到的指令写入aof文件, 用于服务器重启, 防止数据库丢失数据
+ *     @param s 用于写入是数据
+ *     @param path 存储的aof文件
+ */ 
+void aof(sds *s, char *path);
+
 #define isSpace(ch) (ch == ' ')
 
 #define isEnter(ch) (ch == '\n')
@@ -87,6 +103,9 @@ void execCommand(dict *db, sds *s);
 int main(int argc, char **argv) {
     sds *s = NULL;
     dict *database = newDict();
+
+    // 初始化数据库
+    initDatabase(database, AOF_FILE);
     int port = atoi(argv[2]);
     int serverFileDesc = newServer(argv[1], port);
     while (1) {
@@ -324,6 +343,7 @@ inline void response_200(int clientFileDesc, const char *type) {
 }
 
 void execCommand(dict *database, sds *s) {
+    aof(s, AOF_FILE);
     char *str = getSdsStr(s);
     int count = 0;
     char buf[2];
@@ -429,4 +449,46 @@ void execCommand(dict *database, sds *s) {
         setSds(s, "error");
         return;
     }
+}
+
+void initDatabase(dict *database, char *path) {
+    int fileDesc = open(path, O_RDONLY);
+    char buf[1024];
+    int size, length;
+    sds *s = newSds();
+    if (fileDesc < 0) {
+        printf("don't have aof file");
+        return;
+    }
+    
+    while (length = getFileDescLine(fileDesc, buf, 1024)) {
+        buf[length] = '\n';
+        buf[length + 1] = '\0';
+        setSds(s, buf);
+        execCommand(database, s);
+    }
+    printf("init database done");
+}
+
+int getFileDescLine(int fileDesc, char buf[], int size) {
+    char *tp = buf;
+    char c;
+
+    --size;
+    while ((tp - buf) < size) {
+        if (read(fileDesc, &c, 1) <= 0) //伪造结束条件
+            break;
+        if (c == '\n') { //全部以\r分割
+            break;
+        }
+        *tp++ = c;
+    }
+    *tp = '\0';
+    return tp - buf;
+}
+
+void aof(sds *s, char *path) {
+    FILE *f = fopen(path, "ab+");
+    fputs(getSdsStr(s), f);
+    fclose(f);
 }

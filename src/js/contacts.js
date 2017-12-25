@@ -418,7 +418,7 @@ $(document).ready(function () {
         for (var i = 0; i < delFromContactTags.length; i++) {
             delFromContactTags[i].addEventListener("click", handleDeleteContact)
         }
-        // $(".del-from-contact").click(handleDeleteContact);
+        // $(".del-from-contact").bind("click", handleDeleteContact);
 
         // 监听从群组删除联系人
         var delContactFromGroupTags = document.querySelectorAll(".del-from-group");
@@ -426,14 +426,14 @@ $(document).ready(function () {
             delContactFromGroupTags[i].addEventListener("click",
                     handleDeleteContactFromGroup);
         }
-        // $(".del-from-group").click(handleDeleteContactFromGroup);
+        // $(".del-from-group").bind("click", handleDeleteContactFromGroup);
 
         // 监听删除群组
         var delGroupTags  = document.querySelectorAll(".del-group");
         for (var i = 0; i < delGroupTags.length; i++) {
             delGroupTags[i].addEventListener("click", handleDeleteGroup);
         }
-        // $(".del-group").click(handleDeleteGroup);
+        // $(".del-group").bind("click", handleDeleteGroup);
 
         // 监听加入群组按钮的点击
         var addToGroupTags = document.querySelectorAll(".add-to-group");
@@ -441,7 +441,7 @@ $(document).ready(function () {
             addToGroupTags[i].addEventListener("click",
                     handleAddContactToGroup);
         }
-        // $(".add-to-group").click(handleAddContactToGroup);
+        // $(".add-to-group").bind("click", handleAddContactToGroup);
     }
 
     function genForm() {
