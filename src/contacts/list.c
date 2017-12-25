@@ -77,20 +77,14 @@ uint32_t setListNode(list *li, char *key, void *val) {
         li->tail = q;
         printf("set listNode done\n");    
 
-<<<<<<< HEAD
-=======
         printf("set listNode done\n");
->>>>>>> cbb5e3534b47382183e6fb3cce07ed0b7927186c
         return 1;
     } else {
         free(p->val);
         p->val = val;
         printf("set listNode done\n");  
 
-<<<<<<< HEAD
-=======
         printf("set listNode done\n");
->>>>>>> cbb5e3534b47382183e6fb3cce07ed0b7927186c
         return 0;
     }
 }
@@ -141,12 +135,7 @@ uint32_t delListNode(list *li, char *key) {
             }
 
             if (cur == NULL) {
-<<<<<<< HEAD
                 //遍历链表，如果不存在key值与字符串相同 返回0
-=======
-                printf("del listNode end at middel1\n");
-
->>>>>>> cbb5e3534b47382183e6fb3cce07ed0b7927186c
                 return 0;
             } else {
                 //如果链中存在节点key值与字符串相同 删除该节点
