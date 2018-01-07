@@ -27,6 +27,8 @@ void $\ast$ \hyperlink{dict_8c_aa256c94da62507e0e0f30f21093d10c3}{get\+Dict\+Val
 void \hyperlink{dict_8c_a0ff20496334199ee113bab0df76ed873}{destroy\+Dict} (\hyperlink{structdict}{dict} $\ast$$\ast$dt)
 \item 
 void \hyperlink{dict_8c_aae9a7d672e382e18cecbbc561579ba86}{traverse\+Dict} (\hyperlink{structdict}{dict} $\ast$dt, void($\ast$function)(void $\ast$$\ast$param))
+\item 
+void $\ast$ \hyperlink{dict_8c_aaff73449a1d310a324e70f52c22ee9cd}{init\+Dict\+Val} (\hyperlink{structdict}{dict} $\ast$dt, char $\ast$key)
 \end{DoxyCompactItemize}
 
 
@@ -115,6 +117,24 @@ void \hyperlink{dict_8c_aae9a7d672e382e18cecbbc561579ba86}{traverse\+Dict} (\hyp
 {\em key} & 用于查询的key \\
 \hline
 \end{DoxyParams}
+\index{dict.\+c@{dict.\+c}!init\+Dict\+Val@{init\+Dict\+Val}}
+\index{init\+Dict\+Val@{init\+Dict\+Val}!dict.\+c@{dict.\+c}}
+\subsubsection[{\texorpdfstring{init\+Dict\+Val(dict $\ast$dt, char $\ast$key)}{initDictVal(dict *dt, char *key)}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ init\+Dict\+Val (
+\begin{DoxyParamCaption}
+\item[{{\bf dict} $\ast$}]{dt, }
+\item[{char $\ast$}]{key}
+\end{DoxyParamCaption}
+)}\hypertarget{dict_8c_aaff73449a1d310a324e70f52c22ee9cd}{}\label{dict_8c_aaff73449a1d310a324e70f52c22ee9cd}
+将key对应的val置空$\ast$patch 
+\begin{DoxyParams}{参数}
+{\em dt} & 进行操作的dict \\
+\hline
+{\em key} & 查找的key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+返回val的地址 
+\end{DoxyReturn}
 \index{dict.\+c@{dict.\+c}!new\+Dict@{new\+Dict}}
 \index{new\+Dict@{new\+Dict}!dict.\+c@{dict.\+c}}
 \subsubsection[{\texorpdfstring{new\+Dict(void)}{newDict(void)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf dict}$\ast$ new\+Dict (

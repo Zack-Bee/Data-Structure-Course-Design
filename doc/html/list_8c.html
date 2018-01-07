@@ -98,7 +98,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'搜索');
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="list_8h_source.html">list.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="contacts_2sds_8h_source.html">sds.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="sds_8h_source.html">sds.h</a>&quot;</code><br />
 <code>#include &lt;malloc.h&gt;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
@@ -126,6 +126,8 @@ list.c 的引用(Include)关系图:</div>
 <tr class="separator:ac4854870c263ae9b381d09d8b17904ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ac0887bf09482e4b96d87b4712ac880"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="list_8c.html#a2ac0887bf09482e4b96d87b4712ac880">getListVal</a> (<a class="el" href="structlist.html">list</a> *li, char *key)</td></tr>
 <tr class="separator:a2ac0887bf09482e4b96d87b4712ac880"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb81e40f68c8ffdc7be33498253ff088"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="list_8c.html#afb81e40f68c8ffdc7be33498253ff088">initListNode</a> (<a class="el" href="structlist.html">list</a> *li, char *key)</td></tr>
+<tr class="separator:afb81e40f68c8ffdc7be33498253ff088"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">函数说明</h2>
 <a class="anchor" id="a7aba38123c95c75330d2be7bc07d8834"></a>
@@ -261,6 +263,40 @@ list.c 的引用(Include)关系图:</div>
   </dd>
 </dl>
 <dl class="section return"><dt>返回</dt><dd>返回查询到的val, 如果没有结果, 返回NULL </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="afb81e40f68c8ffdc7be33498253ff088"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* initListNode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structlist.html">list</a> *&#160;</td>
+          <td class="paramname"><em>li</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>key</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>将key对应的val置为NULL, 并返回原本的val </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">li</td><td>进行操作的list </td></tr>
+    <tr><td class="paramname">key</td><td>查询的key </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>如果存在返回原本的val, 不存在则返回NULL </dd></dl>
 
 </div>
 </div>

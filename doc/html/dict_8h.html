@@ -101,7 +101,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'搜索');
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="contacts_2sds_8h_source.html">sds.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="sds_8h_source.html">sds.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="list_8h_source.html">list.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 dict.h 的引用(Include)关系图:</div>
@@ -127,6 +127,8 @@ dict.h 的引用(Include)关系图:</div>
 宏定义</h2></td></tr>
 <tr class="memitem:a740e9acce14f0075c85b3d71b4507e45"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dict_8h.html#a740e9acce14f0075c85b3d71b4507e45">DICT_INIT_SIZE</a>&#160;&#160;&#160;32</td></tr>
 <tr class="separator:a740e9acce14f0075c85b3d71b4507e45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a866718b14353db8c3c04cc1d008fc4c1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dict_8h.html#a866718b14353db8c3c04cc1d008fc4c1">REHASH_RADIO</a>&#160;&#160;&#160;(0.8)</td></tr>
+<tr class="separator:a866718b14353db8c3c04cc1d008fc4c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 类型定义</h2></td></tr>
@@ -151,6 +153,8 @@ dict.h 的引用(Include)关系图:</div>
 <tr class="separator:a0ff20496334199ee113bab0df76ed873"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aae9a7d672e382e18cecbbc561579ba86"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dict_8h.html#aae9a7d672e382e18cecbbc561579ba86">traverseDict</a> (<a class="el" href="structdict.html">dict</a> *dt, void(*function)(void **param))</td></tr>
 <tr class="separator:aae9a7d672e382e18cecbbc561579ba86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaff73449a1d310a324e70f52c22ee9cd"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dict_8h.html#aaff73449a1d310a324e70f52c22ee9cd">initDictVal</a> (<a class="el" href="structdict.html">dict</a> *dt, char *key)</td></tr>
+<tr class="separator:aaff73449a1d310a324e70f52c22ee9cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">宏定义说明</h2>
 <a class="anchor" id="a740e9acce14f0075c85b3d71b4507e45"></a>
@@ -159,6 +163,18 @@ dict.h 的引用(Include)关系图:</div>
       <table class="memname">
         <tr>
           <td class="memname">#define DICT_INIT_SIZE&#160;&#160;&#160;32</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a866718b14353db8c3c04cc1d008fc4c1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define REHASH_RADIO&#160;&#160;&#160;(0.8)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -310,6 +326,40 @@ dict.h 的引用(Include)关系图:</div>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="aaff73449a1d310a324e70f52c22ee9cd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* initDictVal </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structdict.html">dict</a> *&#160;</td>
+          <td class="paramname"><em>dt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>key</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>将key对应的val置空*patch </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dt</td><td>进行操作的dict </td></tr>
+    <tr><td class="paramname">key</td><td>查找的key </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>返回val的地址 </dd></dl>
 
 </div>
 </div>

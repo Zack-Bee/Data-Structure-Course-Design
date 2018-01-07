@@ -16,6 +16,8 @@ struct \hyperlink{structdict}{dict}
 \begin{DoxyCompactItemize}
 \item 
 \#define \hyperlink{dict_8h_a740e9acce14f0075c85b3d71b4507e45}{D\+I\+C\+T\+\_\+\+I\+N\+I\+T\+\_\+\+S\+I\+ZE}~32
+\item 
+\#define \hyperlink{dict_8h_a866718b14353db8c3c04cc1d008fc4c1}{R\+E\+H\+A\+S\+H\+\_\+\+R\+A\+D\+IO}~(0.\+8)
 \end{DoxyCompactItemize}
 \subsection*{类型定义}
 \begin{DoxyCompactItemize}
@@ -40,6 +42,8 @@ void $\ast$ \hyperlink{dict_8h_aa256c94da62507e0e0f30f21093d10c3}{get\+Dict\+Val
 void \hyperlink{dict_8h_a0ff20496334199ee113bab0df76ed873}{destroy\+Dict} (\hyperlink{structdict}{dict} $\ast$$\ast$dt)
 \item 
 void \hyperlink{dict_8h_aae9a7d672e382e18cecbbc561579ba86}{traverse\+Dict} (\hyperlink{structdict}{dict} $\ast$dt, void($\ast$function)(void $\ast$$\ast$param))
+\item 
+void $\ast$ \hyperlink{dict_8h_aaff73449a1d310a324e70f52c22ee9cd}{init\+Dict\+Val} (\hyperlink{structdict}{dict} $\ast$dt, char $\ast$key)
 \end{DoxyCompactItemize}
 
 
@@ -47,6 +51,9 @@ void \hyperlink{dict_8h_aae9a7d672e382e18cecbbc561579ba86}{traverse\+Dict} (\hyp
 \index{dict.\+h@{dict.\+h}!D\+I\+C\+T\+\_\+\+I\+N\+I\+T\+\_\+\+S\+I\+ZE@{D\+I\+C\+T\+\_\+\+I\+N\+I\+T\+\_\+\+S\+I\+ZE}}
 \index{D\+I\+C\+T\+\_\+\+I\+N\+I\+T\+\_\+\+S\+I\+ZE@{D\+I\+C\+T\+\_\+\+I\+N\+I\+T\+\_\+\+S\+I\+ZE}!dict.\+h@{dict.\+h}}
 \subsubsection[{\texorpdfstring{D\+I\+C\+T\+\_\+\+I\+N\+I\+T\+\_\+\+S\+I\+ZE}{DICT_INIT_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+I\+C\+T\+\_\+\+I\+N\+I\+T\+\_\+\+S\+I\+ZE~32}\hypertarget{dict_8h_a740e9acce14f0075c85b3d71b4507e45}{}\label{dict_8h_a740e9acce14f0075c85b3d71b4507e45}
+\index{dict.\+h@{dict.\+h}!R\+E\+H\+A\+S\+H\+\_\+\+R\+A\+D\+IO@{R\+E\+H\+A\+S\+H\+\_\+\+R\+A\+D\+IO}}
+\index{R\+E\+H\+A\+S\+H\+\_\+\+R\+A\+D\+IO@{R\+E\+H\+A\+S\+H\+\_\+\+R\+A\+D\+IO}!dict.\+h@{dict.\+h}}
+\subsubsection[{\texorpdfstring{R\+E\+H\+A\+S\+H\+\_\+\+R\+A\+D\+IO}{REHASH_RADIO}}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+E\+H\+A\+S\+H\+\_\+\+R\+A\+D\+IO~(0.\+8)}\hypertarget{dict_8h_a866718b14353db8c3c04cc1d008fc4c1}{}\label{dict_8h_a866718b14353db8c3c04cc1d008fc4c1}
 
 
 \subsection{类型定义说明}
@@ -125,6 +132,24 @@ void \hyperlink{dict_8h_aae9a7d672e382e18cecbbc561579ba86}{traverse\+Dict} (\hyp
 {\em key} & 用于查询的key \\
 \hline
 \end{DoxyParams}
+\index{dict.\+h@{dict.\+h}!init\+Dict\+Val@{init\+Dict\+Val}}
+\index{init\+Dict\+Val@{init\+Dict\+Val}!dict.\+h@{dict.\+h}}
+\subsubsection[{\texorpdfstring{init\+Dict\+Val(dict $\ast$dt, char $\ast$key)}{initDictVal(dict *dt, char *key)}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ init\+Dict\+Val (
+\begin{DoxyParamCaption}
+\item[{{\bf dict} $\ast$}]{dt, }
+\item[{char $\ast$}]{key}
+\end{DoxyParamCaption}
+)}\hypertarget{dict_8h_aaff73449a1d310a324e70f52c22ee9cd}{}\label{dict_8h_aaff73449a1d310a324e70f52c22ee9cd}
+将key对应的val置空$\ast$patch 
+\begin{DoxyParams}{参数}
+{\em dt} & 进行操作的dict \\
+\hline
+{\em key} & 查找的key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+返回val的地址 
+\end{DoxyReturn}
 \index{dict.\+h@{dict.\+h}!new\+Dict@{new\+Dict}}
 \index{new\+Dict@{new\+Dict}!dict.\+h@{dict.\+h}}
 \subsubsection[{\texorpdfstring{new\+Dict(void)}{newDict(void)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf dict}$\ast$ new\+Dict (

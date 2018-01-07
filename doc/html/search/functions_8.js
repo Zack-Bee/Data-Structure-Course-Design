@@ -1,10 +1,9 @@
 var searchData=
 [
   ['newaccount',['newAccount',['../account_8c.html#a64094bd1a793431a310144777273b99f',1,'newAccount():&#160;account.c'],['../account_8h.html#a64094bd1a793431a310144777273b99f',1,'newAccount():&#160;account.c']]],
-  ['newcopysds',['newCopySds',['../copy_8c.html#a1a9f96a75718dd5b9bb221506792e7b1',1,'newCopySds(char *str):&#160;copy.c'],['../sds_8c.html#a5242c05c637313287ea5bf841d5294a8',1,'newCopySds(char *str):&#160;sds.c'],['../contacts_2sds_8h.html#a5242c05c637313287ea5bf841d5294a8',1,'newCopySds(char *str):&#160;copy.c'],['../sds_8cpp.html#a5242c05c637313287ea5bf841d5294a8',1,'newCopySds(char *str):&#160;sds.cpp'],['../treeCount_2sds_8h.html#a5242c05c637313287ea5bf841d5294a8',1,'newCopySds(char *str):&#160;copy.c']]],
+  ['newcopysds',['newCopySds',['../sds_8c.html#a5242c05c637313287ea5bf841d5294a8',1,'newCopySds(char *str):&#160;sds.c'],['../sds_8h.html#a5242c05c637313287ea5bf841d5294a8',1,'newCopySds(char *str):&#160;sds.c']]],
   ['newdict',['newDict',['../dict_8c.html#a40be5953662cf954de969ce3c4c2f07b',1,'newDict(void):&#160;dict.c'],['../dict_8h.html#a40be5953662cf954de969ce3c4c2f07b',1,'newDict(void):&#160;dict.c']]],
   ['newlist',['newList',['../list_8c.html#a423c559f3aa69ba59929cd173f1c21f6',1,'newList(void):&#160;list.c'],['../list_8h.html#a423c559f3aa69ba59929cd173f1c21f6',1,'newList(void):&#160;list.c']]],
-  ['newsds',['newSds',['../copy_8c.html#aed9c59de440fecb5660934aaed0de19a',1,'newSds(void):&#160;sds.c'],['../sds_8c.html#aed9c59de440fecb5660934aaed0de19a',1,'newSds(void):&#160;sds.c'],['../contacts_2sds_8h.html#aed9c59de440fecb5660934aaed0de19a',1,'newSds(void):&#160;sds.c'],['../sds_8cpp.html#aed9c59de440fecb5660934aaed0de19a',1,'newSds(void):&#160;sds.cpp'],['../treeCount_2sds_8h.html#aed9c59de440fecb5660934aaed0de19a',1,'newSds(void):&#160;sds.c']]],
-  ['newserver',['newServer',['../server_8c.html#ad20ada8dd8b99c45bf1ea27c67d38dc2',1,'newServer(char *server, int port):&#160;server.c'],['../server_8cpp.html#a42bbfa40318977487f19c81e3c5e0672',1,'newServer():&#160;server.cpp'],['../server_8cpp.html#ad20ada8dd8b99c45bf1ea27c67d38dc2',1,'newServer(char *server, int port):&#160;server.cpp']]],
-  ['newstd',['newStd',['../copy_8c.html#a020d6c7b9b92e37ed09d448262c91152',1,'copy.c']]]
+  ['newsds',['newSds',['../sds_8c.html#aed9c59de440fecb5660934aaed0de19a',1,'newSds(void):&#160;sds.c'],['../sds_8h.html#aed9c59de440fecb5660934aaed0de19a',1,'newSds(void):&#160;sds.c']]],
+  ['newserver',['newServer',['../server_8c.html#ad20ada8dd8b99c45bf1ea27c67d38dc2',1,'newServer(char *server, int port):&#160;server.c'],['../server_8cpp.html#ad20ada8dd8b99c45bf1ea27c67d38dc2',1,'newServer(char *server, int port):&#160;server.cpp']]]
 ];

@@ -139,8 +139,8 @@ server.cpp 的引用(Include)关系图:</div>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 函数</h2></td></tr>
-<tr class="memitem:a42bbfa40318977487f19c81e3c5e0672"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8cpp.html#a42bbfa40318977487f19c81e3c5e0672">newServer</a> ()</td></tr>
-<tr class="separator:a42bbfa40318977487f19c81e3c5e0672"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad20ada8dd8b99c45bf1ea27c67d38dc2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8cpp.html#ad20ada8dd8b99c45bf1ea27c67d38dc2">newServer</a> (char *server, int port)</td></tr>
+<tr class="separator:ad20ada8dd8b99c45bf1ea27c67d38dc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2358f97e18b07172f7eacb2f202c5625"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8cpp.html#a2358f97e18b07172f7eacb2f202c5625">responseClient</a> (int *clientFileDesc, string &amp;str)</td></tr>
 <tr class="separator:a2358f97e18b07172f7eacb2f202c5625"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a891ed805c92ec279b1739827efc0c2a0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8cpp.html#a891ed805c92ec279b1739827efc0c2a0">responseFile</a> (int clientFileDesc, const char *path)</td></tr>
@@ -151,8 +151,6 @@ server.cpp 的引用(Include)关系图:</div>
 <tr class="separator:ab3e9e84b5b05463e5e011b1829fa2ac6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c04138a5bfe5d72780bb7e82a18e627"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (int argc, char **argv)</td></tr>
 <tr class="separator:a3c04138a5bfe5d72780bb7e82a18e627"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad20ada8dd8b99c45bf1ea27c67d38dc2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8cpp.html#ad20ada8dd8b99c45bf1ea27c67d38dc2">newServer</a> (char *server, int port)</td></tr>
-<tr class="separator:ad20ada8dd8b99c45bf1ea27c67d38dc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8f4d498181623ef3891f507b33e91f1e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8cpp.html#a8f4d498181623ef3891f507b33e91f1e">getFileDescLine</a> (int fileDesc, char buf[], int size)</td></tr>
 <tr class="separator:a8f4d498181623ef3891f507b33e91f1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -297,27 +295,6 @@ server.cpp 的引用(Include)关系图:</div>
 
 </div>
 </div>
-<a class="anchor" id="a42bbfa40318977487f19c81e3c5e0672"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int newServer </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>创建一个server fileDesc </p><dl class="params"><dt>参数</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">return</td><td>返回创建的server fileDesc </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a class="anchor" id="ad20ada8dd8b99c45bf1ea27c67d38dc2"></a>
 <div class="memitem">
 <div class="memproto">
@@ -341,6 +318,13 @@ server.cpp 的引用(Include)关系图:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>创建一个server fileDesc </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">server</td><td>server监听的地址  port 监听的端口 </td></tr>
+    <tr><td class="paramname">return</td><td>返回创建的server fileDesc </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

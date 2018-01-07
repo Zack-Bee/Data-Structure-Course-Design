@@ -18,9 +18,7 @@ digraph "src/contacts/sds.h"
   Node7 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node7 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node8 [label="src/contacts/list.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$list_8c.html"];
-  Node1 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node9 [label="src/contacts/copy.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$copy_8c.html"];
   Node1 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node1 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node10 [label="src/contacts/sds.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$sds_8c.html"];
+  Node1 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="src/contacts/sds.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$sds_8c.html"];
 }

@@ -38,6 +38,8 @@ void $\ast$ \hyperlink{list_8h_a2ac0887bf09482e4b96d87b4712ac880}{get\+List\+Val
 void \hyperlink{list_8h_ac4854870c263ae9b381d09d8b17904ca}{traverse\+List} (\hyperlink{structlist}{list} $\ast$li, void($\ast$function)(void $\ast$$\ast$param))
 \item 
 void \hyperlink{list_8h_a2f6c6d7ceb4352c0d596e5d1c236c3d8}{destroy\+List} (\hyperlink{structlist}{list} $\ast$$\ast$li)
+\item 
+void $\ast$ \hyperlink{list_8h_afb81e40f68c8ffdc7be33498253ff088}{init\+List\+Node} (\hyperlink{structlist}{list} $\ast$li, char $\ast$key)
 \end{DoxyCompactItemize}
 
 
@@ -128,6 +130,24 @@ list的长度
 \end{DoxyParams}
 \begin{DoxyReturn}{返回}
 返回查询到的val, 如果没有结果, 返回\+N\+U\+LL 
+\end{DoxyReturn}
+\index{list.\+h@{list.\+h}!init\+List\+Node@{init\+List\+Node}}
+\index{init\+List\+Node@{init\+List\+Node}!list.\+h@{list.\+h}}
+\subsubsection[{\texorpdfstring{init\+List\+Node(list $\ast$li, char $\ast$key)}{initListNode(list *li, char *key)}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ init\+List\+Node (
+\begin{DoxyParamCaption}
+\item[{{\bf list} $\ast$}]{li, }
+\item[{char $\ast$}]{key}
+\end{DoxyParamCaption}
+)}\hypertarget{list_8h_afb81e40f68c8ffdc7be33498253ff088}{}\label{list_8h_afb81e40f68c8ffdc7be33498253ff088}
+将key对应的val置为\+N\+U\+LL, 并返回原本的val 
+\begin{DoxyParams}{参数}
+{\em li} & 进行操作的list \\
+\hline
+{\em key} & 查询的key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+如果存在返回原本的val, 不存在则返回\+N\+U\+LL 
 \end{DoxyReturn}
 \index{list.\+h@{list.\+h}!new\+List@{new\+List}}
 \index{new\+List@{new\+List}!list.\+h@{list.\+h}}

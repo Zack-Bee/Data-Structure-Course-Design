@@ -37,7 +37,7 @@ server.\+cpp 的引用(Include)关系图\+:
 \subsection*{函数}
 \begin{DoxyCompactItemize}
 \item 
-int \hyperlink{server_8cpp_a42bbfa40318977487f19c81e3c5e0672}{new\+Server} ()
+int \hyperlink{server_8cpp_ad20ada8dd8b99c45bf1ea27c67d38dc2}{new\+Server} (char $\ast$server, int port)
 \item 
 void $\ast$ \hyperlink{server_8cpp_a2358f97e18b07172f7eacb2f202c5625}{response\+Client} (int $\ast$client\+File\+Desc, string \&str)
 \item 
@@ -48,8 +48,6 @@ void \hyperlink{server_8cpp_ab8d8edecb6156ec75ab22a708704ac3c}{response\+\_\+404
 void \hyperlink{server_8cpp_ab3e9e84b5b05463e5e011b1829fa2ac6}{response\+\_\+200} (int client\+File\+Desc, const char $\ast$type)
 \item 
 int \hyperlink{server_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
-\item 
-int \hyperlink{server_8cpp_ad20ada8dd8b99c45bf1ea27c67d38dc2}{new\+Server} (char $\ast$server, int port)
 \item 
 int \hyperlink{server_8cpp_a8f4d498181623ef3891f507b33e91f1e}{get\+File\+Desc\+Line} (int file\+Desc, char buf\mbox{[}$\,$\mbox{]}, int size)
 \end{DoxyCompactItemize}
@@ -104,24 +102,19 @@ int \hyperlink{server_8cpp_a8f4d498181623ef3891f507b33e91f1e}{get\+File\+Desc\+L
 )}\hypertarget{server_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{}\label{server_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}
 \index{server.\+cpp@{server.\+cpp}!new\+Server@{new\+Server}}
 \index{new\+Server@{new\+Server}!server.\+cpp@{server.\+cpp}}
-\subsubsection[{\texorpdfstring{new\+Server()}{newServer()}}]{\setlength{\rightskip}{0pt plus 5cm}int new\+Server (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}\hypertarget{server_8cpp_a42bbfa40318977487f19c81e3c5e0672}{}\label{server_8cpp_a42bbfa40318977487f19c81e3c5e0672}
-创建一个server file\+Desc 
-\begin{DoxyParams}{参数}
-{\em return} & 返回创建的server file\+Desc \\
-\hline
-\end{DoxyParams}
-\index{server.\+cpp@{server.\+cpp}!new\+Server@{new\+Server}}
-\index{new\+Server@{new\+Server}!server.\+cpp@{server.\+cpp}}
 \subsubsection[{\texorpdfstring{new\+Server(char $\ast$server, int port)}{newServer(char *server, int port)}}]{\setlength{\rightskip}{0pt plus 5cm}int new\+Server (
 \begin{DoxyParamCaption}
 \item[{char $\ast$}]{server, }
 \item[{int}]{port}
 \end{DoxyParamCaption}
 )}\hypertarget{server_8cpp_ad20ada8dd8b99c45bf1ea27c67d38dc2}{}\label{server_8cpp_ad20ada8dd8b99c45bf1ea27c67d38dc2}
+创建一个server file\+Desc 
+\begin{DoxyParams}{参数}
+{\em server} & server监听的地址  port 监听的端口 \\
+\hline
+{\em return} & 返回创建的server file\+Desc \\
+\hline
+\end{DoxyParams}
 \index{server.\+cpp@{server.\+cpp}!response\+\_\+200@{response\+\_\+200}}
 \index{response\+\_\+200@{response\+\_\+200}!server.\+cpp@{server.\+cpp}}
 \subsubsection[{\texorpdfstring{response\+\_\+200(int client\+File\+Desc, const char $\ast$type)}{response_200(int clientFileDesc, const char *type)}}]{\setlength{\rightskip}{0pt plus 5cm}void response\+\_\+200 (
